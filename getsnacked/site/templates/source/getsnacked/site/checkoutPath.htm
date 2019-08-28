@@ -1,0 +1,19 @@
+<div id="checkoutProgress">
+	<div id="checkoutProgressBody">
+		<ul id="progressList">
+{foreach from=$_CHECKOUT.orderPath key=key item=node}
+			<li class="{$node.status}">
+{if $node.status == 'completed' || $node.status == 'next'}
+				<a href="{$node.url}">{$node.name}</a>
+{else}
+				{$node.name}
+{/if}
+			</li>
+{if $key != $_CHECKOUT.lastNode}
+			<li class="{$node.status}Segue">&gt;</li>
+{/if}
+{/foreach}
+		</ul>
+	</div>
+	<div id="checkoutProgressCap">&nbsp;</div>
+</div>

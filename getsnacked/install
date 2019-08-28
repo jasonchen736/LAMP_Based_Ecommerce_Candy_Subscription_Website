@@ -1,0 +1,56 @@
+Run database files (mysql db_name < text_file)
+
+Edit apache_conf to local install directory and other settings
+Edit httpd.conf to include apache_conf
+Edit site_conf to set database and other settings
+  - Leave site_id set to default unless the site name has already been registered
+  - If the site name has already been registered, site id can be found in the table siteRegistry
+
+Make sure permissions are set for site_conf
+Make sure permissions are set for the template directories
+Make sure permissions are set for image directories
+  - When using the system core to host more than one site, it is a good idea to synchronize uploadable images by sym linking the site image directories to one main image directory (cd /core/site2/www/images; ln -s /core/site1/www/images/products/ .)
+    - products
+    - packages
+    - offers
+    - content
+Make sure permissions are set for the certificates directory if using linkpoint gateway or sub merchants functionality
+
+Edit emails to make sure they're sending (all emails must have a from and subject line)
+    - businessAccountActivation
+    - orderReceipt
+    - orderAlert
+    - customerSignupAcknowledgement
+    - customerSignupNotification
+    - merchantSignupAcknowledgement
+    - merchantSignupNotification
+
+Each site must be registered to function properly
+  - For proper registration, the site's name must be assigned a Site ID in table siteRegistry
+  - The assigned Site ID must be entered in the site_conf file in the site_id field
+  - Double check table siteRegistry and the site_conf file for any trouble registering a site
+
+Site Templates:
+  - There will be four directories relevant to customizing your site templates: source, css, images, js
+  - Edit the source_dir directive and duplicate the main folder in each of the above directories, then proceed to customize your site (or start from scratch)
+  - The default source_dir is "main":
+    - templates/source/main/
+    - site/www/css/main/
+    - site/www/images/main/
+    - site/www/js/main/
+  - Also edit the favicon.ico redirect in your apache_conf file
+
+Template tags (available in email and content as well)
+  _SOURCEDIR
+  _SITENAME
+  _SITEURL
+  _SLOGAN
+  _COMPANYNAME
+  _MAINADDRESS1
+  _MAINADDRESS2
+  _MAINADDRESS3
+  _MAINCITY
+  _MAINSTATE
+  _MAINPOSTAL
+  _MAINPHONE
+  _MAINFAX

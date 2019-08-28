@@ -1,0 +1,238 @@
+{include file="admin/adminHeader.htm"}
+
+{literal}
+<script type="text/javascript">
+	$(function() {
+		$('#searchOptionsToggle').click(function() {
+			if ($('#additionalSearchOptions').hasClass('hidden')) {
+				$('#additionalSearchOptions').removeClass('hidden');
+				$('#searchOptionsToggle').html('Hide search options');
+				$('.searchOptionsFlag').val('true');
+			} else {
+				$('#additionalSearchOptions').addClass('hidden');
+				$('#searchOptionsToggle').html('Additional Search Options');
+				$('.searchOptionsFlag').val('false');
+			}
+			return false;
+		});
+		$('.merchantSearch').autocomplete('/admin/autocomplete.php', { extraParams: { type:'merchantSearch' }, delay:0, minChars:1, formatItem:formatItem });
+	});
+</script>
+{/literal}
+
+{include file="admin/messageSection.htm"}
+
+<a href="{$smarty.server.PHP_SELF}/action/addProduct" class="button">
+	<span>+ Add Product</span>
+</a>
+
+<br class="clear" />
+
+{include file="admin/pagination.htm"}
+
+	<table class="recordsTable">
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+			<input type="hidden" name="search" value="true">
+			<input type="hidden" name="additionaSearchOptions" class="searchOptionsFlag" value="{if $additionaSearchOptions == 'true'}true{else}false{/if}" />
+
+		<tr><td colspan="14"><a href="#" id="searchOptionsToggle">{if $additionaSearchOptions != 'true'}Additional search options{else}Hide search options{/if}</a></td></tr>
+
+		<tr id="additionalSearchOptions" class="{if $additionaSearchOptions != 'true'}hidden{/if}">
+			<td colspan="14">
+				<div id="searchOptions">
+					Search Tags:&nbsp;
+					<input type="text" name="tags" value="{$search.tags.value}" style="width: 200px" />
+					(separate multiple tags by comma)
+				</div>
+			</td>
+		</tr>
+
+		<tr class="recordsHeader">
+			<td colspan="2">Action</td>
+			<td style="white-space: nowrap">Product ID</td>
+			<td>SKU</td>
+			<td>Name</td>
+			<td>Brand</td>
+			<td>Availability</td>
+			<td>Merchant</td>
+			<td style="text-align: right">Cost</td>
+			<td style="text-align: right">Weight</td>
+			<td style="text-align: right">Length</td>
+			<td style="text-align: right">Width</td>
+			<td style="text-align: right">Height</td>
+			<td style="text-align: right">Quantity</td>
+		</tr>
+
+		<tr class="recordSearchHeader">
+			<td colspan="2">
+				<div style="width: 75px">
+					<span class="button">
+						<input type="reset" value="Reset" />
+					</span>
+					<br class="clear" />
+					<span class="button">
+						<input type="submit" name="submitSearch" value="Search" />
+					</span>
+				</div>
+			</td>
+			<td><input type="text" name="productID" value="{$search.productID.value}" style="width: 90%" /></td>
+			<td>
+				<input type="text" name="sku" value="{$search.sku.value}" style="width: 90%" />
+				<input type="hidden" name="sku_operator" value="contains" />
+			</td>
+			<td>
+				<input type="text" name="name" value="{$search.name.value}" style="width: 90%" />
+				<input type="hidden" name="name_operator" value="contains" />
+			</td>
+			<td>
+				<input type="text" name="brand" value="{$search.brand.value}" style="width: 90%" />
+				<input type="hidden" name="brand_operator" value="contains" />
+			</td>
+			<td>{html_options name=availability options=$search.availability.options selected=$search.availability.value}</td>
+			<td><input type="text" name="memberID" value="{$search.memberID.value}" class="merchantSearch" style="width: 90%" /></td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="costFrom" value="{$search.costFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="costTo" value="{$search.costTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="weightFrom" value="{$search.weightFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="weightTo" value="{$search.weightTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="lengthFrom" value="{$search.lengthFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="lengthTo" value="{$search.lengthTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="widthFrom" value="{$search.widthFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="widthTo" value="{$search.widthTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="heightFrom" value="{$search.heightFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="heightTo" value="{$search.heightTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="quantityFrom" value="{$search.quantityFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="quantityTo" value="{$search.quantityTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+		</form>
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+			<input type="hidden" name="additionaSearchOptions" class="searchOptionsFlag" value="{if $additionaSearchOptions == 'true'}true{else}false{/if}" />
+{section name=record loop=$records}
+		<tr class="{cycle values="recordsRowAlpha,recordsRowBeta"}">
+			<td align="center"><input type="checkbox" name="records[]" value="{$records[record].productID}"></td>
+			<td align="center">
+				<a href="{$smarty.server.PHP_SELF}/productID/{$records[record].productID}/action/editProduct" class="edit iconOnly" title="Edit Product">&nbsp;</a>
+			</td>
+			<td align="right">{$records[record].productID}</td>
+			<td>{$records[record].sku}</td>
+			<td style="white-space: nowrap; overflow: hidden; width: 175px">
+				{$records[record].name}
+			</td>
+			<td style="white-space: nowrap; overflow: hidden">{$records[record].brand}</td>
+			<td>{$records[record].availability}</td>
+			<td style="white-space: nowrap; overflow: hidden">
+{if $records[record].memberID}
+				<a href="/admin/membersManagement/memberID/{$records[record].memberID}/action/editMember"  class="viewContent iconOnly" style="float: left; margin-right: 3px" title="View Merchant: {if $records[record].company}{$records[record].company}{else}{$records[record].email}{/if}">&nbsp;</a>
+				<a href="/admin/membersManagement/memberID/{$records[record].memberID}/action/editMember" title="{if $records[record].company}{$records[record].company}{else}{$records[record].email}{/if}">{if $records[record].company}{$records[record].company}{else}{$records[record].email}{/if}</a>
+{else}
+				None
+{/if}
+			</td>
+			<td style="text-align: right">${$records[record].cost|string_format:"%.2f"}</td>
+			<td style="text-align: right">{$records[record].weight|string_format:"%.2f"} lb</td>
+			<td style="text-align: right">{$records[record].length|string_format:"%.2f"} in</td>
+			<td style="text-align: right">{$records[record].width|string_format:"%.2f"} in</td>
+			<td style="text-align: right">{$records[record].height|string_format:"%.2f"} in</td>
+			<td style="text-align: right">{$records[record].quantity}</td>
+		</tr>
+{/section}
+
+		<tr class="recordsAction">
+			<td colspan="14">
+				<input type="hidden" name="action" value="quickUpdate">
+				<br />
+				<table>
+					<tr>
+						<td>
+							<span class="mainText">
+								Take action:
+							</span>
+						</td>
+						<td>
+							<div class="updateOptionWrapper">
+								{html_options name=updateOption options=$updateOptions selected=$updateOption}
+							</div>
+							<span class="button">
+								<input type="submit" name="submit" value="Update Records" />
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Input Tags (separate by comma):&nbsp;
+						</td>
+						<td>
+							<input type="text" name="productTags" value="" size="100%">
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+		</form>
+
+	</table>
+
+{include file="admin/adminFooter.htm"}

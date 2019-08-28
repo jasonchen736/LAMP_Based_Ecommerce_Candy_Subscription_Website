@@ -1,0 +1,21 @@
+{include file="site/header.htm"}
+{include file="site/menuDisplayHeader.htm"}
+
+<div id="viewItemsBody">
+{foreach from=$items item=item}
+	<div class="productContainer">
+		<div class="productImage">
+			<a href="/view/{$item.itemType}/id/{$item.itemID}">
+				<img class="productImage" src="/images/{$item.itemType}s/small/{$item.itemID}_1.gif" width="96px" height="96px" border="0" alt="{$item.name}">
+			</a>
+		</div>
+		<div class="productDetails">
+			<p>{$item.name}</p>
+			<p>${$item.cost|string_format:"%.2f"}<a href="/cart/view/action/add/type/{$item.itemType}/id/{$item.itemID}" class="addToCart">Buy It</a></p>
+		</div>
+	</div>
+{/foreach}
+</div>
+
+{include file="site/menuDisplayFooter.htm"}
+{include file="site/footer.htm"}

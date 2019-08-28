@@ -1,0 +1,254 @@
+{include file="admin/adminHeader.htm"}
+
+{literal}
+<script type="text/javascript">
+	$(function() {
+		$('#addPackage').click(function() {
+			$('#packageList').append($('#addPackages').html()).find('li:last').find('a.removePackage').children().attr('style', 'top: 2px');
+			attachRemovePackage();
+			attachAutoComplete();
+			return false;
+		});
+		$('#addCampaign').click(function() {
+			$('#campaignList').append($('#addCampaigns').html()).find('li:last').find('a.removeCampaign').children().attr('style', 'top: 2px');
+			attachRemoveCampaign();
+			attachAutoComplete();
+			return false;
+		});
+		attachRemovePackage();
+		attachRemoveCampaign();
+	});
+	function attachRemovePackage() {
+		$('.removePackage').unbind();
+		$('.removePackage').click(function() {
+			$(this).parent().remove();
+			return false;
+		});
+	}
+	function attachRemoveCampaign() {
+		$('.removeCampaign').unbind();
+		$('.removeCampaign').click(function() {
+			$(this).parent().remove();
+			return false;
+		});
+	}
+	function attachAutoComplete() {
+		$('.packageSearch').unbind();
+		$('.packageSearch').autocomplete('/admin/autocomplete.php', { extraParams: { type:'packageInfo' }, delay:0, minChars:1, formatItem:formatItem, onItemSelect:addPackage });
+		$('.campaignSearch').unbind();
+		$('.campaignSearch').autocomplete('/admin/autocomplete.php', { extraParams: { type:'campaignInfo' }, delay:0, minChars:1, formatItem:formatItem, onItemSelect:addCampaign });
+	}
+	function addPackage(li) {
+		var id = li.innerHTML.substring(4, li.innerHTML.indexOf('|') - 1);
+		var selector = '.packageSearch[value="' + id + '"]';
+		$(selector).parent().html(li.innerHTML).next().attr('value', id).prev().prev().children().attr('style', '');
+	}
+	function addCampaign(li) {
+		var id = li.innerHTML.substring(4, li.innerHTML.indexOf('|') - 1);
+		var selector = '.campaignSearch[value="' + id + '"]';
+		$(selector).parent().html(li.innerHTML).next().attr('value', id).prev().prev().children().attr('style', '');
+	}
+</script>
+{/literal}
+
+<form action="{$smarty.server.PHP_SELF}" method="post" enctype="multipart/form-data">
+{if $mode == 'edit'}
+	<input type="hidden" name="action" value="update" />
+	<input type="hidden" name="offerID" value="{$offer.offerID}" />
+	<span class="button">
+		<input type="submit" name="submit" value="Update" />
+	</span>
+{else}
+	<input type="hidden" name="action" value="addOffer" />
+	<span class="button">
+		<input type="submit" name="submit" value="Add and Edit" />
+	</span>
+	<br class="clear" />
+	<span class="button">
+		<input type="submit" name="submit" value="Add Another" />
+	</span>
+{/if}
+	<br /><br />
+	<table class="formTable">
+		<tr>
+			<td class="ftSectionRight">
+				<table>
+					<tr>
+						<td><span class="{if 'name'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Name:</span>&nbsp;</td>
+						<td><input type="text" name="name" value="{$offer.name}" /></td>
+						<td><span class="{if 'availability'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Availability:</span>&nbsp;</td>
+						<td>{html_options name=availability options=$availabilityOptions selected=$offer.availability}</td>
+					</tr>
+					<tr>
+						<td><span class="{if 'payType'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Payout Type:</span>&nbsp;</td>
+						<td>{html_options name=payType options=$payTypeOptions selected=$offer.payType}</td>
+						<td><span class="{if 'payout'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Payout:</span>&nbsp;</td>
+						<td><input type="text" name="payout" value="{$offer.payout}" /></td>
+					</tr>
+					<tr>
+						<td><span class="{if 'defaultPackage'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Default Package:</span>&nbsp;</td>
+						<td><input type="text" name="defaultPackage" value="{$offer.defaultPackage}" /></td>
+						<td><span class="{if 'totalShipments'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Total Shipments:</span>&nbsp;</td>
+						<td><input type="text" name="totalShipments" value="{$offer.totalShipments}" /></td>
+					</tr>
+					<tr>
+						<td><span class="{if 'startDate'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Start Date:</span>&nbsp;</td>
+						<td>
+							<input type="text" name="startDate" id="startDate" value="{$offer.startDate|strtotime|date_format:"%m/%d/%Y"}" size="7" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="startDateButton" style="vertical-align: bottom">
+{literal}
+							<script type="text/javascript">
+								Calendar.setup(
+									{
+										inputField : "startDate",
+										ifFormat : "%m/%d/%Y",
+										button : "startDateButton"
+									}
+								);
+							</script>
+{/literal}
+						</td>
+						<td><span class="{if 'endDate'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">End Date:</span>&nbsp;</td>
+						<td>
+							<input type="text" name="endDate" id="endDate" value="{$offer.endDate|strtotime|date_format:"%m/%d/%Y"}" size="7" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="endDateButton" style="vertical-align: bottom" />
+{literal}
+							<script type="text/javascript">
+								Calendar.setup(
+									{
+										inputField : "endDate",
+										ifFormat : "%m/%d/%Y",
+										button : "endDateButton"
+									}
+								);
+							</script>
+{/literal}
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<span class="{if 'link'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Landing Page Link:</span>&nbsp;<br />
+							<input type="text" name="link" value="{$offer.link}" size="80" />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<span class="{if 'unsubLink'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Unsub Link:</span>&nbsp;<br />
+							<input type="text" name="unsubLink" value="{$offer.unsubLink}" size="80" />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<span class="{if 'unsubFile'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Suppression File Link:</span>&nbsp;<br />
+							<input type="text" name="unsubFile" value="{$offer.unsubFile}" size="80" />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<span class="{if 'description'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Short Description:</span><br />
+							<textarea name="description" cols="60" rows="5">{$offer.description}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<span class="{if 'longDescription'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Long Description:</span><br />
+							<textarea name="longDescription" cols="60" rows="7">{$offer.longDescription}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<span class="{if 'terms'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Offer Terms:</span><br />
+							<textarea name="terms" cols="60" rows="7">{$offer.terms}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<span class="{if 'image'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Offer Image:</span>
+							<br /><br />
+							<input type="file" name="imageUpload" />
+						</td>
+						<td colspan="2">
+							<br />
+{if $offer.image}
+							<img src="/images/offers/thumbs/{$offer.offerID}_1.gif" border="1" />
+{else}
+							No Image
+{/if}
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td class="ftSectionLeft">
+				<table>
+					<tr>
+						<td id="contentCell">
+							<span class="normalLabel">Offer Packages</span>
+							<br /><br />
+							<a href="#" class="greenPlus" id="addPackage">Add a Package</a>
+							<ul id="packageList">
+{foreach from=$packages key=packageID item=package}
+								<li>
+									<a href="#" class="removePackage redX">&nbsp;</a>
+									Offer Price:&nbsp;
+									<input type="text" name="offerPrice[]" value="{$package.offerPrice}" size="3" style="text-align: right" />
+									<span class="addPackageLabel">ID: {$packageID} | Cost: ${$package.cost} | Name: {$package.name} | Status: {$package.availability}</span>
+									<input type="hidden" name="addPackage[]" value="{$packageID|escape}" class="addPackage" readonly="readonly" size="5" />
+								</li>
+{/foreach}
+							</ul>
+						</td>
+					</tr>
+					<tr><td></td></tr>
+					<tr>
+						<td id="contentCell">
+							<span class="normalLabel">Offer Campaigns</span>
+							<br /><br />
+							<a href="#" class="greenPlus" id="addCampaign">Add a Campaign</a>
+							<ul id="campaignList">
+{foreach from=$campaigns key=campaignID item=campaign}
+								<li>
+									<a href="#" class="removeCampaign redX">&nbsp;</a>
+									<span class="addCampaignLabel">ID: {$campaignID} | Type: {$campaign.type} | Name: {$campaign.name} | Status: {$campaign.availability}</span>
+									<input type="hidden" name="addCampaign[]" value="{$campaignID|escape}" class="addCampaign" readonly="readonly" size="5" />
+								</li>
+{/foreach}
+							</ul>
+						</td>
+					</tr>
+					<tr><td></td></tr>
+					<tr>
+						<td>
+							<strong>Tags (one tag per line)</strong>
+							<br />
+							<textarea name="offerTags" cols="50" rows="5">{$tags|escape}</textarea>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</form>
+
+<div id="addPackages" class="hidden">
+	<li>
+		<a href="#" class="removePackage redX">&nbsp;</a>
+		Offer Price:&nbsp;
+		<input type="text" name="offerPrice[]" value="" size="3" style="text-align: right" />
+		<span class="addPackageLabel">
+			<input type="text" name="packageSearch" value="" class="packageSearch" size="40" />
+		</span>
+		<input type="hidden" name="addPackage[]" value="" class="addPackage" readonly="readonly" size="5" />
+	</li>
+</div>
+
+<div id="addCampaigns" class="hidden">
+	<li>
+		<a href="#" class="removeCampaign redX">&nbsp;</a>
+		<span class="addCampaignLabel">
+			<input type="text" name="campaignSearch" value="" class="campaignSearch" size="40" />
+		</span>
+		<input type="hidden" name="addCampaign[]" value="" class="addCampaign" readonly="readonly" size="5" />
+	</li>
+</div>
+
+{include file="admin/adminFooter.htm"}

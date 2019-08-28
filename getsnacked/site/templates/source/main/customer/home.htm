@@ -1,0 +1,17 @@
+{include file="customer/header.htm"}
+
+{include file="customer/successMessages.htm"}
+{include file="customer/errorMessages.htm"}
+
+<div id="customerHome">
+	<p>Hello {$member.first}</p>
+	<p>
+		You may
+		<ul>
+			<li><a href="/customer/ordersManagement">Check your orders</a></li>
+			<li><a href="/customer/accountManagement">Edit your account information</a></li>
+		</ul>
+	</p>
+</div>
+
+{include file="customer/footer.htm"}

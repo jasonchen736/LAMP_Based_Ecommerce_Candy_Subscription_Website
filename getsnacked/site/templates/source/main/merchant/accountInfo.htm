@@ -1,0 +1,45 @@
+{include file="merchant/header.htm"}
+
+{include file="merchant/successMessages.htm"}
+{include file="merchant/errorMessages.htm"}
+
+<div id="accountInfo">
+	<h1>Account Information</h1>
+	<div id="businessInfo">
+		<table>
+			<tr><th>Business Name</th><td>{$memberBusinessInfo.company}</td></tr>
+			<tr><th>Address 1</th><td>{$member.address1}</td></tr>
+			<tr><th>Address 2</th><td>{$member.address2}</td></tr>
+			<tr><th>City</th><td>{$member.city}</td></tr>
+			<tr><th>State or Province</th><td>{$state}</td></tr>
+			<tr><th>Postal</th><td>{$member.postal}</td></tr>
+			<tr><th>Country</th><td>{$country}</td></tr>
+			<tr><th>Website</th><td>{$memberBusinessInfo.website}</td></tr>
+			<tr><th>Industry</th><td>{$memberBusinessInfo.industry}</td></tr>
+			<tr><th>Description</th><td>{$memberBusinessInfo.description}</td></tr>
+		</table>
+	</div>
+	<div id="contactInfo">
+		<table>
+			<tr><th>Contact First Name</th><td>{$member.first}</td></tr>
+			<tr><th>Contact Last Name</th><td>{$member.last}</td></tr>
+			<tr><th>Phone</th><td>{$member.phone}</td></tr>
+			<tr><th>Fax</th><td>{$memberBusinessInfo.fax}</td></tr>
+			<tr><th>Email</th><td>{$member.email}</td></tr>
+			<tr><th>Contact Instant Messenger</th><td>{$memberBusinessInfo.im}</td></tr>
+			<tr><th>Payments Made To</th><td>{$memberBusinessInfo.payTo}</td></tr>
+			<tr><th>Tax ID</th><td>{$memberBusinessInfo.taxID}</td></tr>
+			<tr>
+				<td>
+					<a href="{$smarty.server.PHP_SELF}/merchant/accountManagement/action/editAccount" class="button">
+						<span>Edit Account Information</span>
+					</a>
+				</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+	<br class="clear" />
+</div>
+
+{include file="merchant/footer.htm"}

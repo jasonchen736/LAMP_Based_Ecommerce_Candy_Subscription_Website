@@ -1,0 +1,28 @@
+<table class="recordsTable">
+	<tr class="recordsHeader">
+		<td style="border-top: 0">Product ID</td>
+		<td style="border-top: 0">Name</td>
+		<td style="text-align: right; border-top: 0">Quantity</td>
+		<td style="text-align: right; border-top: 0">Cost</td>
+		<td style="border-top: 0">Availability</td>
+		<td style="text-align: right; border-top: 0">Available Inventory</td>
+	</tr>
+{if empty($content)}
+	<tr>
+		<td columns="6">
+			Package contents could not be found
+		</td>
+	</tr>
+{else}
+{foreach from=$content item=product}
+	<tr class="{cycle values="recordsRowAlpha,recordsRowBeta"}">
+		<td>{$product.productID}</td>
+		<td>{$product.name}</td>
+		<td style="text-align: right">{$product.packageQuantity}</td>
+		<td style="text-align: right">${$product.cost|string_format:"%.2f"}</td>
+		<td>{$product.availability}</td>
+		<td style="text-align: right">{$product.inventory}</td>
+	</tr>
+{/foreach}
+{/if}
+</table>

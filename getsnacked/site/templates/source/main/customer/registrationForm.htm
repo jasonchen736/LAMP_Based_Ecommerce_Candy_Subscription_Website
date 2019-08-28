@@ -1,0 +1,129 @@
+{include file="customer/header.htm"}
+
+<div id="registrationContainer">
+	{include file="customer/errorMessages.htm"}
+	<h1>Customer Signup</h1>
+	<span class="note">* Required fields</span>
+	<form action="{$smarty.server.PHP_SELF}" method="post" class="padded">
+		<div id="customerInfo">
+			<div class="formField">
+				<label for="company" class="{if 'company'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Company Name<span>*</span>
+				</label>
+				<div class="input">
+					<input type="text" name="company" id="company" value="{$memberBusinessInfo.company}">
+				</div>
+			</div>
+			<div class="formField">
+				<label for="first" class="{if 'first'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					First Name<span>*</span>
+				</label>
+				<div class="input">
+					<input type="text" name="first" id="first" value="{$member.first}">
+				</div>
+			</div>
+			<div class="formField">
+				<label for="last" class="{if 'last'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Last Name<span>*</span>
+				</label>
+				<div class="input">
+					<input type="text" name="last" id="last" value="{$member.last}">
+				</div>
+			</div>
+			<div class="formField">
+				<label for="phone" class="{if 'phone'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Phone<span>*</span>
+				</label>
+				<div class="input">
+					<input type="text" name="phone" id="phone" value="{$member.phone}">
+				</div>
+			</div>
+			<div class="formField">
+				<label for="email" class="{if 'email'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Email<span>*</span>
+				</label>
+				<div class="input">
+					<input type="text" name="email" id="email" value="{$member.email}">
+				</div>
+			</div>
+			<div class="formField">
+				<label for="password" class="{if 'password'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Login Password<span>*</span>
+				</label>
+				<div class="input">
+					<input type="password" name="password" id="password" value="{$member.password}">
+				</div>
+			</div>
+			<div class="formField">
+				<label for="passwordConfirm" class="{if 'passwordConfirm'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Confirm Password<span>*</span>
+				</label>
+				<div class="input">
+					<input type="password" name="passwordConfirm" id="passwordConfirm" value="">
+				</div>
+			</div>
+			<div class="formField">
+				<label for="address1" class="{if 'address1'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Address 1<span>*</span>
+				</label>
+				<div class="input">
+					<input type="text" name="address1" id="address1" value="{$member.address1}">
+				</div>
+			</div>
+			<div class="formField">
+				<label for="address2" class="{if 'address2'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Address 2
+				</label>
+				<div class="input">
+					<input type="text" name="address2" id="address2" value="{$member.address2}">
+				</div>
+			</div>
+			<div class="formField">
+				<label for="city" class="{if 'city'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					City<span>*</span>
+				</label>
+				<div class="input">
+					<input type="text" name="city" id="city" value="{$member.city}">
+				</div>
+			</div>
+			<div class="formField">
+				<label for="state" class="{if 'state'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					State or Province<span>*</span>
+				</label>
+				<div class="input">
+					{html_options name=state options=$stateOptions selected=$member.state}
+					or
+					<input type="text" name="province" value="{$member.state}" />
+				</div>
+			</div>
+			<div class="formField">
+				<label for="postal" class="{if 'postal'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Postal Code<span>*</span>
+				</label>
+				<div class="input">
+					<input type="text" name="postal" id="postal" value="{$member.postal}">
+				</div>
+			</div>
+			<div class="formField">
+				<label for="country" class="{if 'country'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Country<span>*</span>
+				</label>
+				<div class="input">
+					{html_options name=country options=$countryOptions selected=$member.country}
+				</div>
+			</div>
+			<div class="formField">&nbsp;</div>
+			<div class="formField">
+				<input type="checkbox" name="customerAgreement" id="customerAgreement" /> I have read and accept the <a href="/content/show/article/customerAgreement" style="text-decoration: underline" target="_blank">Customer Agreement</a> conditions.
+			</div>
+			<br class="clear" />
+			<div id="submitRow">
+				<input type="submit" name="submit" value="Submit">
+			</div>
+		</div>
+		<br class="clear" />
+		<input type="hidden" name="action" value="register" />
+	</form>
+</div>
+
+{include file="merchant/footer.htm"}

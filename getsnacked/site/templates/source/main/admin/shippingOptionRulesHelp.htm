@@ -1,0 +1,73 @@
+<div>
+	<table>
+		<tbody>
+			<tr>
+				<td>
+					<p>
+						Shipping Option Rules are options that allow you to specify when and where a shipping option will be available.
+					</p>
+					<p>
+						To do this, you must first set the rule type. This will describe how all rules for the option are handled.
+						<br />
+						The rule types are:
+						<ul style="list-style: none">
+							<li><strong>None:</strong>&nbsp;&nbsp;Rules will be ignored and the option will be available to all orders</li>
+							<li><strong>Allow:</strong>&nbsp;&nbsp;Only available to orders matching the given rules, the shipping option will not be available to any other orders</li>
+							<li><strong>Block:</strong>&nbsp;&nbsp;The shipping option will be available to all orders except for the orders that match the given rules</li>
+						</ul>
+					</p>
+					<p>
+						After a rule type is set, you may provide any number of rules that you choose.
+						<br />
+						The rule fields are as follows:
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" value=" City" />
+					<input type="text" value=" State/Province" />
+					<input type="text" value=" Postal Code" />
+					<select>
+						<option>Country</option>
+					</select>
+					<br />
+					<select>
+						<option>Weight Condition</option>
+					</select>
+					<input type="text" value=" Weight Value" />
+					<select>
+						<option>Packages Condition</option>
+					</select>
+					<input type="text" value=" Number of Packages" />
+					<select>
+						<option>Items Cost Condition</option>
+					</select>
+					<input type="text" value=" Items Cost" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>
+						Weight, package and cost rules must have a condtion. The conditions are:
+						<ul style="list-style: none">
+							<li>[<strong>=</strong>]&nbsp;&nbsp;Equal to</li>
+							<li>[<strong>&gt;</strong>]&nbsp;&nbsp;Greater than</li>
+							<li>[<strong>&gt;=</strong>]&nbsp;&nbsp;Greater than or equal to</li>
+							<li>[<strong>&lt;</strong>]&nbsp;&nbsp;Less than</li>
+							<li>[<strong>&lt;=</strong>]&nbsp;&nbsp;Less than or equal to</li>
+						</ul>
+					</p>
+					<p>
+						Provinces may be spelled out, while state values must be 2 character abbreviations.
+						<br />
+						Fields are not case sensitive. Any field left blank will be ignored and will not factor in to the match.
+					</p>
+					<p>
+						<strong>Example:</strong> An <strong>allow</strong> rule set with a <strong>zip code value of 10002</strong> and <strong>weight >= 5</strong> will only be available for orders in the zip code 10002 with a weight greater than or equal to 5 lbs.
+					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

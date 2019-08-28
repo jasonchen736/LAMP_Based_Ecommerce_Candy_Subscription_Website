@@ -1,0 +1,14 @@
+{if count($errorMessages) > 0}
+<div id="errors">
+	<div id="errorContainer">
+		<img id="errorIcon" src="/images/{$_SOURCEDIR}/site/errorIconWhite.gif" />
+		<ul id="errorList">
+			<li class="title">Oops!</li>
+{section name=errors loop=$errorMessages}
+			<li>{$errorMessages[errors]}</li>
+{/section}
+		</ul>
+	</div>
+	<div id="errorFooter">&nbsp;</div>
+</div>
+{/if}

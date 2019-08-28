@@ -1,0 +1,14 @@
+{if count($successMessages) > 0}
+<div id="successes">
+	<div id="successContainer">
+		<img id="successIcon" src="/images/{$_SOURCEDIR}/site/successIconWhite.gif" />
+		<ul id="successList">
+			<li class="title">Success!</li>
+{section name=successes loop=$successMessages}
+			<li>{$successMessages[successes]}</li>
+{/section}
+		</ul>
+	</div>
+	<div id="successFooter">&nbsp;</div>
+</div>
+{/if}

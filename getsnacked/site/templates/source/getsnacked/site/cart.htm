@@ -1,0 +1,62 @@
+{include file="site/header.htm"}
+
+	<div id="snackCart">
+		{include file="site/snackMenu.htm"}
+		<div id="cartView">
+{if is_array($_CART.contents) && count($_CART.contents) > 0}
+			<form action="{$smarty.server.PHP_SELF}" method="post">
+				<table cellspacing="0">
+					<tr>
+						<td colspan="4">
+							<div class="titleWrapper">
+								<div class="title">
+									Shopping Cart
+									<input type="image" name="update" value="Update Quantity" src="/images/getsnacked/site/menuButtonUpdateQuantityButton.gif" class="updateButton" />
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr class="cartHeader"><td class="leftEnd">Description</td><td align="right">Price</td><td align="right">Quantity</td><td align="right" class="rightEnd">Sub Total</td></tr>
+{foreach from=$_CART.contents key=productID item=details}
+					<tr class="cartItem"><td class="leftEnd"><a href="/view/product/id/{$productID}">{$details.N}</a></td><td align="right">${$details.C|string_format:"%.2f"}</td><td align="right"><input type="image" name="remove{$productID}" value="Remove" src="/images/getsnacked/site/menuButtonRemoveX.gif" class="removeButton" />&nbsp;&nbsp;<input type="text" name="update{$productID}" value="{$details.Q}" size="1" maxlength="4" style="text-align: right" /></td><td align="right" class="rightEnd">${$details.C*$details.Q|string_format:"%.2f"}</td></tr>
+{/foreach}
+					<tr>
+						<td colspan="4">
+							<div class="titleWrapper">
+								<div class="title">
+									<span class="left">
+										Cart Total
+									</span>
+									<span class="right">
+										${$_CART.subTotal|string_format:"%.2f"}
+									</span>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr class="cartAction">
+						<td colspan="4">
+							<a href="/" id="continueShopping">Continue Shopping</a>
+							<a href="{$_CHECKOUT.nextStep}" id="cartCheckout">Checkout</a>
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" name="submit" value="1">
+				<input type="hidden" name="createPackage" value="1">
+			</form>
+{else}
+			<div id="emptyCart">
+				<div class="titleWrapper">
+					<div class="title">
+						Shopping Cart
+					</div>
+				</div>
+				<p>Your shopping cart is empty.</p>
+				<a href="/" id="continueShopping">Shop Our Products</a>
+			</div>
+			<div id="emptyCartBottom">&nbsp;</div>
+{/if}
+		</div>
+	</div>
+
+{include file="site/footer.htm"}

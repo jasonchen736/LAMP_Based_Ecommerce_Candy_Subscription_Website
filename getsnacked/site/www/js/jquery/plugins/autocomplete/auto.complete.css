@@ -1,0 +1,39 @@
+.ac_input {}
+.ac_results {
+	cursor: pointer;
+	position: absolute;
+	left: 0;
+	font-size: 90%;
+	z-index: 101;
+	text-align:left;
+	background: #FFFFFF
+}
+.ac_results ul {
+	list-style-position: outside;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	border: 1px solid #999;
+	color: #999
+}
+.ac_results iframe
+{
+	display:none;/*sorry for IE5*/
+	display/**/:block;/*sorry for IE5*/
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:-1;
+	filter:mask();
+	width:3000px;
+	height:3000px;
+}
+.ac_results li {
+	padding: 2px 5px;
+}
+.ac_results a {}
+.ac_loading {}
+.over {
+	color: #335B8E;
+	font-weight: bold;
+}

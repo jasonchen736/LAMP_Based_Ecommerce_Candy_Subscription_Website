@@ -1,0 +1,135 @@
+{include file="site/header.htm"}
+
+<div id="checkoutBody">
+	{include file="site/checkoutPath.htm"}
+	{include file="site/successMessages.htm"}
+	{include file="site/errorMessages.htm"}
+	<div id="formWrapper">
+		<div id="formBody">
+			<div class="titleWrapper">
+				<div class="title">
+					Confirm Your Order
+				</div>
+			</div>
+			<div id="cartView">
+				<table cellspacing="0">
+					<tr class="cartHeader"><td>Description</td><td align="right">Price</td><td align="right">Quantity</td><td align="right">Sub Total</td></tr>
+{foreach from=$package key=id item=details}
+					<tr class="cartItem"><td>{$details.N}</td><td align="right">${$details.C|string_format:"%.2f"}</td><td align="right">{$details.Q}</td><td align="right">${$details.C*$details.Q|string_format:"%.2f"}</td></tr>
+{/foreach}
+					<tr class="cartHeader"><td colspan="2"></td><td class="summaryCell"><strong>Shipping</strong></td><td class="summaryCell" align="right">${$shippingCost|string_format:"%.2f"}</td></tr>
+					<tr class="cartHeader"><td colspan="2"></td><td class="summaryCell"><strong>Final Cost</strong></td><td class="summaryCell" align="right">${$finalCost|string_format:"%.2f"}</td></tr>
+				</table>
+			</div>
+			<div id="addressInfo">
+				<div id="billingAddress">
+					<div class="titleWrapper">
+						<div class="title">
+							Billing Address
+						</div>
+					</div>
+					<div class="infoContainer">
+						{$billingAddress.first}<br />
+						{$billingAddress.last}<br />
+						{$billingAddress.address1}<br />
+{if $billingAddress.address2 != ''}
+						{$billingAddress.address2}<br />
+{/if}
+						{$billingAddress.city},&nbsp;
+{if $billingAddress.country == 'USA'}
+						{$billingAddress.state}&nbsp;
+						{$billingAddress.postal}
+{else}
+						{$billingAddress.province}&nbsp;
+						{$billingAddress.postal}<br />
+						{$billingAddress.country}
+{/if}
+{if $billingAddress.phone != ''}
+						<br />{$billingAddress.phone}
+{/if}
+{if $billingAddress.email != ''}
+						<br />{$billingAddress.email}
+{/if}
+					</div>
+				</div>
+				<div id="shippingAddress">
+					<div class="titleWrapper">
+						<div class="title">
+							Shipping Address
+						</div>
+					</div>
+					<div class="infoContainer">
+						{$shippingAddress.first}<br />
+						{$shippingAddress.last}<br />
+						{$shippingAddress.address1}<br />
+{if $shippingAddress.address2 != ''}
+						{$shippingAddress.address2}<br />
+{/if}
+						{$shippingAddress.city},&nbsp;
+{if $shippingAddress.country == 'USA'}
+						{$shippingAddress.state}&nbsp;
+						{$shippingAddress.postal}
+{else}
+						{$shippingAddress.province}&nbsp;
+						{$shippingAddress.postal}<br />
+						{$shippingAddress.country}
+{/if}
+{if $shippingAddress.phone != ''}
+						<br />{$shippingAddress.phone}
+{/if}
+{if $shippingAddress.email != ''}
+						<br />{$shippingAddress.email}
+{/if}
+					</div>
+				</div>
+			</div>
+			<br class="clear" />
+			<div id="paymentInfo">
+				<div class="titleWrapper">
+					<div class="title">
+						Payment Method
+					</div>
+				</div>
+				<div id="paymentDetails">
+					<table>
+{if $paymentMethod.paymentMethod == 'cc'}
+						<tr><th>Credit Card:</th><td>{$paymentMethod.ccType}</td></tr>
+						<tr><th>Card Number:</th><td>Ending in {$acc_num_last_four}</td></tr>
+						<tr><th>Expiration:</th><td>{$paymentMethod.expMonth}/{$paymentMethod.expYear}</td></tr>
+{elseif $paymentMethod.paymentMethod == 'echeck'}
+						<tr><th>Bank:</th><td>{$paymentMethod.bName}</td></tr>
+						<tr><th>Routing Number:</th><td>{$paymentMethod.aba}</td></tr>
+						<tr><th>Name on Account:</th><td>{$paymentMethod.bAccName}</td></tr>
+						<tr><th>Account Type:</th><td>{$paymentMethod.accType}</td></tr>
+						<tr><th>Account Number:</th><td>Ending in {$acc_num_last_four}</td></tr>
+{else}
+						<tr><td colspan="2">
+							Please make checks payable to {$_COMPANYNAME} and mail to:
+							<div class="checkInfo">
+								{if $_MAINADDRESS1}{$_MAINADDRESS1}<br />{/if}
+								{if $_MAINADDRESS2}{$_MAINADDRESS2}<br />{/if}
+								{if $_MAINADDRESS3}{$_MAINADDRESS3}<br />{/if}
+								{$_MAINCITY}, {$_MAINSTATE} {$_MAINPOSTAL}<br />
+							</div>
+							Your order will be processed once your payment has been received.
+						</td></tr>
+{/if}
+					</table>
+				</div>
+			</div>
+{if $paymentMethod.paymentMethod == 'cc'}
+			<p id="authorization">I authorize {$_SITENAME} to charge my {$paymentMethod.ccType} a one time amount of ${$finalCost|string_format:"%.2f"} for the order detailed above.</p>
+{elseif $paymentMethod.paymentMethod == 'echeck'}
+			<p id="authorization">I authorize {$_SITENAME} to charge my {$paymentMethod.bName} {$paymentMethod.accType} account a one time amount of ${$finalCost|string_format:"%.2f"} for the order detailed above.</p>
+{/if}
+			<form id="authorize" action="{$smarty.server.PHP_SELF}" method="post">
+				<input type="checkbox" name="termsAccepted" id="termsAccepted" /> I have read and accept the purchase <a href="/content/show/article/checkoutTerms" style="text-decoration: underline">Terms and Condtions</a>.
+				<br /><br />
+				<input type="submit" name="submit" value="Place Order" />
+			</form>
+		</div>
+		<div id="formBottom">&nbsp;</div>
+	</div>
+</div>
+
+{include file="site/footer.htm"}

@@ -1,0 +1,39 @@
+{include file="merchant/header.htm"}
+
+{include file="merchant/successMessages.htm"}
+{include file="merchant/errorMessages.htm"}
+
+<form action="{$smarty.server.PHP_SELF}" method="post">
+	<table>
+		<tr>
+			<td><span class="{if 'state'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">State or Province:</span></td>
+			<td>
+				{html_options name=state options=$stateOptions selected=$memberShippingLocation.state}
+				or
+				<input type="text" name="province" value="{$memberShippingLocation.state}" />
+			</td>
+		</tr>
+		<tr>
+			<td><span class="{if 'postal'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Postal Code:</span></td>
+			<td><input type="text" name="postal" value="{$memberShippingLocation.postal}" /></td>
+		</tr>
+		<tr>
+			<td><span class="{if 'country'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Country:</span></td>
+			<td>
+				{html_options name=country options=$countryOptions selected=$memberShippingLocation.country}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div id="editActionContainer">
+					<input type="hidden" name="action" value="updateLocation" />
+					<span class="button">
+						<input type="submit" name="submit" value="Update Shipping Location" />
+					</span>
+				</div>
+			</td>
+		</tr>
+	</table>
+</form>
+
+{include file="merchant/footer.htm"}

@@ -1,0 +1,148 @@
+/* GLOBAL */
+body, td {font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #84BAB6; padding: 0; margin: 0}
+a {font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #84BAB6; text-decoration: none}
+form {margin: 0; padding: 0}
+h1 {font-size: 16px; color: #FFF; background: #34BAB6 url('/images/main/site/topBar.gif') bottom repeat-x; margin: 0; padding: 6px 15px 10px 15px}
+.clear {clear: both; width: 0px; height: 0px}
+.hidden {display: none}
+.show {display: block}
+
+/* ERROR */
+div#errors {background: #EFEFEF url('/images/main/site/topBar.gif') bottom repeat-x; padding: 5px 15px 10px 15px; margin-bottom: 15px; position: relative}
+	div#errors div#errorContainer {background: url('/images/main/site/errorIcon.gif') center left no-repeat; position: relative; padding: 5px 15px}
+	div#errors ul#errorList {list-style: none; padding: 0; margin: 10px 15px 10px 40px; font-weight: bold; color: #FF0000}
+div#errorMessage {float: left}
+	div#errorMessage div#messageContainer {padding: 0 15px}
+	div#errorMessage h1 {margin: 0 0 10px 0; padding: 4px 15px 10px 10px}
+
+/* SUCCESS */
+div#successes {background: #EFEFEF url('/images/main/site/topBar.gif') bottom repeat-x; padding: 5px 15px 10px 15px; margin-bottom: 15px; position: relative}
+	div#successes div#successContainer {background: url('/images/main/site/successIcon.gif') center left no-repeat; position: relative; padding: 5px 15px}
+	div#successes ul#successList {list-style: none; padding: 0; margin: 10px 15px 10px 40px; font-weight: bold; color: #00EE00}
+
+/* HEADER */
+div#header {background: url('/images/main/site/topBar.gif') bottom repeat-x; padding: 10px 20px; height: 63px; position: relative}
+	div#header div#logo {float: left; width: 300px; margin-left: 30px}
+	div#header div#cart {float: right; width: 375px; position: absolute; bottom: 10px; right: 0}
+		div#header div#cart a#view {float: left; background: url('/images/main/site/cartIcon.gif') 0 2px no-repeat; padding: 0 10px 0 20px}
+		div#header div#cart div#summary {float: left; padding: 0 10px; border-left: 1px dotted #84BAB6; border-right: 1px dotted #84BAB6}
+		div#header div#cart a#checkout {float: left; background: url('/images/main/site/rightArrow.gif') center right no-repeat; padding: 0 25px 0 10px}
+
+/* FOOTER */
+div#footer {text-align: center; background-color: #EFEFEF; padding: 55px 20px 65px 20px; position: relative}
+	div#footer ul#menu {list-style: none; margin: 0; padding: 0; width: 650px; float: left; position: absolute; top: 35px; left: 0px}
+		div#footer ul#menu li {float: left; padding: 0 15px; border-right: 1px dotted #84BAB6}
+		div#footer ul#menu li.end {border: 0}
+	div#footer div#tag {width: 350px; position: absolute; top: 65px; right: 30px; color: #84BAB6}
+/* ie */
+*:first-child+html div#footer div#tag {right: 40px}
+* html div#footer div#tag {right: 40px}
+
+/* MAIN DISPLAY BODY WITH MENU */
+div#mainBody {background: url('/images/main/site/menuBody.gif') 30px 0 repeat-y; position: relative; float: left}
+div#mainBody div#menuTop {background: url('/images/main/site/menuTop.gif') top right no-repeat; position: absolute; left: 0; top: 0; width: 171px}
+div#mainBody div#menuBody {position: absolute; top: 10px; left: 10px; width: 140px}
+	div#mainBody div#menuBody h1 {margin: 0; padding: 4px 10px 10px 10px; font-size: 14px}
+	div#mainBody div#menuBody ul {margin: 2px 0 0 15px; padding: 0; list-style: none}
+	div#mainBody div#menuAnchor {width: 0px}
+	div#mainDisplay div#menuHeight {float: left; height: 225px; width: 0px}
+div#mainBody div#menuBottom {background: url('/images/main/site/menuBottom.gif') bottom right no-repeat; position: absolute; left: 0; bottom: 0; width: 171px}
+div#mainBody div#mainDisplay {position: relative; left: 180px; float: left; width: 750px; padding: 10px 15px}
+
+/* HOMEPAGE */
+div#homeBody {width: 600px}
+
+/* GENERAL DISPLAY PRODUCTS */
+div.productContainer {color: #000; font-size: 12px; font-weight: normal; float: left; margin: 0 10px 15px 0; width: 125px; overflow: hidden; height: 160px}
+	div.productContainer a.addToCart {margin-left: 5px; background: url('/images/main/site/cartIcon.gif') 0 3px no-repeat; padding-left: 15px}
+	div.productContainer div.productImage {}
+		div.productContainer div.productImage img {border: 1px solid #CCC}
+	div.productContainer div.productDetails {width: 125px; text-align: left}
+		div.productContainer div.productDetails p {margin: 0; padding: 0 0 0 5px}
+
+/* CART VIEW */
+div#cartView {font-size: 12px; width: 600px}
+	div#cartView table {width: 90%}
+	div#cartView th {margin: 0; padding: 4px 15px 10px 10px; font-size: 16px; color: #FFF; background: #34BAB6 url('/images/main/site/topBar.gif') bottom repeat-x}
+	div#cartView td {font-size: 12px; padding: 0 15px 0 15px}
+		div#cartView tr.cartHeader td {border-bottom: 1px dotted #84BAB6; padding: 3px 15px; font-weight: bold}
+		div#cartView tr.cartItem td {padding: 3px 15px 5px 15px}
+		div#cartView tr.cartSummary td {color: #FFF; background-color: #34BAB6; font-size: 16px; padding: 10px 15px 5px 15px; font-weight: bold}
+		div#cartView tr.cartAction td {padding-top: 10px}
+	div#cartView h1 {margin: 0; padding: 4px 15px 10px 10px}
+	div#cartView div#empty {padding: 0 15px 10px 15px}
+	div#cartView a#continueShopping {background: url('/images/main/site/cartIcon.gif') 0 2px no-repeat; padding-left: 19px; float: left}
+	div#cartView a#cartCheckout {background: url('/images/main/site/rightArrow.gif') center right no-repeat; padding-right: 23px; float: right}
+
+/* CONTENT */
+div#content h1 {margin: 0 0 10px 0; padding: 4px 15px 10px 10px}
+
+/* VIEW ITEM */
+div#viewItem {}
+div#viewItem div#itemImage {background: url('/images/main/site/menuBody.gif') top right repeat-y; padding-right: 8px}
+div#viewItem div#itemDetails {width: 400px}
+	div#viewItem div#itemDetails h1 {margin: 25px 0 0 0; padding: 4px 15px 10px 10px}
+	div#viewItem div#itemDescription {padding: 5px 15px 15px 15px}
+	div#viewItem div#itemPrice {border-top: 1px dotted #84BAB6; padding: 5px 15px; font-size: 14px}
+
+/* VIEW ITEMS */
+div#viewItemsBody {width: 600px}
+
+/* CHECKOUT */
+div#checkoutBody {padding: 10px 60px}
+	div#checkoutBody span.note {color: #FF9900}
+	div#checkoutBody h1 {margin: 0; padding: 4px 15px 10px 10px; width: 800px}
+	div#checkoutBody form {display: block; margin: 0; padding: 10px 15px; width: 800px}
+		div#checkoutBody form div.formField {padding: 2px 0; clear: both; overflow: hidden}
+			div#checkoutBody form div.formField label {display: block; width: 165px; height: 22px; line-height: 22px; padding-left: 10px; float: left}
+				div#checkoutBody form div.formField label span {margin-left: 5px; color: #FF9900}
+			div#checkoutBody form div.formField label.normalLabel {}
+			div#checkoutBody form div.formField label.errorLabel {background: url('/images/main/site/menuBody.gif') top right repeat-y; color: #FF9900}
+			div#checkoutBody form div.formField div.input {float: left}
+div#checkoutBody form div#billingAddress {float: left}
+div#checkoutBody form div#paymentMethod {float: left; margin-left: 15px}
+	div#checkoutBody div#checkMoneyOrderForm {border: 1px dotted #84BAB6; padding: 10px 15px; width: 330px; margin-top: 35px}
+		div#checkoutBody div#checkMoneyOrderForm div {padding: 10px 15px}
+div#checkoutBody form div#shippingAddress {float: left}
+div#checkoutBody div#cartView {padding: 7px 15px 10px 15px}
+	div#checkoutBody div#addressInfo {width: 600px; margin-top: 5px; padding-left: 15px; float: left}
+		div#checkoutBody div#addressInfo h1 {width: auto}
+		div#checkoutBody div#addressInfo div#billingAddress, div#checkoutBody div#addressInfo div#shippingAddress {float: left; width: 250px; margin-right: 1px}
+			div#checkoutBody div#addressInfo div#billingAddress div, div#checkoutBody div#addressInfo div#shippingAddress div {padding: 10px 15px}
+div#shippingOption {float: left; margin-right: 1px}
+div#paymentInfo {padding: 10px 15px; width: 400px}
+	div#paymentInfo h1 {width: auto !important}
+	div#paymentInfo div {padding: 10px; 15px}
+	div#paymentInfo th {font-size: 12px; text-align: left; padding-right: 10px}
+div#checkoutBody p#authorization {margin: 0; padding: 0 0 15px 15px}
+div#checkoutBody form#authorize {padding: 0; margin-left: 15px}
+	div#checkoutBody form#authorize p {background: url('/images/main/site/rightArrow.gif') center right no-repeat; width: 120px}
+div#checkoutBody div#submitRow {background: url('/images/main/site/rightArrow.gif') center right no-repeat; padding-right: 23px; text-align: right; margin-top: 5px}
+/* ie */
+*:first-child+html div#checkoutBody h1 {width: 825px}
+*:first-child+html div#checkoutBody form div.formField label {width: 175px}
+*:first-child+html div#checkoutBody div#checkMoneyOrderForm {width: 350px}
+*:first-child+html div#checkoutBody div#submitRow {left: 271px; padding-top: 5px; background: url('/images/main/site/rightArrow.gif') 10px right no-repeat}
+*:first-child+html div#checkoutBody form#authorize {padding-right: 25px}
+*:first-child+html div#shippingOption {width: 258px}
+* html div#checkoutBody h1 {width: 825px}
+* html div#checkoutBody form div.formField label {width: 175px}
+* html div#checkoutBody div#checkMoneyOrderForm {width: 350px}
+* html div#checkoutBody div#submitRow {left: 271px; padding-top: 5px; background: url('/images/main/site/rightArrow.gif') 10px right no-repeat}
+* html div#checkoutBody form#authorize {padding-right: 25px}
+* html div#shippingOption {width: 258px}
+
+/* CHECKOUT PROGRESS BAR */
+div#checkoutProgress {padding: 5px 15px 15px 0}
+div#mainDisplay div#checkoutProgress {padding-top: 0}
+	div#checkoutProgress ul#progressList {margin: 0; padding: 0; list-style: none}
+		div#checkoutProgress ul#progressList li {float: left; margin-right: 10px}
+		div#checkoutProgress ul#progressList li.current {color: #FF9900; border-bottom: 1px dotted #FF9900}
+		div#checkoutProgress ul#progressList li.currentSegue {background: url('/images/main/site/rightArrow.gif') center right no-repeat; padding-right: 16px}
+		div#checkoutProgress ul#progressList li.next a {color: #FF9900}
+		div#checkoutProgress ul#progressList li.nextSegue {background: url('/images/main/site/rightArrow.gif') center right no-repeat; padding-right: 16px}
+		div#checkoutProgress ul#progressList li.completed {background: url('/images/main/site/blueCheck.gif') center left no-repeat; padding-left: 22px}
+			div#checkoutProgress ul#progressList li.completed a {color: #84BAB6}
+		div#checkoutProgress ul#progressList li.completedSegue {background: url('/images/main/site/rightArrow.gif') center right no-repeat; padding-right: 16px}
+		div#checkoutProgress ul#progressList li.incomplete {color: #DFDFDF}
+		div#checkoutProgress ul#progressList li.incompleteSegue {background: url('/images/main/site/rightArrowFaded.gif') center right no-repeat; padding-right: 16px}

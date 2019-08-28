@@ -1,0 +1,34 @@
+{include file="site/header.htm"}
+{include file="site/menuDisplayHeader.htm"}
+
+<div id="cartView">
+{if is_array($_CART.contents) && count($_CART.contents) > 0}
+	<form action="{$smarty.server.PHP_SELF}" method="post">
+		<table cellspacing="0">
+			<tr><th align="left">Shopping Cart</th><th colspan="3" align="right"><input type="submit" name="update" value="Update"></td></tr>
+			<tr class="cartHeader"><td>Description</td><td align="right">Price</td><td align="right">Quantity</td><td align="right">Sub Total</td></tr>
+{foreach from=$_CART.contents key=productID item=details}
+			<tr class="cartItem"><td><a href="/view/product/id/{$productID}">{$details.N}</a></td><td align="right">${$details.C|string_format:"%.2f"}</td><td align="right"><input type="submit" name="remove{$productID}" value="Delete">&nbsp;&nbsp;<input type="text" name="update{$productID}" value="{$details.Q}" size="1" maxlength="4" style="text-align: right"></td><td align="right">${$details.C*$details.Q|string_format:"%.2f"}</td></tr>
+{/foreach}
+			<tr class="cartSummary"><td colspan="3">Cart Total</td><td align="right">${$_CART.subTotal|string_format:"%.2f"}</td></tr>
+			<tr class="cartAction">
+				<td colspan="4">
+					<a href="/" id="continueShopping">Continue Shopping</a>
+					<a href="{$_CHECKOUT.nextStep}" id="cartCheckout">Checkout</a>
+				</td>
+			</tr>
+		</table>
+		<input type="hidden" name="submit" value="1">
+		<input type="hidden" name="createPackage" value="1">
+	</form>
+{else}
+	<h1>Shopping Cart</h1>
+	<div id="empty">
+		<p>Your shopping cart is empty.</p>
+		<a href="/" id="continueShopping">Shop Our Products</a>
+	</div>
+{/if}
+</div>
+
+{include file="site/menuDisplayFooter.htm"}
+{include file="site/footer.htm"}

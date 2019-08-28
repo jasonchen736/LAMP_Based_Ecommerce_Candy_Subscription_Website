@@ -1,0 +1,322 @@
+{include file="admin/adminHeader.htm"}
+
+{if $mode != 'edit'}
+{literal}
+<script type="text/javascript">
+	$(function() {
+		$('#addProduct').click(function() {
+			$('#productList').append($('#addProducts').html()).find('li:last').find('a.removeProduct').children();
+			attachRemoveProduct();
+			attachAutoComplete();
+			return false;
+		});
+		$('#brand').autocomplete('/admin/autocomplete.php', { extraParams: { type:'brand' }, delay:0, minChars:1, formatItem:formatItem });
+		attachRemoveProduct();
+	});
+	function attachRemoveProduct() {
+		$('.removeProduct').unbind();
+		$('.removeProduct').click(function() {
+			$(this).parent().remove();
+			attachAutoComplete();
+			return false;
+		});
+	}
+	function attachAutoComplete() {
+		$('.productSearch').unbind();
+		$('.productSearch').autocomplete('/admin/autocomplete.php', { extraParams: { type:'productInfo' }, delay:0, minChars:1, formatItem:formatItem, onItemSelect:addProduct });
+	}
+	function addProduct(li) {
+		var id = li.innerHTML.substring(4, li.innerHTML.indexOf('|') - 1);
+		var selector = '.productSearch[value="' + id + '"]';
+		$(selector).parent().html(li.innerHTML).next().attr('value', id);
+	}
+</script>
+{/literal}
+{/if}
+{literal}
+<script type="text/javascript">
+	$(function() {
+		$('#addImage').click(function() {
+			$('#imageList').append($('#imageFields > table > tbody').html());
+			attachRemoveImage();
+			return false;
+		});
+		attachRemoveImage();
+		$('.imagePreview').cluetip({width: 'auto', positionBy: 'mouse'});
+		$('#selectSites').click(function() {
+			$('#sites option').attr('selected', 'selected');
+		});
+		$('#deselectSites').click(function() {
+			$('#sites option').attr('selected', '');
+		});
+		$('a.previewImage').cluetip({width: 'auto', positionBy: 'mouse', ajaxCache: false, cluetipClass: 'rounded'});
+	});
+	function attachRemoveImage() {
+		$('.removeImage').unbind();
+		$('.removeImage').click(function() {
+			$(this).parent().parent().remove();
+			return false;
+		});
+	}
+</script>
+{/literal}
+
+{include file="admin/messageSection.htm"}
+
+<form action="{$smarty.server.PHP_SELF}" method="post" enctype="multipart/form-data">
+	<table id="editTable">
+		<tr>
+			<td id="editMenuCell">
+				<ul id="editMenu">
+					<li class="head">&nbsp;</li>
+					<li class="editMenuOption{if !$propertyMenuItem || $propertyMenuItem == 'package_main'} selected{/if}" id="package_main">Package Details</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'package_content'} selected{/if}" id="package_content">Package Content</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'package_descriptions'} selected{/if}" id="package_descriptions">Package Descriptions</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'package_images'} selected{/if}" id="package_images">Package Images</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'package_tags'} selected{/if}" id="package_tags">Package Tags</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'package_sites'} selected{/if}" id="package_sites">Package Websites</li>
+					<li class="end">&nbsp;</li>
+				</ul>
+				<div id="editActionContainer">
+{if $mode == 'edit'}
+					<input type="hidden" name="action" value="updatePackage" />
+					<input type="hidden" name="packageID" value="{$package.packageID}" />
+					<span class="button">
+						<input type="submit" name="submit" value="Update" />
+					</span>
+{else}
+					<input type="hidden" name="action" value="savePackage" />
+					<span class="button">
+						<input type="submit" name="submit" value="Add and Edit" />
+					</span>
+					<br class="clear" />
+					<span class="button">
+						<input type="submit" name="submit" value="Add Another" />
+					</span>
+{/if}
+				</div>
+			</td>
+			<td id="editPropertyCell">
+				<div id="package_mainContainer" class="propertyContainer{if $propertyMenuItem && $propertyMenuItem != 'package_main'} hidden{/if}">
+					<table>
+						<tr>
+							<td><span class="{if 'name'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Name:</span>&nbsp;</td>
+							<td><input type="text" name="name" value="{$package.name}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'sku'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">SKU (Package Number):</span>&nbsp;</td>
+							<td><input type="text" name="sku" value="{$package.sku}" style="width: 250px" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'brand'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Package Brand:</span>&nbsp;</td>
+							<td><input type="text" name="brand" id="brand" value="{$package.brand}" style="width: 250px" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'availability'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Availability:</span>&nbsp;</td>
+							<td>{html_options name=availability options=$availabilityOptions selected=$package.availability}</td>
+						</tr>
+						<tr>
+							<td><span class="{if 'sortWeight'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Sort Weight:</span>&nbsp;</td>
+							<td><input type="text" name="sortWeight" value="{$package.sortWeight}" /></td>
+						</tr>
+					</table>
+				</div>
+				<div id="package_contentContainer" class="propertyContainer{if $propertyMenuItem != 'package_content'} hidden{/if}">
+					<table>
+						<tr>
+							<td>
+{if $mode == 'edit'}
+								<table class="recordsTable">
+									<tr class="recordsHeader">
+										<td>Product ID</td>
+										<td>Name</td>
+										<td>Quantity</td>
+										<td style="text-align: right">Cost</td>
+										<td>Availability</td>
+										<td style="text-align: right">Available Inventory</td>
+										<td>Action</td>
+									</tr>
+{foreach from=$content item=product}
+									<tr class="{cycle values="recordsRowAlpha,recordsRowBeta"}">
+										<td>{$product.productID}</td>
+										<td>{$product.name}</td>
+										<td>{$product.packageQuantity}</td>
+										<td style="text-align: right">${$product.cost|string_format:"%.2f"}</td>
+										<td>{$product.availability}</td>
+										<td style="text-align: right">{$product.inventory}</td>
+										<td>
+											<a href="/admin/productsManagement/productID/{$product.productID}/action/editProduct" class="edit">Edit</a>
+										</td>
+									</tr>
+{/foreach}
+								</table>
+{else}
+								<a href="#" class="greenPlus" id="addProduct">Add a Product</a>
+								<ul id="productList">
+{foreach from=$content key=productID item=product}
+								<li>
+									<a href="#" class="removeProduct redX">&nbsp;</a>
+									Quantity in Package: <input type="text" name="addQuantity[]" value="{$product.quantity}" size="1" style="text-align: right" />&nbsp;&nbsp;-&nbsp;
+									<span class="addProductLabel">ID: {$productID} | Cost: ${$product.cost} | Name: {$product.name} | Status: {$product.availability}</span>
+									<input type="hidden" name="addProduct[]" value="{$productID}" class="addProduct" readonly="readonly" size="5" />
+								</li>
+{/foreach}
+								</ul>
+{/if}
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="package_descriptionsContainer" class="propertyContainer{if $propertyMenuItem != 'package_descriptions'} hidden{/if}">
+					<table>
+						<tr>
+							<td>
+								<span class="{if 'shortDescription'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Short Description:</span><br />
+								<textarea name="shortDescription" cols="120" rows="2">{$package.shortDescription}</textarea>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="{if 'description'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Description:</span>
+								<br />
+								<textarea name="description" cols="120" rows="25">{$package.description}</textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="package_imagesContainer" class="propertyContainer{if $propertyMenuItem != 'package_images'} hidden{/if}">
+					<a href="#" class="greenPlus" id="addImage">Add Image</a>
+					<table>
+						<tbody id="imageList">
+{section name=image loop=$package.imagesSmall+1 start=1}
+							<tr>
+								<td>
+									<a href="#" class="removeImage redX">&nbsp;</a>									
+								</td>
+								<td>
+									<input type="file" name="packageImages[]" />
+								</td>
+								<td>
+									<select name="packageImagesSizes[]">
+										<option value="small">Small</option>
+										<option value="medium">Medium</option>
+										<option value="large">Large</option>
+									</select>
+									<input type="hidden" name="packageImagesExistingSize[]" value="small" />
+									<input type="hidden" name="packageImagesExistingIndex[]" value="{$smarty.section.image.index}" />
+									&nbsp;
+									<a href="{$smarty.server.PHP_SELF}/action/previewImage/size/small/file/{$package.packageID}_{$smarty.section.image.index}" class="previewImage" rel="{$smarty.server.PHP_SELF}/action/previewImage/size/small/file/{$package.packageID}_{$smarty.section.image.index}" title="Small Image {$smarty.section.image.index}">
+										Preview
+									</a>
+								</td>
+							</tr>
+{/section}
+{section name=image loop=$package.imagesMedium+1 start=1}
+							<tr>
+								<td>
+									<a href="#" class="removeImage redX">&nbsp;</a>									
+								</td>
+								<td>
+									<input type="file" name="packageImages[]" />
+								</td>
+								<td>
+									<select name="packageImagesSizes[]">
+										<option value="small">Small</option>
+										<option value="medium" selected="selected">Medium</option>
+										<option value="large">Large</option>
+									</select>
+									<input type="hidden" name="packageImagesExistingSize[]" value="medium" />
+									<input type="hidden" name="packageImagesExistingIndex[]" value="{$smarty.section.image.index}" />
+									&nbsp;
+									<a href="{$smarty.server.PHP_SELF}/action/previewImage/size/medium/file/{$package.packageID}_{$smarty.section.image.index}" class="previewImage" rel="{$smarty.server.PHP_SELF}/action/previewImage/size/medium/file/{$package.packageID}_{$smarty.section.image.index}" title="Medium Image {$smarty.section.image.index}">
+										Preview
+									</a>
+								</td>
+							</tr>
+{/section}
+{section name=image loop=$package.imagesLarge+1 start=1}
+							<tr>
+								<td>
+									<a href="#" class="removeImage redX">&nbsp;</a>									
+								</td>
+								<td>
+									<input type="file" name="packageImages[]" />
+								</td>
+								<td>
+									<select name="packageImagesSizes[]">
+										<option value="small">Small</option>
+										<option value="medium">Medium</option>
+										<option value="large" selected="selected">Large</option>
+									</select>
+									<input type="hidden" name="packageImagesExistingSize[]" value="large" />
+									<input type="hidden" name="packageImagesExistingIndex[]" value="{$smarty.section.image.index}" />
+									&nbsp;
+									<a href="{$smarty.server.PHP_SELF}/action/previewImage/size/large/file/{$package.packageID}_{$smarty.section.image.index}" class="previewImage" rel="{$smarty.server.PHP_SELF}/action/previewImage/size/large/file/{$package.packageID}_{$smarty.section.image.index}" title="Large Image {$smarty.section.image.index}">
+										Preview
+									</a>
+								</td>
+							</tr>
+{/section}
+						</tbody>
+					</table>
+				</div>
+				<div id="package_tagsContainer" class="propertyContainer{if $propertyMenuItem != 'package_tags'} hidden{/if}">
+					<select name="packageTags[]" multiple="multiple" style="width: 250px; height: 450px">
+{foreach from=$productTags item=tag}
+						<option value="{$tag}"{if in_array($tag, $tags)} selected="selected"{/if}>{$tag}</option>
+{/foreach}
+					</select>
+				</div>
+				<div id="package_sitesContainer" class="propertyContainer{if $propertyMenuItem != 'package_sites'} hidden{/if}">
+					<div id="selectBlock">
+						<a href="#" class="selectAll" id="selectSites">Select all</a>
+						<a href="#" class="deselectAll" id="deselectSites">Deselect all</a>
+					</div>
+					<select name="sites[]" id="sites" multiple="multiple" style="height: 400px; width: 225px">
+						{html_options options=$siteOptions selected=$sites}
+					</select>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="propertyMenuItem" id="propertyMenuItem" value="{$propertyMenuItem}" />
+</form>
+
+{if $mode != 'edit'}
+<div id="addProducts" class="hidden">
+	<li>
+		<a href="#" class="removeProduct redX">&nbsp;</a>
+		Quantity in Package <input type="text" name="addQuantity[]" value="" size="1" style="text-align: right" />&nbsp;&nbsp;:&nbsp;Product&nbsp;
+		<span class="addProductLabel">
+			<input type="text" name="productSearch" value="" class="productSearch" size="40" />
+		</span>
+		<input type="hidden" name="addProduct[]" value="" class="addProduct" readonly="readonly" size="5" />
+	</li>
+</div>
+{/if}
+
+<div id="imageFields" class="hidden">
+	<table>
+		<tbody>
+			<tr>
+				<td>
+					<a href="#" class="removeImage redX">&nbsp;</a>
+				</td>
+				<td>
+					<input type="file" name="packageImages[]" />
+				</td>
+				<td>
+					<select name="packageImagesSizes[]">
+						<option value="small">Small</option>
+						<option value="medium">Medium</option>
+						<option value="large">Large</option>
+					</select>
+					<input type="hidden" name="packageImagesExistingSize[]" value="false" />
+					<input type="hidden" name="packageImagesExistingIndex[]" value="false" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+{include file="admin/adminFooter.htm"}

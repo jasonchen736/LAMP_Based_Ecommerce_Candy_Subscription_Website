@@ -1,0 +1,75 @@
+{include file="admin/adminHeader.htm"}
+
+{literal}
+<script type="text/javascript">
+	$(function() {
+		$('a.viewContent').cluetip({cluetipClass: 'rounded', width: 'auto', positionBy: 'mouse'});
+		$('#selectRecords').click(function() {
+			$('input[type="checkbox"]').attr('checked', 'checked');
+		});
+		$('#deselectRecords').click(function() {
+			$('input[type="checkbox"]').attr('checked', '');
+		});
+	});
+</script>
+{/literal}
+
+{include file="admin/messageSection.htm"}
+
+{if !empty($offers)}
+<div id="offersSection">
+	<div id="selectBlock">
+		<a href="#" class="selectAll" id="selectRecords">Select all</a>
+		<a href="#" class="deselectAll" id="deselectRecords">Deselect all</a>
+	</div>
+	<form action="{$smarty.server.PHP_SELF}" method="post">
+		<input type="hidden" name="action" value="updateOffers" />
+		<table class="recordsTable">
+			<tr class="recordsHeader">
+				<td>Select</td>
+				<td>Offer ID</td>
+				<td>Offer Name</td>
+				<td>Offer Availability</td>
+				<td align="right">Offer Cost</td>
+				<td align="right">Offer Payout</td>
+				<td>Payout Type</td>
+				<td>Package Contents</td>
+				<td>Package ID</td>
+				<td>Package Name</td>
+				<td>Package Availability</td>
+				<td align="right">Package Cost</td>
+				<td align="right">Package Weight</td>
+			</tr>
+{foreach from=$offers key=key item=offer}
+			<tr class="{cycle values="recordsRowAlpha,recordsRowBeta"}">
+				<td><input type="checkbox" name="records[{$key}]" value="{$offer.offerID};{$offer.packageID}"></td>
+				<td>{$offer.offerID}</td>
+				<td>{$offer.offerName}</td>
+				<td>{$offer.offerAvailability}</td>
+				<td align="right">$ <input type="text" name="offerCosts[{$key}]" value="{$offer.offerCost|string_format:"%.2f"}" style="text-align: right; width: 60px" /></td>
+				<td align="right">{if $offer.payType == 'cpa' || $offer.payType == 'recurringcpa'}${/if}{$offer.payOut|string_format:"%.2f"}{if $offer.payType == 'revshare' || $offer.payType == 'recurringrevshare'}%{/if}</td>
+				<td>{$offer.payType}</td>
+				<td align="center">
+					<a href="/admin/packagesManagement/action/viewContent/packageID/{$offer.packageID}" rel="/admin/packagesManagement/action/viewContent/packageID/{$offer.packageID}" title="Package Contents" class="viewContent">View Content</a>
+				</td>
+				<td>{$offer.packageID}</td>
+				<td>{$offer.packageName}</td>
+				<td>{$offer.packageAvailability}</td>
+				<td align="right">${$offer.packageCost|string_format:"%.2f"}</td>
+				<td align="right">{$offer.weight|string_format:"%.2f"} lb</td>
+			</tr>
+{/foreach}
+			<tr class="recordsAction">
+				<td colspan="13">
+					<br />
+					<span class="button">
+						<input type="submit" name="submit" value="Submit Changes" />
+					</span>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+{/if}
+
+{include file="admin/adminFooter.htm"}

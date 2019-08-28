@@ -1,0 +1,293 @@
+{include file="admin/adminHeader.htm"}
+
+{literal}
+<script type="text/javascript">
+	$(function() {
+		$('#addRule').click(function() {
+			$('#rulesList').append($('#addRules > ul').html());
+			attachRemoveRule();
+			attachAutoComplete();
+			return false;
+		});
+		attachRemoveRule();
+		attachAutoComplete();
+		$('.help').cluetip({width: 'auto', positionBy: 'mouse', cluetipClass: 'rounded'});
+		$('#selectSites_sites').click(function() {
+			$('#sites option').attr('selected', 'selected');
+		});
+		$('#deselectSites_sites').click(function() {
+			$('#sites option').attr('selected', '');
+		});
+		$('#selectSites_forceOption').click(function() {
+			$('#imposedSites option').attr('selected', 'selected');
+		});
+		$('#deselectSites_forceOption').click(function() {
+			$('#imposedSites option').attr('selected', '');
+		});
+	});
+	function attachRemoveRule() {
+		$('.removeRule').unbind();
+		$('.removeRule').click(function() {
+			$(this).parent().parent().parent().parent().parent().remove();
+			return false;
+		});
+	}
+	function attachAutoComplete() {
+		$('.ruleState').unbind();
+		$('.ruleState').autocomplete('/admin/autocomplete.php', { extraParams: { type:'state' }, delay:0, minChars:1, formatItem:formatItem });
+	}
+</script>
+{/literal}
+
+<form action="{$smarty.server.PHP_SELF}" method="post">
+	<table id="editTable">
+		<tr>
+			<td id="editMenuCell">
+				<ul id="editMenu">
+					<li class="head">&nbsp;</li>
+					<li class="editMenuOption{if !$propertyMenuItem || $propertyMenuItem == 'so_main'} selected{/if}" id="so_main">Option Details</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'so_rules'} selected{/if}" id="so_rules">Option Rules</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'so_sites'} selected{/if}" id="so_sites">Option Websites</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'so_forceOption'} selected{/if}" id="so_forceOption">Force Option</li>
+					<li class="end">&nbsp;</li>
+				</ul>
+				<div id="editActionContainer">
+{if $mode == 'edit'}
+					<input type="hidden" name="action" value="updateShippingOption" />
+					<input type="hidden" name="shippingOptionID" value="{$shippingOption.shippingOptionID}" />
+					<span class="button">
+						<input type="submit" name="submit" value="Update" />
+					</span>
+{else}
+					<input type="hidden" name="action" value="saveShippingOption" />
+					<span class="button">
+						<input type="submit" name="submit" value="Add and Edit" />
+					</span>
+					<br class="clear" />
+					<span class="button">
+						<input type="submit" name="submit" value="Add Another" />
+					</span>
+{/if}
+				</div>
+			</td>
+			<td id="editPropertyCell">
+				<div id="so_mainContainer" class="propertyContainer{if $propertyMenuItem && $propertyMenuItem != 'so_main'} hidden{/if}">
+					<table>
+						<tr>
+							<td><span class="{if 'name'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Option Name:</span>&nbsp;</td>
+							<td><input type="text" name="name" value="{$shippingOption.name}" style="width: 150px" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'status'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Option Status:</span>&nbsp;</td>
+							<td>
+								<select name="status">
+									{html_options options=$statusOptions selected=$shippingOption.status}
+								</select>				
+							</td>
+						</tr>
+						<tr><td colspan="2">&nbsp;</td></tr>
+						<tr>
+							<td><span class="{if 'rate'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Rate:</span>&nbsp;</td>
+							<td><input type="text" name="rate" value="{$shippingOption.rate}" style="width: 50px" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'rateType'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Rate Type:</span>&nbsp;</td>
+							<td>
+								<select name="rateType">
+									{html_options options=$rateTypeOptions selected=$shippingOption.rateType}
+								</select>				
+							</td>
+						</tr>
+						<tr><td align="center"><strong>OR</strong></td><td>&nbsp;</td></tr>
+						<tr>
+							<td><span class="{if 'provider'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Provider:</span>&nbsp;</td>
+							<td>
+								<select name="provider">
+									<option value="none">None</option>
+									<option value="ups"{if $shippingOption.provider=='ups'} selected="selected"{/if}>UPS</option>
+									<option value="fedex"{if $shippingOption.provider=='fedex'} selected="selected"{/if}>FedEx</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><span class="{if 'externalValue'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Provider Value:</span>&nbsp;</td>
+							<td><input type="text" name="externalValue" value="{$shippingOption.externalValue}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'modifier'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Provider Modifier:</span>&nbsp;</td>
+							<td><input type="text" name="modifier" value="{$shippingOption.modifier}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'modifierType'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Provider Modifier Type:</span>&nbsp;</td>
+							<td>
+								<select name="modifierType">
+									<option value="none">None</option>
+									<option value="percentup"{if $shippingOption.modifierType=='percentup'} selected="selected"{/if}>Percent Markup</option>
+									<option value="percentdown"{if $shippingOption.modifierType=='percentdown'} selected="selected"{/if}>Percent Discount</option>
+									<option value="flatup"{if $shippingOption.modifierType=='flatup'} selected="selected"{/if}>Flat Rate Markup</option>
+									<option value="flatdown"{if $shippingOption.modifierType=='flatdown'} selected="selected"{/if}>Flat Rate Discount</option>
+								</select>
+							</td>
+						</tr>
+						<tr><td colspan="2">&nbsp;</td></tr>
+						<tr>
+							<td colspan="2">
+								<a href="{$smarty.server.PHP_SELF}/action/getHelp/item/ratesandproviders" rel="{$smarty.server.PHP_SELF}/action/getHelp/item/ratesandproviders" title="Rates and Providers" class="help">What are rates and providers?</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="so_rulesContainer" class="propertyContainer{if $propertyMenuItem != 'so_rules'} hidden{/if}">
+					<table>
+						<tr>
+							<td>
+								<span class="{if 'rule'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Rule:</span>
+								&nbsp;
+								<select name="rule">
+									{html_options options=$ruleOptions selected=$shippingOption.rule}
+								</select>				
+								&nbsp;&nbsp;
+								<a href="{$smarty.server.PHP_SELF}/action/getHelp/item/rules" rel="{$smarty.server.PHP_SELF}/action/getHelp/item/rules" title="Shipping Option Rules" class="help">What are shipping option rules?</a>
+							</td>
+						</tr>
+						<tr>
+							<td id="rulesCell">
+								<a href="#" class="greenPlus" id="addRule">Add Rule</a>
+								<ul id="rulesList">
+{foreach from=$rules item=rule}
+									<li>
+										<table>
+											<tbody>
+												<tr>
+													<td>
+														<a href="#" class="removeRule redX">&nbsp;</a>
+													</td>
+													<td>
+														<input type="text" name="ruleCity[]" value="{$rule.city}" />
+														<input type="text" name="ruleState[]" value="{$rule.state}" class="ruleState" />
+														<input type="text" name="rulePostal[]" value="{$rule.postal}" style="width: 80px" />
+														<select name="ruleCountry[]">
+															<option value="">&nbsp;</option>
+															{html_options options=$countryOptions selected=$rule.country}
+														</select>
+														<br />
+														<select name="ruleWeightCondition[]">
+															<option value="">&nbsp;</option>
+															<option value="equal"{if $rule.weightCondition=='equal'} selected="selected"{/if}>=</option>
+															<option value="greater"{if $rule.weightCondition=='greater'} selected="selected"{/if}>&gt;</option>
+															<option value="gte"{if $rule.weightCondition=='gte'} selected="selected"{/if}>&gt;=</option>
+															<option value="less"{if $rule.weightCondition=='less'} selected="selected"{/if}>&lt;</option>
+															<option value="lte"{if $rule.weightCondition=='lte'} selected="selected"{/if}>&lt;=</option>
+														</select>
+														<input type="text" name="ruleWeightValue[]" value="{$rule.weightValue}" style="width: 50px" />
+														<select name="rulePackageCondition[]">
+															<option value="">&nbsp;</option>
+															<option value="equal"{if $rule.packageCondition=='equal'} selected="selected"{/if}>=</option>
+															<option value="greater"{if $rule.packageCondition=='greater'} selected="selected"{/if}>&gt;</option>
+															<option value="gte"{if $rule.packageCondition=='gte'} selected="selected"{/if}>&gt;=</option>
+															<option value="less"{if $rule.packageCondition=='less'} selected="selected"{/if}>&lt;</option>
+															<option value="lte"{if $rule.packageCondition=='lte'} selected="selected"{/if}>&lt;=</option>
+														</select>
+														<input type="text" name="rulePackageValue[]" value="{$rule.packageValue}" style="width: 50px" />
+														<select name="ruleCostCondition[]">
+															<option value="">&nbsp;</option>
+															<option value="equal"{if $rule.costCondition=='equal'} selected="selected"{/if}>=</option>
+															<option value="greater"{if $rule.costCondition=='greater'} selected="selected"{/if}>&gt;</option>
+															<option value="gte"{if $rule.costCondition=='gte'} selected="selected"{/if}>&gt;=</option>
+															<option value="less"{if $rule.costCondition=='less'} selected="selected"{/if}>&lt;</option>
+															<option value="lte"{if $rule.costCondition=='lte'} selected="selected"{/if}>&lt;=</option>
+														</select>
+														<input type="text" name="ruleCostValue[]" value="{$rule.costValue}" style="width: 50px" />
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</li>
+{/foreach}
+								</ul>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="so_sitesContainer" class="propertyContainer{if $propertyMenuItem != 'so_sites'} hidden{/if}">
+					<div id="selectBlock">
+						<a href="#" class="selectAll" id="selectSites_sites">Select all</a>
+						<a href="#" class="deselectAll" id="deselectSites_sites">Deselect all</a>
+					</div>
+					<select name="sites[]" id="sites" multiple="multiple" style="height: 400px; width: 225px">
+						{html_options options=$siteOptions selected=$sites}
+					</select>
+				</div>
+				<div id="so_forceOptionContainer" class="propertyContainer{if $propertyMenuItem != 'so_forceOption'} hidden{/if}">
+					<select name="imposedOn">
+						{html_options options=$imposedOnOptions selected=$shippingOptionImposed.imposedOn}
+					</select>
+					<br /><br />
+					<div id="selectBlock">
+						<a href="#" class="selectAll" id="selectSites_forceOption">Select all</a>
+						<a href="#" class="deselectAll" id="deselectSites_forceOption">Deselect all</a>
+					</div>
+					<select name="imposedSites[]" id="imposedSites" multiple="multiple" style="height: 400px; width: 225px">
+						{html_options options=$siteOptions selected=$imposedSites}
+					</select>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="propertyMenuItem" id="propertyMenuItem" value="{$propertyMenuItem}" />
+</form>
+
+<div id="addRules" class="hidden">
+	<ul>
+		<li>
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<a href="#" class="removeRule redX">&nbsp;</a>
+						</td>
+						<td>
+							<input type="text" name="ruleCity[]" value="" />
+							<input type="text" name="ruleState[]" value="" class="ruleState" />
+							<input type="text" name="rulePostal[]" value="" style="width: 80px" />
+							<select name="ruleCountry[]">
+								<option value="">&nbsp;</option>
+								{html_options options=$countryOptions}
+							</select>
+							<br />
+							<select name="ruleWeightCondition[]">
+								<option value="">&nbsp;</option>
+								<option value="equal">=</option>
+								<option value="greater">&gt;</option>
+								<option value="gte">&gt;=</option>
+								<option value="less">&lt;</option>
+								<option value="lte">&lt;=</option>
+							</select>
+							<input type="text" name="ruleWeightValue[]" value="" style="width: 50px" />
+							<select name="rulePackageCondition[]">
+								<option value="">&nbsp;</option>
+								<option value="equal">=</option>
+								<option value="greater">&gt;</option>
+								<option value="gte">&gt;=</option>
+								<option value="less">&lt;</option>
+								<option value="lte">&lt;=</option>
+							</select>
+							<input type="text" name="rulePackageValue[]" value="" style="width: 50px" />
+							<select name="ruleCostCondition[]">
+								<option value="">&nbsp;</option>
+								<option value="equal">=</option>
+								<option value="greater">&gt;</option>
+								<option value="gte">&gt;=</option>
+								<option value="less">&lt;</option>
+								<option value="lte">&lt;=</option>
+							</select>
+							<input type="text" name="ruleCostValue[]" value="" style="width: 70px" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</li>
+	</ul>
+</div>
+
+{include file="admin/adminFooter.htm"}

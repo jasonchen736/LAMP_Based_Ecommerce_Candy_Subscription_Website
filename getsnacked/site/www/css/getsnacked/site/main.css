@@ -1,0 +1,247 @@
+/* GLOBAL */
+body, td {font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #277F7F; padding: 0; margin: 0}
+a {font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #277F7F; text-decoration: none}
+form {margin: 0; padding: 0}
+h1 {font-size: 16px}
+.clear {clear: both; width: 0px; height: 0px}
+.hidden {display: none}
+.show {display: block}
+
+/* ERROR */
+div#errors {width: 694px; background: #FFF url('/images/getsnacked/site/roundTopLong.gif') top left no-repeat; padding-top: 16px; margin: 0 auto 15px auto}
+div#errorContainer {background: #FFF url('/images/getsnacked/site/roundBody.gif') top right repeat-y; overflow: hidden}
+img#errorIcon {float: left; margin-left: 20px; padding: 0 12px 0 0}
+ul#errorList {list-style: none; padding: 0; margin: 0 15px 0 5px; font-weight: bold; color: #FF0000; float: left}
+ul#errorList li.title {font-size: 18px; margin-left: -2px}
+div#errorMessage {float: left}
+div#messageContainer {padding: 0 15px}
+div#errorMessage h1 {margin: 0 0 10px 0; padding: 4px 15px 10px 10px}
+div#errorFooter {background: #FFF url('/images/getsnacked/site/roundBottomLong.gif') bottom left no-repeat; height: 18px}
+
+/* SUCCESS */
+div#successes {width: 694px; background: #FFF url('/images/getsnacked/site/roundTopLong.gif') top left no-repeat; padding-top: 16px; margin: 0 auto 15px auto}
+div#successContainer {background: #FFF url('/images/getsnacked/site/roundBody.gif') top right repeat-y; overflow: hidden}
+img#successIcon {float: left; margin-left: 20px; padding: 0 12px 0 0}
+ul#successList {list-style: none; padding: 0; margin: 0 15px 0 5px; font-weight: bold; float: left}
+ul#successList li.title {font-size: 18px; margin-left: -2px}
+div#successFooter {background: #FFF url('/images/getsnacked/site/roundBottomLong.gif') bottom left no-repeat; height: 18px}
+
+/* HEADER */
+div#header {padding: 10px 0 15px 0; background: url('/images/getsnacked/site/headerShadow.gif') bottom left repeat-x; min-width: 800px; overflow: hidden}
+div#headerWrap {width: 800px; margin: 0 auto; overflow: hidden}
+div#logo {float: left}
+ul#accountOptions {float: right; margin: 0 2px 0 0; padding-right: 5px; background: url('/images/getsnacked/site/!.gif') right top no-repeat; list-style: none}
+ul#accountOptions li {float: left; border-right: 1px dotted #CCC}
+ul#accountOptions li.end {border: 0}
+ul#accountOptions a {display: block; padding: 0 10px}
+div#cart {float: right; position: relative; top: 10px}
+a#view {float: left; background: url('/images/getsnacked/site/cartIcon.gif') 0 2px no-repeat; padding: 0 10px 0 20px}
+div#summary {float: left; padding: 0 10px; border-left: 1px dotted #84BAB6; border-right: 1px dotted #84BAB6}
+a#checkout {float: left; background: url('/images/getsnacked/site/rightArrow.gif') center right no-repeat; padding: 0 25px 0 10px}
+
+/* FOOTER */
+div#footer {text-align: center; padding-top: 30px; background: #FFF url('/images/getsnacked/site/footerShadow.gif') top left repeat-x; min-width: 800px}
+div#footerWrap {width: 800px; margin: 0 auto; overflow: hidden}
+ul#footerMenu {list-style: none; margin: 0 auto; padding: 0; overflow: hidden; width: 533px}
+ul#footerMenu li {float: left; padding: 0 15px; border-right: 1px dotted #84BAB6}
+ul#footerMenu li.end {border: 0}
+div#copyright {margin: 0 auto; margin-top: 20px}
+
+/* BUTTONS */
+a.menuButton {background: url('/images/getsnacked/site/menuButtonRight.gif') top right no-repeat; display: block; padding-right: 27px; float: left; border: 1px solid #EEE; height: 20px}
+a.menuButton img {background: url('/images/getsnacked/site/menuButtonLeft.gif') top left no-repeat; border: 0; cursor: pointer; padding-left: 21px}
+/* ie */
+* html a.menuButton {border: 0}
+
+/* TITLE HEADERS */
+div.titleWrapper {background: url('/images/getsnacked/site/orangeBarLeftLong.gif') top left no-repeat; position: relative}
+div.title {color: #FFF; font-size: 18px; font-weight: bold; padding: 5px 15px; overflow: hidden; background: url('/images/getsnacked/site/orangeBarRight.gif') top right no-repeat; position: relative}
+
+/* ie */
+* html div.title {height: 21px}
+
+/* MAIN DISPLAY BODY */
+div#main {background-color: #85DCFC; min-width: 800px; padding: 20px 0}
+div#mainWrap {width: 800px; margin: 0 auto; overflow: hidden; padding: 0}
+
+/* HOMEPAGE */
+div#home {overflow: hidden}
+
+/* SNACK MENU */
+div#snackMenu {width: 660px; background: url('/images/getsnacked/site/menuLeft.gif') top left no-repeat; padding: 0 0 5px 40px; height: 43px; margin: 3px auto 10px auto}
+div#menuCenter {width: 333px; margin: 11px auto 0 auto; overflow: hidden}
+div#snackMenu a.menuButton {margin-right: 15px}
+div#snackMenuBody {background: url('/images/getsnacked/site/menuBody.gif') -11px bottom repeat-x; height: 38px; width: 656px; float: left; text-align: center}
+div#snackMenuCap {background: url('/images/getsnacked/site/menuRight.gif') bottom right no-repeat; float: left; width: 16px; height: 38px; margin-left: -14px}
+
+/* SNACK AISLE */
+div.snackAisle {width: 694px; overflow: hidden; background: url('/images/getsnacked/site/roundTopLong.gif') top left no-repeat; padding-top: 16px; margin: 0 auto}
+div.snackAisle div.menuButtonWrapper {width: 100px; overflow: hidden; margin: 0 auto}
+div.snackAisle div.snackAisleBody {background: #FFF url('/images/getsnacked/site/roundBody.gif') top right repeat-y; padding: 0 15px; overflow: hidden; float: left; width: 664px}
+div.snackAisle div.snackAisleBottom {background: url('/images/getsnacked/site/roundBottomLong.gif') top left no-repeat; height: 22px; clear: both}
+div.feature {width: 260px; float: left}
+div.feature img.featureImage {width: 260px; height: 240px; display: block; border: 0}
+div.adFeature {width: 129px; height: 170px; float: left; margin: 10px 0 15px 5px}
+div.adFeature img.featureImage {width: 96px; height: 96px; display: block; margin: 0 auto; border: 0}
+div.featureName {margin-top: 5px; width: 100%; text-align: center; height: 45px; overflow: hidden}
+div.addCart {width: 100%; text-align: center}
+
+/* SNACK VIEW */
+div#snackDisplay {overflow: hidden; color: #000}
+div#snackView {width: 548px; overflow: hidden; background: url('/images/getsnacked/site/productTop.gif') top left no-repeat; padding-top: 16px; margin: 0 auto}
+div#snackImage {width: 315px; background: url('/images/getsnacked/site/productImageBody.gif') top right repeat-y; float: left; text-align: center; background-color: #FFF; height: 330px}
+div#snackImage img {height: 330px; width: 280px; border: 0}
+div#snackBrief {width: 233px; height: 330px; background: url('/images/getsnacked/site/productBody.gif') top right repeat-y; float: left; background-color: #FFF}
+div#snackBrief div.titleWrapper {width: 227px; margin: 3px 0 10px 0}
+div#snackBrief div.details {padding: 10px 15px; width: 194px; overflow: hidden; font-size: 13px}
+div#snackImageClose {clear: both;  background: url('/images/getsnacked/site/productImageBottom.gif') top left no-repeat; height: 18px; background-color: #FFF}
+div#snackImageClose div{height: 18px; margin: 0; padding: 0; background: url('/images/getsnacked/site/productBody.gif') top right repeat-y}
+div#snackDetails {background: url('/images/getsnacked/site/productBody.gif') top right repeat-y; background-color: #FFF; width: 540px; float: left; padding: 2px 0 3px 0; overflow: hidden; margin-left: 8px}
+div#snackDetails div.titleWrapper {width: 530px; margin: 3px 0 10px 4px}
+div#snackDetails div.name {width: 300px; float: left}
+div#snackDetails div.add {text-align: right}
+div#snackDetails div.add span.cost {float: right; margin-right: 10px}
+div#snackDetails div.menuButtonWrapper {width: 100px; overflow: hidden; float: right}
+div#snackDetails div#detailsWrapper {padding: 0 15px}
+div#snackDetails div#detailsLeft {float: left; width: 270px; padding: 10px 15px 0 0; font-size: 11px}
+div#snackDetails div#detailsLeft span.title {color: #FFB400; font-size: 16px; font-weight: bold}
+div#snackDetails div#detailsRight {float: left; width: 216px; padding: 10px 0 0 0; font-size: 11px}
+div#snackViewClose {background: url('/images/getsnacked/site/productBottom.gif') 8px top no-repeat; height: 18px; clear: both}
+div#snackDisplay table#nutritionTable {margin-top: 5px}
+div#snackDisplay table#nutritionTable th {background-color: #FFCD54; color: #FFF; padding: 5px 5px}
+div#snackDisplay table#nutritionTable td {color: #000; padding: 3px 5px; border-bottom: 1px dotted #000; font-size: 11px}
+/* ie */
+* html div#snackBrief {height: 333px}
+* html div#snackDetails {background: #FFF url('/images/getsnacked/site/productBody.gif') 534px top repeat-y; margin-left: 4px}
+
+/* CART VIEW */
+div#cartView {font-size: 12px; width: 694px; margin: 0 auto; background: #FFF url('/images/getsnacked/site/roundTopLong.gif') top left no-repeat; padding-top: 16px}
+div#cartView input.updateButton {margin: 0; padding: 0; position: absolute; right: 15px; border: 1px solid #EEE}
+div#cartView input.removeButton {margin: 0; padding: 0; position: relative; top: 5px; border: 1px solid #EEE}
+div#cartView span.left {float: left}
+div#cartView span.right {float: right}
+div#cartView form {display: block; background: #FFF url('/images/getsnacked/site/roundBottomLong.gif') bottom left no-repeat; padding-bottom: 18px}
+div#cartView table {width: 100%; background: #FFF url('/images/getsnacked/site/roundBody.gif') top right repeat-y}
+div#cartView td {font-size: 12px; padding: 0 15px 0 15px}
+div#cartView tr.cartHeader td {color: #FE0000; padding: 7px 15px 5px 15px; font-weight: bold; font-size: 14px; text-decoration: underline}
+div#cartView tr.cartItem td {padding: 3px 15px 5px 15px}
+div#cartView tr.cartAction td {padding-top: 10px}
+div#cartView h1 {margin: 0; padding: 4px 15px 10px 10px}
+div#cartView div#empty {padding: 0 15px 10px 15px}
+div#cartView a#continueShopping {background: url('/images/getsnacked/site/cartIcon.gif') 0 2px no-repeat; padding-left: 19px; float: left}
+div#cartView a#cartCheckout {background: url('/images/getsnacked/site/rightArrow.gif') center right no-repeat; padding-right: 23px; float: right}
+div#cartView table td.leftEnd {padding-left: 30px}
+div#cartView table td.rightEnd {padding-right: 30px}
+div#cartView div#emptyCart {padding: 0 15px 10px 15px; background: #FFF url('/images/getsnacked/site/roundBody.gif') top right repeat-y; overflow: hidden}
+div#cartView p {padding-left: 15px}
+div#cartView div#emptyCartBottom {background: #FFF url('/images/getsnacked/site/roundBottomLong.gif') bottom left no-repeat}
+/* ie */
+* html div#cartView input.updateButton {border: 0}
+* html div#cartView input.removeButton {border: 0}
+
+/* CONTENT */
+div#contentWrapper {width: 694px; background: #FFF url('/images/getsnacked/site/roundTopLong.gif') top left no-repeat; padding-top: 16px; margin: 0 auto}
+div#contentBody {background: #FFF url('/images/getsnacked/site/roundBody.gif') top right repeat-y; overflow: hidden; padding: 0 15px}
+div#contentBody h1 {margin: 0 0 10px 0; padding: 4px 15px 10px 10px}
+div#contentFooter {background: #FFF url('/images/getsnacked/site/roundBottomLong.gif') bottom left no-repeat; height: 18px}
+
+/* VIEW ITEM */
+div#viewItem div#itemImage {background: url('/images/getsnacked/site/menuBody.gif') top right repeat-y; padding-right: 8px}
+div#viewItem div#itemDetails {width: 400px}
+div#viewItem div#itemDetails h1 {margin: 25px 0 0 0; padding: 4px 15px 10px 10px}
+div#viewItem div#itemDescription {padding: 5px 15px 15px 15px}
+div#viewItem div#itemPrice {border-top: 1px dotted #84BAB6; padding: 5px 15px; font-size: 14px}
+
+/* VIEW ITEMS */
+div#viewItems {overflow: hidden}
+
+/* CHECKOUT */
+div#checkoutBody {padding: 0}
+div#checkoutBody div.titleWrapper {width: 670px; margin: 0 auto}
+div#checkoutBody div#formWrapper {width: 694px; margin: 0 auto; background: #FFF url('/images/getsnacked/site/roundTopLong.gif') top left no-repeat; padding-top: 16px; margin: 0 auto}
+div#checkoutBody div#formBody {background: #FFF url('/images/getsnacked/site/roundBody.gif') top right repeat-y}
+div#checkoutBody div#formBottom {background: #FFF url('/images/getsnacked/site/roundBottomLong.gif') bottom left no-repeat; height: 18px}
+div#checkoutBody span.note {color: #FF9900}
+div#checkoutBody h1 {margin: 0; padding: 4px 15px 10px 10px}
+div#checkoutBody form {display: block; margin: 0; padding: 10px 15px 0 15px}
+div#checkoutBody form div.formField {padding: 2px 0; clear: both; overflow: hidden}
+div#checkoutBody form div.formField label {display: block; width: 165px; height: 22px; line-height: 22px; padding-left: 10px; float: left}
+div#checkoutBody form div.formField label span {margin-left: 5px; color: #FF9900}
+div#checkoutBody form div.formField label.normalLabel {}
+div#checkoutBody form div.formField label.errorLabel {color: #FF9900}
+div#checkoutBody form div.formField div.input {float: left}
+div#checkoutBody div#submitRow {text-align: left; margin-top: 5px}
+/* CHECKOUT BILLING */
+div#checkoutBody div#checkMoneyOrderForm {border: 1px dotted #84BAB6; padding: 10px 15px; width: 330px}
+div#checkoutBody div#checkMoneyOrderForm div {padding: 10px 15px}
+/* CHECKOUT SHIPPING ADDRESS */
+div#checkoutBody form div#shippingAddress {float: left}
+/* CHECKOUT CONFIRMATION */
+div#checkoutBody div#cartView {padding: 7px 15px 10px 15px; background: none; width: 670px}
+div#checkoutBody div#cartView table {background: none}
+div#checkoutBody div#addressInfo {width: 600px; margin: 5px; padding-left: 15px; float: left}
+div#checkoutBody div#addressInfo h1 {width: auto}
+div#checkoutBody div#addressInfo div#billingAddress, div#checkoutBody div#addressInfo div#shippingAddress {float: left; width: 250px; margin-right: 5px}
+div#checkoutBody div#addressInfo div.infoContainer {padding: 10px 15px}
+div#checkoutBody div#addressInfo div.titleWrapper {width: 250px}
+div#shippingOption {float: left; margin-right: 1px}
+div#paymentInfo {padding: 10px 15px; width: 400px}
+div#paymentInfo h1 {width: auto !important}
+div#paymentInfo div#paymentDetails, div#paymentInfo div.checkInfo {padding: 10px; 15px}
+div#paymentInfo th {font-size: 12px; text-align: left; padding-right: 10px}
+div#checkoutBody p#authorization {margin: 0; padding: 0 0 15px 15px}
+div#checkoutBody form#authorize {padding: 0; margin-left: 15px}
+/* ie */
+*:first-child+html div#checkoutBody h1 {width: 825px}
+*:first-child+html div#checkoutBody form div.formField label {width: 175px}
+* html div#checkoutBody h1 {width: 825px}
+* html div#checkoutBody form div.formField label {width: 175px}
+
+/* CHECKOUT PROGRESS BAR */
+div#checkoutProgress {width: 660px; background: url('/images/getsnacked/site/menuLeft.gif') top left no-repeat; padding: 0 0 0 40px; height: 43px; margin: 3px auto 10px auto; overflow: hidden}
+div#checkoutProgressBody {background: url('/images/getsnacked/site/menuBody.gif') -11px bottom repeat-x; height: 38px; width: 646px; float: left; text-align: center; overflow: hidden}
+div#checkoutProgressCap {background: url('/images/getsnacked/site/menuRight.gif') bottom right no-repeat; float: right; width: 16px; height: 38px; margin-left: -14px}
+div#checkoutProgress ul#progressList {margin: 12px 0 0 15px; padding: 0; list-style: none; display: block; font-size: 14px; float: left}
+div#checkoutProgress ul#progressList li {float: left; margin-right: 10px}
+div#checkoutProgress ul#progressList li.current {color: #FF9900; font-weight: bold; font-size: 12px; border-bottom: 1px dotted #FF9900}
+div#checkoutProgress ul#progressList li.currentSegue {color: #FF9900; font-weight: bold}
+div#checkoutProgress ul#progressList li.next a {color: #FF9900; font-weight: bold; text-decoration: underline}
+div#checkoutProgress ul#progressList li.nextSegue {color: #DFDFDF; font-weight: bold}
+div#checkoutProgress ul#progressList li.completed {}
+div#checkoutProgress ul#progressList li.completed a {color: #FF0000; font-weight: bold; text-decoration: underline}
+div#checkoutProgress ul#progressList li.completedSegue {color: #FF0000; font-weight: bold}
+div#checkoutProgress ul#progressList li.incomplete {color: #DFDFDF; font-weight: bold; font-size: 12px}
+div#checkoutProgress ul#progressList li.incompleteSegue {color: #DFDFDF; font-weight: bold}
+
+/* CUSTOMER LOGIN */
+div.customerLogin {background-color: #85DCFC}
+div#loginWrapper {width: 100%; text-align: center; margin: 0}
+div#loginContainer {width: 550px; overflow: hidden; background: url('/images/getsnacked/site/roundTop.gif') top left no-repeat; padding-top: 16px; margin: 0 auto}
+div#loginSubcontainer {background: #FFF url('/images/getsnacked/site/roundBody.gif') top right repeat-y; padding: 0 15px; overflow: hidden; float: left; width: 530px; padding: 10px; text-align: center; color: #666666; font-weight: normal}
+div#loginSubcontainer th {text-align: left}
+div#loginSubcontainer a {text-decoration: underline}
+div#loginFooter {background: url('/images/getsnacked/site/roundBottom.gif') top left no-repeat; height: 22px; clear: both; width: 550px; margin: 0 auto}
+div.customerLogin span.button {background: transparent url(/images/main/admin/buttons/mainRight.png) no-repeat right center; padding: 0 7px 0 0; display: block; float: left; margin-bottom: 3px}
+div.customerLogin span.button input {background: transparent url(/images/main/admin/buttons/mainLeft.png) no-repeat left center; height: 25px; line-height: 25px; padding: 0 0 2px 7px; white-space: nowrap; border: 0; cursor: pointer; color: #FFF}
+/* LOGIN ERROR */
+div.customerLogin div#errors {width: 550px; background: #FFF url('/images/getsnacked/site/roundTop.gif') top left no-repeat}
+div.customerLogin div#errorContainer {background: #FFF url('/images/getsnacked/site/roundBody.gif') top right repeat-y}
+div.customerLogin div#errorFooter {background: #FFF url('/images/getsnacked/site/roundBottom.gif') bottom left no-repeat}
+/* LOGIN SUCCESS */
+div.customerLogin div#successes {width: 550px; background: #FFF url('/images/getsnacked/site/roundTop.gif') top left no-repeat}
+div.customerLogin div#successContainer {background: #FFF url('/images/getsnacked/site/roundBody.gif') top right repeat-y}
+div.customerLogin div#successFooter {background: #FFF url('/images/getsnacked/site/roundBottoms.gif') bottom left no-repeat}
+
+/* CUSTOMER REGISTRATION */
+div#registrationContainer {width: 694px; overflow: hidden; background: url('/images/getsnacked/site/roundTopLong.gif') top left no-repeat; padding-top: 16px; margin: 0 auto}
+div#registrationBody {background: #FFF url('/images/getsnacked/site/roundBody.gif') top right repeat-y; padding: 0 15px; overflow: hidden; float: left; width: 664px}
+div#registrationFooter {background: url('/images/getsnacked/site/roundBottomLong.gif') top left no-repeat; height: 22px; clear: both}
+div#registrationBody span.note {color: #FF9900}
+div#registrationBody form {display: block; margin: 0; padding: 10px 15px 0 15px}
+div#registrationBody form div.formField {padding: 2px 0; clear: both; overflow: hidden}
+div#registrationBody form div.formField label {display: block; width: 165px; height: 22px; line-height: 22px; padding-left: 10px; float: left}
+div#registrationBody form div.formField label span {margin-left: 5px; color: #FF9900}
+div#registrationBody form div.formField label.normalLabel {}
+div#registrationBody form div.formField label.errorLabel {color: #FF9900}
+div#registrationBody form div.formField div.input {float: left}
+div#registrationBody div#submitRow {text-align: left; margin-top: 5px}

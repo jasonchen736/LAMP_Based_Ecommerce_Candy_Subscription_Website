@@ -1,0 +1,47 @@
+{include file="site/header.htm"}
+
+		<div id="workingSection" class="customerLogin">
+
+{include file="site/errorMessages.htm"}
+{include file="site/successMessages.htm"}
+
+<div id="loginWrapper">
+	<div id="loginContainer">
+		<div id="loginSubcontainer">
+			<form action="{$smarty.server.PHP_SELF}" method="POST"`>
+				<table style="margin: 0 auto">
+					<tr>
+						<th>
+							Login:
+						</th>
+						<td>
+							<input type="text" name="login" value="{$login}" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Password:&nbsp;&nbsp;
+						</th>
+						<td>
+							<input type="password" name="pass" value="{$pass}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="hidden" name="action" value="login" />
+							<span class="button">
+								<input type="submit" name="submit" value="Login" />
+							</span>
+						</td>
+						<td>
+							<a href="/customer/register">Sign up for a customer account</a>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+	<div id="loginFooter">&nbsp;</div>
+</div>
+
+{include file="site/footer.htm"}

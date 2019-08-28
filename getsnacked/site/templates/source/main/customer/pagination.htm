@@ -1,0 +1,63 @@
+
+<br />
+<table class="recordsNavigation">
+	<tr>
+		<th>
+			<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+				<table>
+					<tr>
+						<td>
+							<span class="mainText">Show <input type="text" name="_show" value="{$show}" size="1"> records</span>
+						</td>
+						<td>
+							<span class="button">
+								<input type="submit" name="submit" value="Update" />
+							</span>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</th>
+{if $start > 0}
+		<th>
+			<a href="{$smarty.server.PHP_SELF}/_previousPage/true{if $querystring}/{$querystring}{/if}" class="button">
+				<span>Previous Page</span>
+			</a>
+		</th>
+{/if}
+{if $recordsFound > $show}
+		<th>
+			<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+				<table>
+					<tr>
+						<td>
+							<span class="mainText">Skip to page&nbsp;</span>
+							<select name="_page">
+{section name=pages start=1 loop=$pages+1 step=1}
+								<option value="{$smarty.section.pages.index}"{if $smarty.section.pages.index==$page} selected="selected"{/if}>{$smarty.section.pages.index}</option>
+{/section}
+							</select>
+						</td>
+						<td>
+							<span class="button">
+								<input type="submit" name="submit" value="Go" />
+							</span>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</th>
+{/if}
+{if $start + $show < $recordsFound}
+		<th>
+			<a href="{$smarty.server.PHP_SELF}/_nextPage/true{if $querystring}/{$querystring}{/if}" class="button">
+				<span>Next Page</span>
+			</a>
+		</th>
+{/if}
+	</tr>
+</table>
+<br />
+{if $recordsFound > 0}
+	Showing  {math equation='x + y' x=1 y=$start} to {if $start + $show > $recordsFound}{$recordsFound}{else}{math equation='x + y' x=$show y=$start}{/if} of {$recordsFound}
+{/if}

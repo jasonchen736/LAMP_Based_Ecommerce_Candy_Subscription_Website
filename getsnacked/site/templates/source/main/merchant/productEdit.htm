@@ -1,0 +1,229 @@
+{include file="merchant/header.htm"}
+
+{literal}
+<script type="text/javascript">
+	$(function() {
+		$('#addImage').click(function() {
+			$('#imageList').append($('#imageFields > table > tbody').html());
+			attachRemoveImage();
+			return false;
+		});
+		attachRemoveImage();
+		$('.imagePreview').cluetip({width: 'auto', positionBy: 'mouse'});
+		$('a.previewImage').cluetip({width: 'auto', positionBy: 'mouse', ajaxCache: false, cluetipClass: 'rounded'});
+	});
+	function attachRemoveImage() {
+		$('.removeImage').unbind();
+		$('.removeImage').click(function() {
+			$(this).parent().parent().remove();
+			return false;
+		});
+	}
+</script>
+{/literal}
+
+{include file="merchant/successMessages.htm"}
+{include file="merchant/errorMessages.htm"}
+
+<form action="{$smarty.server.PHP_SELF}" method="post" enctype="multipart/form-data">
+	<table id="editTable">
+		<tr>
+			<td id="editMenuCell">
+				<ul id="editMenu">
+					<li class="head">&nbsp;</li>
+					<li class="editMenuOption{if !$propertyMenuItem || $propertyMenuItem == 'product_main'} selected{/if}" id="product_main">Product Details</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'product_descriptions'} selected{/if}" id="product_descriptions">Product Descriptions</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'product_images'} selected{/if}" id="product_images">Product Images</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'product_tags'} selected{/if}" id="product_tags">Product Tags</li>
+					<li class="end">&nbsp;</li>
+				</ul>
+				<div id="editActionContainer">
+{if $mode == 'edit'}
+					<input type="hidden" name="action" value="updateProduct" />
+					<input type="hidden" name="productID" value="{$product.productID}" />
+					<span class="button">
+						<input type="submit" name="submit" value="Update" />
+					</span>
+{else}
+					<input type="hidden" name="action" value="saveProduct" />
+					<span class="button">
+						<input type="submit" name="submit" value="Add and Edit" />
+					</span>
+					<br class="clear" />
+					<span class="button">
+						<input type="submit" name="submit" value="Add Another" />
+					</span>
+{/if}
+				</div>
+			</td>
+			<td id="editPropertyCell">
+				<div id="product_mainContainer" class="propertyContainer{if $propertyMenuItem && $propertyMenuItem != 'product_main'} hidden{/if}">
+					<table>
+						<tr>
+							<td><span class="{if 'name'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Product Name:</span>&nbsp;</td>
+							<td><input type="text" name="name" value="{$product.name}" style="width: 250px" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'availability'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Availability:</span>&nbsp;</td>
+							<td>{html_options name=availability options=$availabilityOptions selected=$product.availability}</td>
+						</tr>
+						<tr>
+							<td><span class="{if 'cost'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Cost:</span>&nbsp;</td>
+							<td><input type="text" name="cost" value="{$product.cost}" style="width: 50px" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'weight'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Weight:</span>&nbsp;</td>
+							<td><input type="text" name="weight" value="{$product.weight}" style="width: 50px" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'length'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Length:</span>&nbsp;</td>
+							<td><input type="text" name="length" value="{$product.length}" style="width: 50px" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'width'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Width:</span>&nbsp;</td>
+							<td><input type="text" name="width" value="{$product.width}" style="width: 50px" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'height'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Height:</span>&nbsp;</td>
+							<td><input type="text" name="height" value="{$product.height}" style="width: 50px" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'quantity'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Quantity:</span>&nbsp;</td>
+							<td><input type="text" name="quantity" value="{$quantity}" style="width: 50px" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'sortWeight'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Sort Weight:</span>&nbsp;</td>
+							<td><input type="text" name="sortWeight" value="{$product.sortWeight}" style="width: 50px" /></td>
+						</tr>
+					</table>
+				</div>
+				<div id="product_descriptionsContainer" class="propertyContainer{if $propertyMenuItem != 'product_descriptions'} hidden{/if}">
+					<table>
+						<tr>
+							<td>
+								<span class="{if 'shortDescription'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Brief Description:</span><br />
+								<textarea name="shortDescription" cols="120" rows="2">{$product.shortDescription}</textarea>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="{if 'description'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Full Description:</span><br />
+								<textarea name="description" cols="120" rows="25">{$product.description}</textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="product_imagesContainer" class="propertyContainer{if $propertyMenuItem != 'product_images'} hidden{/if}">
+					<a href="#" class="greenPlus" id="addImage">Add Image</a>
+					<table>
+						<tbody id="imageList">
+{section name=image loop=$product.imagesSmall+1 start=1}
+							<tr>
+								<td>
+									<a href="#" class="removeImage redX">&nbsp;</a>									
+								</td>
+								<td>
+									<input type="file" name="productImages[]" />
+								</td>
+								<td>
+									<select name="productImagesSizes[]">
+										<option value="small">Small</option>
+										<option value="medium">Medium</option>
+										<option value="large">Large</option>
+									</select>
+									<input type="hidden" name="productImagesExistingSize[]" value="small" />
+									<input type="hidden" name="productImagesExistingIndex[]" value="{$smarty.section.image.index}" />
+									&nbsp;
+									<a href="{$smarty.server.PHP_SELF}/action/previewImage/size/small/file/{$product.productID}_{$smarty.section.image.index}" class="previewImage" rel="{$smarty.server.PHP_SELF}/action/previewImage/size/small/file/{$product.productID}_{$smarty.section.image.index}" title="Small Image {$smarty.section.image.index}">
+										Preview
+									</a>
+								</td>
+							</tr>
+{/section}
+{section name=image loop=$product.imagesMedium+1 start=1}
+							<tr>
+								<td>
+									<a href="#" class="removeImage redX">&nbsp;</a>									
+								</td>
+								<td>
+									<input type="file" name="productImages[]" />
+								</td>
+								<td>
+									<select name="productImagesSizes[]">
+										<option value="small">Small</option>
+										<option value="medium" selected="selected">Medium</option>
+										<option value="large">Large</option>
+									</select>
+									<input type="hidden" name="productImagesExistingSize[]" value="medium" />
+									<input type="hidden" name="productImagesExistingIndex[]" value="{$smarty.section.image.index}" />
+									&nbsp;
+									<a href="{$smarty.server.PHP_SELF}/action/previewImage/size/medium/file/{$product.productID}_{$smarty.section.image.index}" class="previewImage" rel="{$smarty.server.PHP_SELF}/action/previewImage/size/medium/file/{$product.productID}_{$smarty.section.image.index}" title="Medium Image {$smarty.section.image.index}">
+										Preview
+									</a>
+								</td>
+							</tr>
+{/section}
+{section name=image loop=$product.imagesLarge+1 start=1}
+							<tr>
+								<td>
+									<a href="#" class="removeImage redX">&nbsp;</a>									
+								</td>
+								<td>
+									<input type="file" name="productImages[]" />
+								</td>
+								<td>
+									<select name="productImagesSizes[]">
+										<option value="small">Small</option>
+										<option value="medium">Medium</option>
+										<option value="large" selected="selected">Large</option>
+									</select>
+									<input type="hidden" name="productImagesExistingSize[]" value="large" />
+									<input type="hidden" name="productImagesExistingIndex[]" value="{$smarty.section.image.index}" />
+									&nbsp;
+									<a href="{$smarty.server.PHP_SELF}/action/previewImage/size/large/file/{$product.productID}_{$smarty.section.image.index}" class="previewImage" rel="{$smarty.server.PHP_SELF}/action/previewImage/size/large/file/{$product.productID}_{$smarty.section.image.index}" title="Large Image {$smarty.section.image.index}">
+										Preview
+									</a>
+								</td>
+							</tr>
+{/section}
+						</tbody>
+					</table>
+				</div>
+				<div id="product_tagsContainer" class="propertyContainer{if $propertyMenuItem != 'product_tags'} hidden{/if}">
+					<select name="productTags[]" multiple="multiple" style="width: 250px; height: 450px">
+{foreach from=$productTags item=tag}
+						<option value="{$tag}"{if in_array($tag, $tags)} selected="selected"{/if}>{$tag}</option>
+{/foreach}
+					</select>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="propertyMenuItem" id="propertyMenuItem" value="{$propertyMenuItem}" />
+</form>
+
+<div id="imageFields" class="hidden">
+	<table>
+		<tbody>
+			<tr>
+				<td>
+					<a href="#" class="removeImage redX">&nbsp;</a>
+				</td>
+				<td>
+					<input type="file" name="productImages[]" />
+				</td>
+				<td>
+					<select name="productImagesSizes[]">
+						<option value="small">Small</option>
+						<option value="medium">Medium</option>
+						<option value="large">Large</option>
+					</select>
+					<input type="hidden" name="productImagesExistingSize[]" value="false" />
+					<input type="hidden" name="productImagesExistingIndex[]" value="false" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+{include file="merchant/footer.htm"}

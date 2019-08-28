@@ -1,0 +1,5 @@
+<?
+
+	adminCore::logout();
+
+?>

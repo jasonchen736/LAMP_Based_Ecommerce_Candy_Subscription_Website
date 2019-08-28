@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+	<title>{$_SITENAME} Customer Center</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<style type="text/css" media="all">@import url(/css/{$_SOURCEDIR}/site/main.css);</style>
+	<style type="text/css" media="all">@import url(/css/{$_SOURCEDIR}/customer/customer.css);</style>
+	<script type="text/javascript" language="JavaScript" src="/js/calendar/calendar.js"></script>
+	<script type="text/javascript" language="JavaScript" src="/js/calendar/lang/calendar-en.js"></script>
+	<script type="text/javascript" language="JavaScript" src="/js/calendar/calendar-setup.js"></script>
+	<link href="/js/calendar/calendar-win2k-cold-1.css" type="text/css" rel="stylesheet">
+	
+	<script type="text/javascript" language="JavaScript" src="/js/jquery/jquery-1.2.1.pack.js"></script>
+	<script type="text/javascript" language="JavaScript" src="/js/jquery/plugins/jquery.dimensions.js"></script>
+	<script type="text/javascript" language="JavaScript" src="/js/jquery/plugins/jquery.jdMenu.packed.js"></script>
+	
+	<script type="text/javascript" language="JavaScript" src="/js/jquery/plugins/cluetip/jquery.cluetip.js"></script>
+	<link rel="stylesheet" type="text/css" href="/js/jquery/plugins/cluetip/jquery.cluetip.css" />
+	
+	<script type="text/javascript" language="JavaScript" src="/js/jquery/plugins/autocomplete/auto.complete.js"></script>
+	<link rel="stylesheet" type="text/css" href="/js/jquery/plugins/autocomplete/auto.complete.css" />
+	
+	<script type="text/javascript" language="JavaScript" src="/js/{$_SOURCEDIR}/customer/customer.js"></script>
+</head>
+
+<body>
+
+	<div id="header">
+		<div id="logo">
+			<a href="/customer"><img src="/images/{$_SOURCEDIR}/site/logo.gif" border="0" /></a>
+		</div>
+{if $customerInfo.id}
+		<div id="customerHeaderOptions">
+			<a href="/customer/logout">Logout</a>
+		</div>
+{/if}
+	</div>
+	<div id="customerBody">
+{if $customerInfo.id}
+		<div id="menuSection">
+			<ul id="customerMenu" class="jd_menu">
+				<li>
+					<a href="/customer/ordersManagement">Orders</a>
+				</li>
+				<li class="menuSeparator">|</li>
+				<li>
+					<a href="/customer/accountManagement">Account Management</a>
+					<ul>
+						<li>
+							<a href="/customer/accountManagement">Account Information</a>
+						</li>
+						<li>
+							<a href="/customer/accountManagement/action/editAccount">Edit Account Information</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<div class="clear">&nbsp;</div>
+		</div>
+{/if}
+		<div id="workingSection">

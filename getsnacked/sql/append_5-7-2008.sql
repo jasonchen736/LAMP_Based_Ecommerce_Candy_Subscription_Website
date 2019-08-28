@@ -1,0 +1,2 @@
+ALTER TABLE `shippingOptions` ADD COLUMN `rateType` ENUM('flat', 'per package', 'per pound') NOT NULL AFTER `rate`;
+ALTER TABLE `shippingOptionsHistory` ADD COLUMN `rateType` ENUM('flat', 'per package', 'per pound') NOT NULL AFTER `rate`;

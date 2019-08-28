@@ -1,0 +1,132 @@
+{include file="customer/header.htm"}
+
+{literal}
+<style>
+	div#orderDetails div {}
+		div#orderDetails div p {padding: 0 10px; margin-top: 0}
+	div#orderDetails div#orderID {padding: 10px 10px 0 10px; width: 250px}
+	div#orderDetails div#shipTo {padding: 10px 10px 0 10px; width: 250px; float: left}
+	div#orderDetails div#billTo {padding: 10px 10px 0 10px; width: 250px; float: left}
+	div#orderDetails div#orderPaymentInformation {padding: 10px; float: left}
+	div#orderDetails div#orderInformation {padding: 10px; float: left}
+	div#orderDetails div#orderItems {padding: 10px; float: left}
+		div#orderDetails div#orderItems tr.orderItem td {padding: 0 10px}
+	div#orderDetails td.summaryLabel {padding: 0 0 5px 0; border-bottom: 1px dashed #34BAB6; font-weight: bold; font-size: 14px; color: #34BAB6}
+	div#orderDetails td.summaryAmount {padding: 0 10px; border-bottom: 1px dashed #34BAB6}
+</style>
+{/literal}
+
+<div id="orderDetails">
+	<div id="orderID">
+		<h1>Order Number</h1>
+		<p>{$order.orderID}</p>
+	</div>
+	<div id="shipTo">
+		<h1>Shipping Address:</h1>
+		<p>
+			{$shippingAddress.first}&nbsp;{$shippingAddress.last}
+			<br />
+			{$shippingAddress.address1}
+{if $shippingAddress.address2}
+			<br />
+			{$shippingAddress.address2}
+{/if}
+			<br />
+			{$shippingAddress.city}, {$shippingAddress.state} {$shippingAddress.postal}
+{if $shippingAddress.country != 'USA'}
+			<br />
+			{$shippingAddress.country}
+{/if}
+		</p>
+	</div>
+	<div id="billTo">
+		<h1>Billing Address:</h1>
+		<p>
+			{$billingAddress.first}&nbsp;{$billingAddress.last}
+			<br />
+			{$billingAddress.address1}
+{if $billingAddress.address2}
+			<br />
+			{$billingAddress.address2}
+{/if}
+			<br />
+			{$billingAddress.city}, {$billingAddress.state} {$billingAddress.postal}
+{if $billingAddress.country != 'USA'}
+			<br />
+			{$billingAddress.country}
+{/if}
+		</p>
+	</div>
+	<br class="clear" />
+	<div id="orderPaymentInformation">
+		<h1>Payment Method:</h1>
+		<p>
+{if $paymentMethod.paymentMethod == 'cc'}
+			{$paymentMethod.ccType} ending in {$paymentMethod.accNum_LastFour}
+{elseif $paymentMethod.paymentMethod == 'echeck'}
+			{$paymentMethod.bName} eCheck
+			<br />
+			Account ending in {$paymentMethod.accNum_LastFour}
+{elseif $paymentMethod.paymentMethod == 'checkmoneyorder'}
+			Check or Money Order
+{else}
+			Unable to retrieve payment method
+{/if}
+		</p>
+	</div>
+	<br class="clear" />
+	<div id="orderInformation">
+		<table>
+			<tr>
+				<td><h1>Order Date</h1></td>
+				<td><h1>Order Status</h1></td>
+				<td><h1>Shipping Method</h1></td>
+			</tr>
+			<tr>
+				<td><p>{$order.orderDate|date_format:"%m/%d/%Y"}</p></td>
+				<td><p>{$order.orderStatus}</p></td>
+				<td><p>{$shippingMethod}</p></td>
+			</tr>
+		</table>
+	</div>
+	<br class="clear" />
+	<div id="orderItems">
+		<table>
+			<tr>
+				<td><h1>Quantity</h1></td>
+				<td width="60%"><h1>Description</h1></td>
+				<td align="right"><h1>Unit Price</h1></td>
+				<td align="right"><h1>Total</h1></td>
+			</tr>
+{foreach from=$items item=product}
+			<tr class="orderItem">
+				<td>{$product.quantity}</td>
+				<td>{$product.name}</td>
+				<td align="right">${$product.cost|string_format:"%.2f"}</td>
+				<td align="right">${$product.cost*$product.quantity|string_format:"%.2f"}</td>
+			</tr>
+{/foreach}
+			<tr><td colspan="4">&nbsp;</td></tr>
+			<tr>
+				<td colspan="2">&nbsp;</td>
+				<td class="summaryLabel">Shipping</td>
+				<td align="right" class="summaryAmount">${$order.shippingCost|string_format:"%.2f"}</td>
+			</tr>
+{if $order.discount > 0}
+			<tr>
+				<td colspan="2">&nbsp;</td>
+				<td class="summaryLabel">Discount</td>
+				<td align="right" class="summaryAmount">${$order.discount|string_format:"%.2f"}</td>
+			</tr>
+{/if}
+			<tr>
+				<td colspan="2">&nbsp;</td>
+				<td class="summaryLabel">Final Cost</td>
+				<td align="right" class="summaryAmount">${$order.totalCost|string_format:"%.2f"}</td>
+			</tr>
+		</table>
+	</div>
+	<br class="clear" />
+</div>
+
+{include file="customer/footer.htm"}

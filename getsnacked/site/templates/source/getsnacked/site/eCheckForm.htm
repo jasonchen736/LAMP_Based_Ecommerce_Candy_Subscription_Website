@@ -1,0 +1,36 @@
+		<div id="eCheckForm"{if $paymentMethod.paymentMethod != 'echeck'} style="display: none"{/if}>
+			<div class="formFieldContainer">
+				<span class="formLabel2 {if 'bAccName'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Name on Bank Account
+				</span>
+				<input type="text" name="bAccName" id="bAccName" value="{$paymentMethod.bAccName}">
+			</div>
+			<div class="formFieldContainer">
+				<span class="formLabel2 {if 'aba'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Routing (ABA) Number
+				</span>
+				<input type="text" name="aba" id="aba" value="{$paymentMethod.aba}">
+			</div>
+			<div class="formFieldContainer">
+				<span class="formLabel2 {if 'bName'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Bank Name
+				</span>
+				<input type="text" name="bName" id="bName" value="{$paymentMethod.bName}">
+			</div>
+			<div class="formFieldContainer">
+				<span class="formLabel2 {if 'accType'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Type of Account
+				</span>
+				<select name="accType" id="accType">
+					<option value="CHECKING"{if $paymentMethod.accType == 'CHECKING'} selected="selected"{/if}>Checking</option>
+					<option value="SAVINGS"{if $paymentMethod.accType == 'SAVINGS'} selected="selected"{/if}>Savings</option>
+					<option value="BUSINESSCHECKING"{if $paymentMethod.accType == 'BUSINESSCHECKING'} selected="selected"{/if}>Business Checking</option>
+				</select>
+			</div>
+			<div class="formFieldContainer">
+				<span class="formLabel2 {if 'accNum'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Account Number
+				</span>
+				<input type="text" name="accNum" id="accNum" value="{$paymentMethod.accNum}">
+			</div>
+		</div>

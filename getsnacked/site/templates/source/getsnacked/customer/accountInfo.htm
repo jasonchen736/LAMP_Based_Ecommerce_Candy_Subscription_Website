@@ -1,0 +1,31 @@
+{include file="customer/header.htm"}
+
+<div id="accountInfo">
+	<h1>Account Information</h1>
+	<div id="customerInfo">
+		<table>
+			<tr>
+				<th>First Name</th>
+				<td>{$member.first}</td>
+				<td rowspan="11" class="editInfo">
+					<a href="{$smarty.server.PHP_SELF}/merchant/accountManagement/action/editAccount" class="button">
+						<span>Edit Account Information</span>
+					</a>
+				</td>
+			</tr>
+			<tr><th>Last Name</th><td>{$member.last}</td></tr>
+			<tr><th>Phone</th><td>{$member.phone}</td></tr>
+			<tr><th>Fax</th><td>{$memberBusinessInfo.fax}</td></tr>
+			<tr><th>Email</th><td>{$member.email}</td></tr>
+			<tr><th>Address 1</th><td>{$member.address1}</td></tr>
+			<tr><th>Address 2</th><td>{$member.address2}</td></tr>
+			<tr><th>City</th><td>{$member.city}</td></tr>
+			<tr><th>State or Province</th><td>{$state}</td></tr>
+			<tr><th>Postal</th><td>{$member.postal}</td></tr>
+			<tr><th>Country</th><td>{$country}</td></tr>
+		</table>
+	</div>
+	<br class="clear" />
+</div>
+
+{include file="customer/footer.htm"}

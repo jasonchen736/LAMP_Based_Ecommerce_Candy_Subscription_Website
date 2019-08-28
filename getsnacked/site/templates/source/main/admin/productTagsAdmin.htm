@@ -1,0 +1,63 @@
+{include file="admin/adminHeader.htm"}
+
+{include file="admin/messageSection.htm"}
+
+<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+	<table>
+		<tr>
+			<td>
+				<span class="button">
+					<input type="submit" name="submit" value="Add Tag" />
+				</span>
+			</td>
+			<td>
+				<input type="text" name="tag" value="" />
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="action" value="addTag" />
+</form>
+
+<br class="clear" />
+
+{include file="admin/pagination.htm"}
+
+<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+
+	<input type="hidden" name="search" value="true">
+
+	<table class="recordsTable">
+
+		<tr class="recordsHeader">
+			<td>Action</td>
+			<td>Tag</td>
+		</tr>
+
+		<tr class="recordSearchHeader">
+			<td>
+				<span class="button">
+					<input type="reset" value="Reset" />
+				</span>
+				<br class="clear" />
+				<span class="button">
+					<input type="submit" name="submitSearch" value="Search" />
+				</span>
+			</td>
+			<td>
+				<input type="text" name="tag" value="{$search.tag.value}" style="width: 200px" />
+				<input type="hidden" name="tag_operator" value="contains" />
+			</td>
+		</tr>
+
+{section name=record loop=$records}
+		<tr class="{cycle values="recordsRowAlpha,recordsRowBeta"}">
+			<td style="text-align: center"><a href="/admin/productTagsManagement/action/removeTag/tag/{$records[record].tagID}" class="redX">&nbsp;</a></td>
+			<td>{$records[record].tag}</td>
+		</tr>
+{/section}
+
+	</table>
+
+</form>
+
+{include file="admin/adminFooter.htm"}

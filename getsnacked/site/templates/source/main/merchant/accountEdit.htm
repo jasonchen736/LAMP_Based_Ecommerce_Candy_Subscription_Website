@@ -1,0 +1,136 @@
+{include file="merchant/header.htm"}
+
+{include file="merchant/successMessages.htm"}
+{include file="merchant/errorMessages.htm"}
+
+<form action="{$smarty.server.PHP_SELF}" method="post">
+	<table id="editTable">
+		<tr>
+			<td id="editMenuCell">
+				<ul id="editMenu">
+					<li class="head">&nbsp;</li>
+					<li class="editMenuOption{if !$propertyMenuItem || $propertyMenuItem == 'merchant_businessInfo'} selected{/if}" id="merchant_businessInfo">Merchant Business Information</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'merchant_contactInfo'} selected{/if}" id="merchant_contactInfo">Merchant Contact Information</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'merchant_password'} selected{/if}" id="merchant_password">Change Password</li>
+					<li class="end">&nbsp;</li>
+				</ul>
+				<div id="editActionContainer">
+					<input type="hidden" name="action" value="updateAccount" />
+					<span class="button">
+						<input type="submit" name="submit" value="Update Account" />
+					</span>
+				</div>
+			</td>
+			<td id="editPropertyCell">
+				<div id="merchant_businessInfoContainer" class="propertyContainer{if $propertyMenuItem && $propertyMenuItem != 'merchant_businessInfo'} hidden{/if}">
+					<table>
+						<tr>
+							<td><span class="{if 'company'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Business Name:</span></td>
+							<td><input type="text" name="company" value="{$memberBusinessInfo.company}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'fax'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Fax:</span></td>
+							<td><input type="text" name="fax" value="{$memberBusinessInfo.fax}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'website'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Website:</span></td>
+							<td><input type="text" name="website" value="{$memberBusinessInfo.website}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'taxID'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Tax ID:</span></td>
+							<td><input type="text" name="taxID" value="{$memberBusinessInfo.taxID}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'industry'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Industry:</span></td>
+							<td><input type="text" name="industry" value="{$memberBusinessInfo.industry}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'description'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Business Description:</span></td>
+							<td><textarea name="description" rows="5" cols="40">{$memberBusinessInfo.description}</textarea></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'payTo'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Pay To:</span></td>
+							<td>
+								{html_options name=payTo options=$payToOptions selected=$memberBusinesInfo.payTo}
+							</td>
+						</tr>
+						<tr>
+							<td><span class="{if 'im'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Instant Messenger:</span></td>
+							<td><input type="text" name="im" value="{$memberBusinessInfo.im}" /></td>
+						</tr>
+					</table>
+				</div>
+				<div id="merchant_contactInfoContainer" class="propertyContainer{if $propertyMenuItem != 'merchant_contactInfo'} hidden{/if}">
+					<table>
+						<tr>
+							<td><span class="{if 'first'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">First Name:</span></td>
+							<td><input type="text" name="first" value="{$member.first}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'last'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Last Name:</span></td>
+							<td><input type="text" name="last" value="{$member.last}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'phone'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Phone:</span></td>
+							<td><input type="text" name="phone" value="{$member.phone}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'email'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Email:</span></td>
+							<td><input type="text" name="email" value="{$member.email}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'address1'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Address 1:</span></td>
+							<td><input type="text" name="address1" value="{$member.address1}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'address2'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Address 2:</span></td>
+							<td><input type="text" name="address2" value="{$member.address2}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'city'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">City:</span></td>
+							<td><input type="text" name="city" value="{$member.city}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'state'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">State or Province:</span></td>
+							<td>
+								{html_options name=state options=$stateOptions selected=$member.state}
+								or
+								<input type="text" name="province" value="{$member.state}" />
+							</td>
+						</tr>
+						<tr>
+							<td><span class="{if 'postal'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Postal Code:</span></td>
+							<td><input type="text" name="postal" value="{$member.postal}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'country'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Country:</span></td>
+							<td>
+								{html_options name=country options=$countryOptions selected=$member.country}
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="merchant_passwordContainer" class="propertyContainer{if $propertyMenuItem != 'merchant_password'} hidden{/if}">
+					<table>
+						<tr>
+							<td><span class="{if 'currentPassword'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Current Password:</span></td>
+							<td><input type="password" name="currentPassword" value="" /></td>
+						</tr>
+						<tr><td colspan="2">&nbsp;</td></tr>
+						<tr>
+							<td><span class="{if 'newPassword'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">New Password:</span></td>
+							<td><input type="password" name="newPassword" value="" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'confirmPassword'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Confirm New Password:</span></td>
+							<td><input type="password" name="confirmPassword" value="" /></td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="propertyMenuItem" id="propertyMenuItem" value="{$propertyMenuItem}" />
+</form>
+
+{include file="merchant/footer.htm"}

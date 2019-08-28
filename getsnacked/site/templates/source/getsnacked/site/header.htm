@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<title>{$_SITENAME}</title>
+	<link rel="SHORTCUT ICON" href="http://{$smarty.server.HTTP_HOST}/images/getsnacked/site/favicon.ico" type="image/x-icon" />
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<style type="text/css" media="all">@import url(/css/{$_SOURCEDIR}/site/main.css);</style>
+	<script type="text/javascript" language="JavaScript" src="/js/{$_SOURCEDIR}/site/main.js"></script>
+{if !empty($__styles)}
+	{foreach from=$__styles item=__style}
+		{$__style}
+	{/foreach}
+{/if}
+{if !empty($__scripts)}
+	{foreach from=$__scripts item=__script}
+		{$__script}
+	{/foreach}
+{/if}
+</head>
+
+<body>
+
+	<div id="header">
+		<div id="headerWrap">
+			<div id="logo">
+				<a href="/"><img src="/images/{$_SOURCEDIR}/site/logo.gif" border="0" /></a>
+			</div>
+			<ul id="accountOptions">
+{if $customerLoggedIn}
+				<li><a href="/customer">My Account</a></li>
+				<li class="end"><a href="/customer/logout">Log Out</a></li>
+{else}
+				<li class="end"><a href="/customer/login">Log In</a></li>
+{/if}
+			</ul>
+			<br /><br />
+			<div id="cart">
+				<a href="/cart/view" id="view">Shopping Cart</a>
+				<div id="summary">{$_CART.itemCount|string_format:"%d"}&nbsp;item(s)&nbsp;${$_CART.subTotal|string_format:"%.2f"}</div>
+				<a href="{$_CHECKOUT.nextStep}" id="checkout">Checkout</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="main">
+		<div id="mainWrap">

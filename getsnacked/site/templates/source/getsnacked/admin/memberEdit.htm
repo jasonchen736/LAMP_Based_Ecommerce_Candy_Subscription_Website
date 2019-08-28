@@ -1,0 +1,176 @@
+{include file="admin/adminHeader.htm"}
+
+{literal}
+<script type="text/javascript">
+	$(function() {
+		$('#selectSites').click(function() {
+			$('#sites option').attr('selected', 'selected');
+		});
+		$('#deselectSites').click(function() {
+			$('#sites option').attr('selected', '');
+		});
+		$('#selectGroups').click(function() {
+			$('#groups option').attr('selected', 'selected');
+		});
+		$('#deselectGroups').click(function() {
+			$('#groups option').attr('selected', '');
+		});
+	});
+</script>
+{/literal}
+
+<form action="{$smarty.server.PHP_SELF}" method="post">
+	<table id="editTable">
+		<tr>
+			<td id="editMenuCell">
+				<ul id="editMenu">
+					<li class="head">&nbsp;</li>
+					<li class="editMenuOption{if !$propertyMenuItem || $propertyMenuItem == 'member_main'} selected{/if}" id="member_main">Member Details</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'member_businessInfo'} selected{/if}" id="member_businessInfo">Member Business Information</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'member_groups'} selected{/if}" id="member_groups">Member Groups</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'member_sites'} selected{/if}" id="member_sites">Member Websites</li>
+					<li class="end">&nbsp;</li>
+				</ul>
+				<div id="editActionContainer">
+{if $mode == 'edit'}
+					<input type="hidden" name="action" value="updateMember" />
+					<input type="hidden" name="memberID" value="{$member.memberID}" />
+					<span class="button">
+						<input type="submit" name="submit" value="Update" />
+					</span>
+{else}
+					<input type="hidden" name="action" value="saveMember" />
+					<span class="button">
+						<input type="submit" name="submit" value="Add and Edit" />
+					</span>
+					<br class="clear" />
+					<span class="button">
+						<input type="submit" name="submit" value="Add Another" />
+					</span>
+{/if}
+				</div>
+			</td>
+			<td id="editPropertyCell">
+				<div id="member_mainContainer" class="propertyContainer{if $propertyMenuItem && $propertyMenuItem != 'member_main'} hidden{/if}">
+					<table>
+						<tr>
+							<td><span class="{if 'first'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">First Name:</span></td>
+							<td><input type="text" name="first" value="{$member.first}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'last'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Last Name:</span></td>
+							<td><input type="text" name="last" value="{$member.last}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'phone'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Phone:</span></td>
+							<td><input type="text" name="phone" value="{$member.phone}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'email'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Email:</span></td>
+							<td><input type="text" name="email" value="{$member.email}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'password'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Password:</span></td>
+							<td><input type="text" name="password" value="{$member.password}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'address1'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Address 1:</span></td>
+							<td><input type="text" name="address1" value="{$member.address1}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'address2'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Address 2:</span></td>
+							<td><input type="text" name="address2" value="{$member.address2}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'city'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">City:</span></td>
+							<td><input type="text" name="city" value="{$member.city}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'state'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">State or Province:</span></td>
+							<td>
+								{html_options name=state options=$stateOptions selected=$member.state}
+								or
+								<input type="text" name="province" value="{$member.state}" />
+							</td>
+						</tr>
+						<tr>
+							<td><span class="{if 'postal'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Postal Code:</span></td>
+							<td><input type="text" name="postal" value="{$member.postal}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'country'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Country:</span></td>
+							<td>
+								{html_options name=country options=$countryOptions selected=$member.country}
+							</td>
+						</tr>
+						<tr>
+							<td><span class="{if 'status'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Member Status:</span></td>
+							<td>
+								{html_options name=status options=$statusOptions selected=$member.status}
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="member_businessInfoContainer" class="propertyContainer{if $propertyMenuItem != 'member_businessInfo'} hidden{/if}">
+					<table>
+						<tr>
+							<td><span class="{if 'company'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Business Name:</span></td>
+							<td><input type="text" name="company" value="{$memberBusinessInfo.company}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'fax'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Fax:</span></td>
+							<td><input type="text" name="fax" value="{$memberBusinessInfo.fax}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'website'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Website:</span></td>
+							<td><input type="text" name="website" value="{$memberBusinessInfo.website}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'taxID'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Tax ID:</span></td>
+							<td><input type="text" name="taxID" value="{$memberBusinessInfo.taxID}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'industry'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Industry:</span></td>
+							<td><input type="text" name="industry" value="{$memberBusinessInfo.industry}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'description'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Business Description:</span></td>
+							<td><textarea name="description" rows="5" cols="40">{$memberBusinessInfo.description}</textarea></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'payTo'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Pay To:</span></td>
+							<td>
+								{html_options name=payTo options=$payToOptions selected=$memberBusinesInfo.payTo}
+							</td>
+						</tr>
+						<tr>
+							<td><span class="{if 'im'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Instant Messenger:</span></td>
+							<td><input type="text" name="im" value="{$memberBusinessInfo.im}" /></td>
+						</tr>
+					</table>
+				</div>
+				<div id="member_groupsContainer" class="propertyContainer{if $propertyMenuItem != 'member_groups'} hidden{/if}">
+					<div id="selectBlock">
+						<a href="#" class="selectAll" id="selectGroups">Select all</a>
+						<a href="#" class="deselectAll" id="deselectGroups">Deselect all</a>
+					</div>
+					<select name="groups[]" id="groups" multiple="multiple" style="height: 400px; width: 225px">
+						{html_options options=$groupOptions selected=$groups}
+					</select>
+				</div>
+				<div id="member_sitesContainer" class="propertyContainer{if $propertyMenuItem != 'member_sites'} hidden{/if}">
+					<div id="selectBlock">
+						<a href="#" class="selectAll" id="selectSites">Select all</a>
+						<a href="#" class="deselectAll" id="deselectSites">Deselect all</a>
+					</div>
+					<select name="sites[]" id="sites" multiple="multiple" style="height: 400px; width: 225px">
+						{html_options options=$siteOptions selected=$sites}
+					</select>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="propertyMenuItem" id="propertyMenuItem" value="{$propertyMenuItem}" />
+</form>
+
+{include file="admin/adminFooter.htm"}

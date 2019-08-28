@@ -1,0 +1,200 @@
+{include file="admin/adminHeader.htm"}
+
+{literal}
+<script type="text/javascript">
+	$(function() {
+		$('a.previewImage').cluetip({width: 'auto', positionBy: 'mouse', ajaxCache: false, cluetipClass: 'rounded'});
+	});
+</script>
+{/literal}
+
+<a href="{$smarty.server.PHP_SELF}/action/addContentImages" class="button">
+	<span>+ Add Content Images</span>
+</a>
+
+<br class="clear" />
+
+{include file="admin/pagination.htm"}
+
+	<table class="recordsTable">
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+		<input type="hidden" name="search" value="true">
+
+		<tr class="recordsHeader">
+			<td colspan="2">Action</td>
+			<td align="right" style="white-space: nowrap">Content Image ID</td>
+			<td>Image</td>
+			<td>Size</td>
+			<td>Width</td>
+			<td>Height</td>
+			<td>Date Added</td>
+			<td>Last Modified</td>
+		</tr>
+
+		<tr class="recordSearchHeader">
+			<td colspan="2">
+				<div style="width: 75px">
+					<span class="button">
+						<input type="reset" value="Reset" />
+					</span>
+					<br class="clear" />
+					<span class="button">
+						<input type="submit" name="submitSearch" value="Search" />
+					</span>
+				</div>
+			</td>
+			<td><input type="text" name="imageID" value="{$search.imageID.value}" style="width: 90%"></td>
+			<td>
+				<input type="text" name="image" value="{$search.image.value}" style="width: 90%">
+				<input type="hidden" name="image_operator" value="contains">
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="sizeFrom" value="{$search.sizeFrom.value}" size="4"></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="sizeTo" value="{$search.sizeTo.value}" size="4"></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="widthFrom" value="{$search.widthFrom.value}" size="4"></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="widthTo" value="{$search.widthTo.value}" size="4"></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="heightFrom" value="{$search.heightFrom.value}" size="4"></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="heightTo" value="{$search.heightTo.value}" size="4"></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td>
+							<input type="text" name="dateAddedFrom" id="dateAddedFrom" value="{$search.dateAddedFrom.value|strtotime|date_format:"%m/%d/%Y"}" size="8">
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="dateAddedFromButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td>
+							<input type="text" name="dateAddedTo" id="dateAddedTo" value="{$search.dateAddedTo.value|strtotime|date_format:"%m/%d/%Y"}" size="8">
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="dateAddedToButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+				</table>
+{literal}
+				<script type="text/javascript">
+					Calendar.setup(
+						{
+							inputField : "dateAddedFrom",
+							ifFormat : "%m/%d/%Y",
+							button : "dateAddedFromButton"
+						}
+					);
+					Calendar.setup(
+						{
+							inputField : "dateAddedTo",
+							ifFormat : "%m/%d/%Y",
+							button : "dateAddedToButton"
+						}
+					);
+				</script>
+{/literal}
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td>
+							<input type="text" name="lastModifiedFrom" id="lastModifiedFrom" value="{$search.lastModifiedFrom.value|strtotime|date_format:"%m/%d/%Y"}" size="8">
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="lastModifiedFromButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td>
+							<input type="text" name="lastModifiedTo" id="lastModifiedTo" value="{$search.lastModifiedTo.value|strtotime|date_format:"%m/%d/%Y"}" size="8">
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="lastModifiedToButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+				</table>
+{literal}
+				<script type="text/javascript">
+					Calendar.setup(
+						{
+							inputField : "lastModifiedFrom",
+							ifFormat : "%m/%d/%Y",
+							button : "lastModifiedFromButton"
+						}
+					);
+					Calendar.setup(
+						{
+							inputField : "lastModifiedTo",
+							ifFormat : "%m/%d/%Y",
+							button : "lastModifiedToButton"
+						}
+					);
+				</script>
+{/literal}
+			</td>
+		</tr>
+
+		</form>
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+
+{section name=record loop=$records}
+		<tr class="{cycle values="recordsRowAlpha,recordsRowBeta"}">
+			<td align="center"><input type="checkbox" name="records[]" value="{$records[record].imageID}"></td>
+			<td align="center">
+				<a href="{$smarty.server.PHP_SELF}/imageID/{$records[record].imageID}/action/editContentImage" class="edit iconOnly" title="Edit Content Image">&nbsp;</a>
+			</td>
+			<td align="right">{$records[record].imageID}</td>
+			<td>
+				<a href="{$smarty.server.PHP_SELF}/action/preview/imageID/{$records[record].imageID}" class="previewImage" rel="{$smarty.server.PHP_SELF}/action/preview/imageID/{$records[record].imageID}" title="{$records[record].image}">
+					{$records[record].image}
+				</a>
+			</td>
+			<td style="text-align: right">{$records[record].size}</td>
+			<td style="text-align: right">{$records[record].width}</td>
+			<td style="text-align: right">{$records[record].height}</td>
+			<td style="text-align: right">{$records[record].dateAdded|date_format:"%m/%d/%Y"}</td>
+			<td style="text-align: right">{$records[record].lastModified|date_format:"%m/%d/%Y"}</td>
+		</tr>
+{/section}
+
+		<tr class="recordsAction">
+			<td colspan="9">
+				<br />
+				<input type="hidden" name="action" value="removeContentImages" />
+				<span class="button">
+					<input type="submit" name="submit" value="Remove Selected Images" />
+				</span>
+			</td>
+		</tr>
+
+		</form>
+
+	</table>
+
+{include file="admin/adminFooter.htm"}

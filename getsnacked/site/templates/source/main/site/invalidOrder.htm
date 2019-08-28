@@ -1,0 +1,15 @@
+{include file="site/header.htm"}
+{include file="site/menuDisplayHeader.htm"}
+
+<div id="errorMessage">
+	{include file="site/checkoutPath.htm"}
+	<h1>Incomplete Order</h1>
+	<div id="messageContainer">
+{section name=errors loop=$invalidOrderReasons}
+		<p>{$invalidOrderReasons[errors]}</p>
+{/section}
+	</div>
+</div>
+
+{include file="site/menuDisplayFooter.htm"}
+{include file="site/footer.htm"}

@@ -1,0 +1,112 @@
+<html>
+	<head>
+		<title>Order Packing Slip</title>
+	</head>
+	<body>
+		<table border="1" width="100%">
+			<tr>
+				<td>
+					<b>{$_COMPANYNAME}</b>
+					{if $_SITEURL}<br />{$_SITEURL}{/if}
+					{if $_SLOGAN}<br /><i>{$_SLOGAN}</i>{/if}
+					<br /><br />{$_MAINADDRESS1}
+					{if $_MAINADDRESS2}<br />{$_MAINADDRESS2}{/if}
+					{if $_MAINADDRESS3}<br />{$_MAINADDRESS3}{/if}
+					<br />{$_MAINCITY}, {$_MAINSTATE} {$_MAINPOSTAL}
+					{if $_MAINPHONE}<br />Phone: {$_MAINPHONE}{/if}
+					{if $_MAINFAX}<br />Fax: {$_MAINFAX}{/if}
+				</td>
+				<td>
+					<font color="#CCCCCC">
+						<center><b>ORDER PACKING SLIP</b></center>
+					</font>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+				{if $order.orderID > 0}
+					<br />
+					<b>ORDER NUMBER:</b>&nbsp;{$order.orderID}
+				{/if}
+				{if $subOrder.subOrderID > 0}
+					<br />
+					<b>SUB ORDER NUMBER:</b>&nbsp;{$subOrder.subOrderID}
+				{/if}
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<b>SHIP TO:</b>
+					<br />
+					{$shippingAddress.first}&nbsp;{$shippingAddress.last}
+					<br />
+					{$shippingAddress.address1}
+				{if $shippingAddress.address2}
+					<br />
+					{$shippingAddress.address2}
+				{/if}
+					<br />
+					{$shippingAddress.city}, {$shippingAddress.state} {$shippingAddress.postal}
+				{if $shippingAddress.country != 'USA'}
+					<br />
+					{$shippingAddress.country}
+				{/if}
+				</td>
+			</tr>
+		</table>
+		<br />
+		<table border="1" width="100%">
+			<tr>
+				<td><b>ORDER DATE</b></td>
+				<td><b>PROCESS DATE</b></td>
+				<td><b>SHIPPING METHOD</b></td>
+			</tr>
+			<tr>
+				<td>{$order.orderDate|date_format:"%m/%d/%Y"}</td>
+				<td>{$smarty.now|date_format:"%m/%d/%Y"}</td>
+				<td>{$shippingMethod}</td>
+			</tr>
+		</table>
+		<br />
+		<table border="1" width="100%">
+			<tr>
+				<td><b>QTY</b></td>
+				<td width="60%"><b>DESCRIPTION</b></td>
+				<td align="right"><b>UNIT PRICE</b></td>
+				<td align="right"><b>TOTAL</b></td>
+			</tr>
+			{foreach from=$items item=product}
+				<tr>
+					<td>{$product.quantity}</td>
+					<td>
+						<strong>{$product.name}</strong>
+						<br />{$details.SKU}
+						<br />{$product.description}
+					</td>
+					<td align="right">${$product.cost|string_format:"%.2f"}</td>
+					<td align="right">${$product.cost*$product.quantity|string_format:"%.2f"}</td>
+				</tr>
+			{/foreach}
+		</table>
+		<br />
+		<table border="1" width="100%">
+			<tr>
+				<td width="70%" rowspan="3"></td>
+			</tr>
+			<tr>
+				<td><b>SHIPPING:</b></td>
+				<td align="right">${$order.shippingCost|string_format:"%.2f"}</td>
+			</tr>
+			{if $order.discount > 0}
+			<tr>
+				<td><b>DISCOUNT:</b></td>
+				<td align="right">${$order.discount|string_format:"%.2f"}</td>
+			</tr>
+			{/if}
+			<tr>
+				<td><b>TOTAL:</b></td>
+				<td align="right">${$order.totalCost|string_format:"%.2f"}</td>
+			</tr>
+		</table>
+	</body>
+</html>

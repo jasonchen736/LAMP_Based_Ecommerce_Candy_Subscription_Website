@@ -1,0 +1,1 @@
+ALTER TABLE `usubs` RENAME TO `unsubs`;

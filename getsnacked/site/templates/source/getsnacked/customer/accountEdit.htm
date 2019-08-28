@@ -1,0 +1,94 @@
+{include file="customer/header.htm"}
+
+<form action="{$smarty.server.PHP_SELF}" method="post">
+	<table id="editTable">
+		<tr>
+			<td id="editMenuCell">
+				<ul id="editMenu">
+					<li class="head">&nbsp;</li>
+					<li class="editMenuOption{if !$propertyMenuItem || $propertyMenuItem == 'customer_accountInfo'} selected{/if}" id="customer_accountInfo">Account Information</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'customer_password'} selected{/if}" id="customer_password">Change Password</li>
+					<li class="end">&nbsp;</li>
+				</ul>
+				<div id="editActionContainer">
+					<input type="hidden" name="action" value="updateAccount" />
+					<span class="button">
+						<input type="submit" name="submit" value="Update Account" />
+					</span>
+				</div>
+			</td>
+			<td id="editPropertyCell">
+				<div id="customer_accountInfoContainer" class="propertyContainer{if $propertyMenuItem && $propertyMenuItem != 'customer_accountInfo'} hidden{/if}">
+					<table>
+						<tr>
+							<td><span class="{if 'first'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">First Name:</span></td>
+							<td><input type="text" name="first" value="{$member.first}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'last'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Last Name:</span></td>
+							<td><input type="text" name="last" value="{$member.last}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'phone'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Phone:</span></td>
+							<td><input type="text" name="phone" value="{$member.phone}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'email'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Email:</span></td>
+							<td><input type="text" name="email" value="{$member.email}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'address1'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Address 1:</span></td>
+							<td><input type="text" name="address1" value="{$member.address1}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'address2'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Address 2:</span></td>
+							<td><input type="text" name="address2" value="{$member.address2}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'city'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">City:</span></td>
+							<td><input type="text" name="city" value="{$member.city}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'state'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">State or Province:</span></td>
+							<td>
+								{html_options name=state options=$stateOptions selected=$member.state}
+								or
+								<input type="text" name="province" value="{$member.state}" />
+							</td>
+						</tr>
+						<tr>
+							<td><span class="{if 'postal'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Postal Code:</span></td>
+							<td><input type="text" name="postal" value="{$member.postal}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'country'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Country:</span></td>
+							<td>
+								{html_options name=country options=$countryOptions selected=$member.country}
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="customer_passwordContainer" class="propertyContainer{if $propertyMenuItem != 'customer_password'} hidden{/if}">
+					<table>
+						<tr>
+							<td><span class="{if 'currentPassword'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Current Password:</span></td>
+							<td><input type="password" name="currentPassword" value="" /></td>
+						</tr>
+						<tr><td colspan="2">&nbsp;</td></tr>
+						<tr>
+							<td><span class="{if 'newPassword'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">New Password:</span></td>
+							<td><input type="password" name="newPassword" value="" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'confirmPassword'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Confirm New Password:</span></td>
+							<td><input type="password" name="confirmPassword" value="" /></td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="propertyMenuItem" id="propertyMenuItem" value="{$propertyMenuItem}" />
+</form>
+
+{include file="customer/footer.htm"}

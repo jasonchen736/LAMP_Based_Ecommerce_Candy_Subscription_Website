@@ -1,0 +1,197 @@
+{include file="admin/adminHeader.htm"}
+
+<a href="{$smarty.server.PHP_SELF}/action/add" class="button">
+	<span>+ Add Offer</span>
+</a>
+
+<br class="clear" />
+
+{include file="admin/tableNavigation.htm"}
+
+	<table class="recordsTable">
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+		<input type="hidden" name="search" value="true" />
+
+		<tr class="recordsHeader">
+			<td>Select</td>
+			<td>Offer ID</td>
+			<td>Name</td>
+			<td>Payout Type</td>
+			<td>Payout Amount</td>
+			<td>Package</td>
+			<td>Shipments</td>
+			<td>Availability</td>
+			<td>Start Date</td>
+			<td>End Date</td>
+			<td style="text-align: center">Edit</td>
+		</tr>
+
+		<tr class="recordSearchHeader">
+			<td>
+				<span class="button">
+					<input type="reset" value="Reset" />
+				</span>
+				<br class="clear" />
+				<span class="button">
+					<input type="submit" name="submitSearch" value="Search" />
+				</span>
+			</td>
+			<td><input type="text" name="offerID" value="{$search.offerID.value}" size="4" /></td>
+			<td><input type="text" name="name" value="{$search.name.value}" size="8" /></td>
+			<td>{html_options name=payType options=$search.payType.options selected=$search.payType.value}</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="payoutFrom" value="{$search.payoutFrom.value}" size="4" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="payoutTo" value="{$search.payoutTo.value}" size="4"/ ></td>
+					</tr>
+				</table>
+			</td>
+			<td><input type="text" name="defaultPackage" value="{$search.defaultPackage.value}" size="20" /></td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="totalShipmentsFrom" value="{$search.totalShipmentsFrom.value}" size="4" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="totalShipmentsTo" value="{$search.totalShipmentsTo.value}" size="4" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>{html_options name=availability options=$search.availability.options selected=$search.availability.value}</td>
+			<td>
+				<table class="searchSection dateSelect">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td>
+							<input type="text" name="startDateFrom" id="startDateFrom" value="{$search.startDateFrom.value|strtotime|date_format:"%m/%d/%Y"}" size="7" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="startDateFromButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td>
+							<input type="text" name="startDateTo" id="startDateTo" value="{$search.startDateTo.value|strtotime|date_format:"%m/%d/%Y"}" size="7" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="startDateToButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+				</table>
+{literal}
+				<script type="text/javascript">
+					Calendar.setup(
+						{
+							inputField : "startDateFrom",
+							ifFormat : "%m/%d/%Y",
+							button : "startDateFromButton"
+						}
+					);
+					Calendar.setup(
+						{
+							inputField : "startDateTo",
+							ifFormat : "%m/%d/%Y",
+							button : "startDateToButton"
+						}
+					);
+				</script>
+{/literal}
+			</td>
+			<td>
+				<table class="searchSection dateSelect">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td>
+							<input type="text" name="endDateFrom" id="endDateFrom" value="{$search.endDateFrom.value|strtotime|date_format:"%m/%d/%Y"}" size="7" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="endDateFromButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td>
+							<input type="text" name="endDateTo" id="endDateTo" value="{$search.endDateTo.value|strtotime|date_format:"%m/%d/%Y"}" size="7" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="endDateToButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+				</table>
+{literal}
+				<script type="text/javascript">
+					Calendar.setup(
+						{
+							inputField : "endDateFrom",
+							ifFormat : "%m/%d/%Y",
+							button : "endDateFromButton"
+						}
+					);
+					Calendar.setup(
+						{
+							inputField : "endDateTo",
+							ifFormat : "%m/%d/%Y",
+							button : "endDateToButton"
+						}
+					);
+				</script>
+{/literal}
+			</td>
+			<td>&nbsp;
+				
+			</td>
+		</tr>
+
+		</form>
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}?{$querystring}{/if}" method="post">
+
+{section name=record loop=$records}
+		<tr class="{cycle values="recordsRowAlpha,recordsRowBeta"}">
+			<td><input type="checkbox" name="records[]" value="{$records[record].offerID}" /></td>
+			<td>{$records[record].offerID}</td>
+			<td>{$records[record].name}</td>
+			<td>{$records[record].payType}</td>
+			<td>{$records[record].payout}</td>
+			<td>{$records[record].defaultPackage}</td>
+			<td>{$records[record].totalShipments}</td>
+			<td>{$records[record].availability}</td>
+			<td>{$records[record].startDate}</td>
+			<td>{$records[record].endDate}</td>
+			<td>
+				<a href="{$smarty.server.PHP_SELF}/offerID/{$records[record].offerID}/action/edit" target="_blank" class="button">
+					<span>Edit</span>
+				</a>
+			</td>
+		</tr>
+{/section}
+
+		<tr class="recordsAction">
+			<td colspan="11">
+				<input type="hidden" name="action" value="massAction" />
+				<br />
+				<table>
+					<tr>
+						<td>
+							<span class="mainText">
+								Set availability:&nbsp;
+								{html_options name=updateAction options=$updateActions selected=$updateAction}
+								&nbsp;
+							</span>
+						</td>
+						<td>
+							<span class="button">
+								<input type="submit" name="submit" value="Update Records" />
+							</span>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+		</form>
+
+	</table>
+
+{include file="admin/adminFooter.htm"}

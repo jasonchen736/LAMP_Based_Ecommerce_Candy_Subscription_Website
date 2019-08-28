@@ -1,0 +1,102 @@
+{include file="admin/adminHeader.htm"}
+
+{include file="admin/messageSection.htm"}
+
+<a href="{$smarty.server.PHP_SELF}/action/registerSite" class="button">
+	<span>+ Register Site</span>
+</a>
+
+<br class="clear" />
+
+{include file="admin/pagination.htm"}
+
+	<table class="recordsTable">
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+		<input type="hidden" name="search" value="true">
+
+		<tr class="recordsHeader">
+			<td>&nbsp;</td>
+			<td>Site ID</td>
+			<td>Site Name</td>
+			<td>Date Registered</td>
+			<td>Edit</td>
+		</tr>
+
+		<tr class="recordSearchHeader">
+			<td>
+				<span class="button">
+					<input type="reset" value="Reset" />
+				</span>
+				<br class="clear" />
+				<span class="button">
+					<input type="submit" name="submitSearch" value="Search" />
+				</span>
+			</td>
+			<td><input type="text" name="siteID" value="{$search.siteID.value}" style="width: 50px"></td>
+			<td>
+				<input type="text" name="siteName" value="{$search.siteName.value}" style="width: 150px">
+				<input type="hidden" name="siteName_operator" value="contains">
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td>
+							<input type="text" name="dateCreatedFrom" id="dateCreatedFrom" value="{$search.dateCreatedFrom.value|strtotime|date_format:"%m/%d/%Y"}" style="width: 75px">
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="dateCreatedFromButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td>
+							<input type="text" name="dateCreatedTo" id="dateCreatedTo" value="{$search.dateCreatedTo.value|strtotime|date_format:"%m/%d/%Y"}" style="width: 75px">
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="dateCreatedToButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+				</table>
+{literal}
+				<script type="text/javascript">
+					Calendar.setup(
+						{
+							inputField : "dateCreatedFrom",
+							ifFormat : "%m/%d/%Y",
+							button : "dateCreatedFromButton"
+						}
+					);
+					Calendar.setup(
+						{
+							inputField : "dateCreatedTo",
+							ifFormat : "%m/%d/%Y",
+							button : "dateCreatedToButton"
+						}
+					);
+				</script>
+{/literal}
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+
+		</form>
+
+{section name=record loop=$records}
+		<tr class="{cycle values="recordsRowAlpha,recordsRowBeta"}">
+			<td>&nbsp;</td>
+			<td>{$records[record].siteID}</td>
+			<td>{$records[record].siteName}</td>
+			<td>{$records[record].dateCreated|date_format:"%m/%d/%Y"}</td>
+			<td style="text-align: center">
+				<a href="{$smarty.server.PHP_SELF}/siteID/{$records[record].siteID}/action/editRegistry" target="_blank" class="button">
+					<span>Edit</span>
+				</a>
+			</td>
+		</tr>
+{/section}
+
+		<tr class="recordsAction">
+			<td colspan="5">&nbsp;</td>
+		</tr>
+
+	</table>
+
+{include file="admin/adminFooter.htm"}

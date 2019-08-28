@@ -1,0 +1,143 @@
+/* GLOBAL */
+body, td {color: #000}
+body {padding: 10px 15px; background-color: #EFEFEF}
+
+/* ERROR */
+div#errors {background: #EFEFEF url('/images/main/admin/bottomShadow.gif') bottom repeat-x; padding: 5px 15px 10px 15px; margin: 15px 15px 0 15px; position: relative; width: auto}
+div#errors div#errorContainer {background: url('/images/main/admin/errorIcon.png') center left no-repeat; position: relative; padding: 5px 15px}
+div#errors ul#errorList {list-style: none; padding: 0; margin: 10px 15px 10px 40px; font-weight: bold; color: #FF0000}
+
+/* SUCCESS */
+div#successes {background: #EFEFEF url('/images/main/admin/bottomShadow.gif') bottom repeat-x; padding: 5px 15px 10px 15px; margin: 15px 15px 0 15px; position: relative; width: auto}
+div#successes div#successContainer {background: url('/images/main/admin/successIcon.png') center left no-repeat; position: relative; padding: 5px 15px}
+div#successes ul#successList {list-style: none; padding: 0; margin: 10px 15px 10px 40px; font-weight: bold; color: #00EE00}
+
+/* LABELS */
+.normalLabel {color: #000; font-size: 12px; font-weight: bold}
+.errorLabel {color: #FFA200; font-size: 12px; font-weight: bold}
+
+/* HREF STYLES */
+a.button {float: left; height: 25px; display: block; padding: 0 7px 0 0; text-decoration: none; font: normal 12px Arial, Helvetica, sans-serif; background: transparent url('/images/main/admin/buttons/mainRight.png') right no-repeat}
+a.button span {display: block; line-height: 25px; padding: 0 0 0 7px; background: transparent url('/images/main/admin/buttons/mainLeft.png') left no-repeat; color: #FFF}
+a.redX {color: #FF0000; background: url('/images/main/admin/redX.gif') center no-repeat; width: 23px; cursor: pointer; padding: 0 6px}
+a.remove {color: #FF0000; background: url('/images/main/admin/redX.gif') 0 -2px no-repeat; padding-left: 23px; text-decoration: underline; cursor: pointer}
+a.greenPlus {color: #006600; background: url('/images/main/admin/greenPlus.gif') 0 -2px no-repeat; padding-left: 23px; text-decoration: underline; cursor: pointer}
+a.help {color: #FFA200; background: url('/images/main/admin/helpIcon.png') no-repeat; padding: 2px 0 3px 23px; text-decoration: underline; cursor: help}
+a.edit {color: #000; background: url('/images/main/admin/edit.png') 0 -3px no-repeat; padding-left: 23px; text-decoration: underline; cursor: pointer}
+div#selectBlock {margin-bottom: 10px}
+a.selectAll {color: #000; background: url('/images/main/admin/selectAll.png') 0 -3px no-repeat; padding-left: 23px; text-decoration: underline; cursor: pointer}
+a.deselectAll {color: #000; background: url('/images/main/admin/deselectAll.png') 0 -3px no-repeat; padding-left: 23px; text-decoration: underline; cursor: pointer}
+a.previewImage {color: #000; background: url('/images/main/admin/camera.gif') 0 -1px no-repeat; padding-left: 23px; text-decoration: underline}
+a.viewContent {color: #000; background: url('/images/main/admin/view.png') 0 -3px no-repeat; padding-left: 23px; text-decoration: underline}
+
+/* INPUT BUTTONS */
+span.button {background: transparent url(/images/main/admin/buttons/mainRight.png) no-repeat right center; padding: 0 7px 0 0; display: block; float: left; margin-bottom: 3px}
+span.button input {background: transparent url(/images/main/admin/buttons/mainLeft.png) no-repeat left center; height: 25px; line-height: 25px; padding: 0 0 2px 7px; white-space: nowrap; border: 0; cursor: pointer; color: #FFF}
+
+/* HEADER */
+div#header {background: none; background-color: #FFF; padding: 10px 15px; border-bottom: 1px solid #BBB; border-top: 1px solid #CCC}
+div#headerWrap {width: auto}
+div#header div#customerHeaderOptions {float: right; width: 375px; position: absolute; bottom: 10px; right: 0; text-align: right; padding-right: 40px}
+ul#accountOptions {margin: 0; padding: 0; background: none; position: relative; top: 45px}
+
+/* FOOTER */
+div#footer {background: none; border-top: 1px solid #BBB}
+
+/* MAIM MENU */
+div#customerBody div#mainContainer {background-color: #FFF; border-bottom: 1px solid #666; position: absolute; min-width: 99%}
+div#customerBody div#menuSection {padding: 0 15px; background: url(/images/main/admin/menuBackground.png) repeat-x; height: 37px; padding-top: 6px}
+ul.jd_menu {position: relative; margin: 0; padding: 0; list-style-type: none}
+ul.jd_menu a, ul.jd_menu a:active, ul.jd_menu a:link, ul.jd_menu a:visited {text-decoration: none; color: #000; font-size: 14px}
+ul.jd_menu ul {display: none}
+ul.jd_menu li {float: left; cursor: pointer; white-space: nowrap; padding: 3px 5px}
+ul.jd_menu li.jd_menu_hover_toolbar {background-color: #8AC5D9}
+ul.jd_menu li.menuSeparator {background-color: transparent; cursor: default}
+ul.jd_menu a.jd_menu_hover_toolbar, ul.jd_menu a.jd_menu_hover_toolbar:visited {color: #FFF}
+/* ie */
+*:first-child+html ul.jd_menu ul {margin: 3px 0 0 -15px}
+* html ul.jd_menu ul {margin: 3px 0 0 -15px}
+
+/* SUB MENUS */
+ul.jd_menu ul {background-color: #EFEFEF; position: absolute; display: none; list-style-type: none; margin: 0; padding: 0; border-left: 1px solid #CCC; border-right: 1px solid #CCC; border-bottom: 1px dotted #000; z-index: 1}
+ul.jd_menu ul li {float: none; margin: 0; padding: 0; padding: 3px 5px; background-color: #EFEFEF; height: 15px; border-top: 1px dotted #000}
+ul.jd_menu ul a, ul.jd_menu ul a:active, ul.jd_menu ul a:link, ul.jd_menu ul a:visited {text-decoration: none;	color: #000; font-size: 12px}
+ul.jd_menu ul li.jd_menu_hover {background-color: #8AC5D9}
+ul.jd_menu ul a.jd_menu_hover {color: #FFF}
+ul.jd_menu ul a.jd_menu_hover:visited, ul.jd_menu ul a.jd_menu_hover:active {color: #FFF}
+
+/* RECORDS DISPLAY */
+table.recordsTable {background-color: #FFF; color: #000; font-size: 12px; font-family: arial, 'lucida console', sans-serif; padding: 0; margin: 0}
+table.recordsTable .editButton {width: 28px}
+table.recordsTable .orderDetails {color: #357A8F; text-decoration: underline}
+tr.reportTitle td {color: #FFF; background-color: #589EB5; height: 24px; padding: 3px 5px 3px 5px; font-weight: bold; border-top: 1px solid #9A9890}
+tr.recordsHeader td {background: url(/images/main/admin/greyGradient.png) repeat-x; height: 24px; padding: 3px 5px; border-top: 1px solid #9A9890}
+tr.recordSearchHeader td {background-color: #EFEFEF; padding: 3px 5px; border-bottom: 1px solid #666}
+tr.recordSearchHeader td table.searchSection td {border: 0; color: #000; font-size: 12px; padding: 0}
+tr.recordSearchHeader table.dateSelect {}
+tr.recordsRowAlpha td {background-color: #FFF; padding: 0 5px}
+tr.recordsRowBeta td {background-color: #EFEFFF; padding: 0 5px}
+tr.recordsAction td {background-color: #EFEFEF; border-top: 1px solid #666; border-bottom: 1px solid #666; padding: 0 5px 15px 5px}
+table.recordsTable table td {padding: 0; border: 0; margin: 0}
+table.recordsNavigation {color: #000; font-size: 12px}
+table.recordsNavigation th {background: url(/images/main/admin/greyGradient.png) repeat-x; height: 24px; padding: 3px 5px; border-top: 1px solid #9A9890; border-bottom: 1px solid #9A9890}
+
+/* EDIT PROPERTIES SECTION */
+td#editMenuCell {vertical-align: top; padding: 15px}
+ul#editMenu {list-style: none; margin: 0; padding: 0}
+ul#editMenu li {padding: 3px 10px; border-right: 1px solid #000; border-bottom: 1px dotted #000; background-color: #EFEFEF}
+ul#editMenu li.head {font-size: 1px; height: 1px}
+ul#editMenu li.editMenuOption {cursor: pointer}
+ul#editMenu li.end {border-bottom: 0; font-size: 1px; height: 1px}
+ul#editMenu li.selected {border-right: 0; background-color: #FFF}
+ul#editMenu li.editMenuOptionOver {background-color: #DFDFDF}
+div#editActionContainer {margin-top: 15px}
+td#editPropertyCell {padding: 15px; vertical-align: top}
+/* ie */
+*:first-child+html ul#editMenu li.head {margin-bottom: -3px}
+*:first-child+html ul#editMenu li.end {margin-top: -4px}
+* html ul#editMenu li.head {margin-bottom: -3px}
+* html ul#editMenu li.end {margin-top: -4px}
+
+/* FORMS */
+div#customerBody span.note {color: #FF9900}
+div#customerBody form.padded {margin: 0; padding: 10px 15px}
+div#customerBody form div.formField {padding: 2px 0; clear: both}
+div#customerBody form div.formField label {display: block; width: 165px; height: 22px; line-height: 22px; padding-left: 10px; float: left}
+div#customerBody form div.formField label span {margin-left: 5px; color: #FF9900}
+div#customerBody form div.formField label.normalLabel {}
+div#customerBody form div.formField label.errorLabel {background: url('/images/main/merchant/menuBody.gif') top right repeat-y; color: #FF9900}
+div#customerBody form div.formField div.input {float: left}
+div#customerBody div#submitRow {background: url('/images/main/merchant/rightArrow.png') center right no-repeat; padding-right: 23px; text-align: right; margin-top: 5px}
+
+/* MAIN CONTAINERS */
+div#customerBody {padding: 0; position: relative; background-color: #FFF; font-size: 12px; font-family: arial, 'lucida console', sans-serif}
+div#customerBody td {font-size: 12px; font-family: arial, 'lucida console', sans-serif; white-space: nowrap}
+div#customerBody h1 {margin: 0 0 10px 0; padding: 4px 15px 4px 10px; background-color: #EFEFEF; border-bottom: 1px solid #000; color: #000}
+div#customerBody div#workingSection {padding: 15px; min-width: 800px}
+
+/* ACCOUNT INFORMATION */
+div#accountInfo {width: 1000px}
+div#accountInfo div#contactInfo {float: left; margin-left: 10px}
+div#accountInfo div#businessInfo {float: left; width: 350px}
+div#accountInfo table {margin-left: 15px}
+div#accountInfo th {font-size: 12px; text-align: left; padding: 3px 20px 3px 10px; border-bottom: 1px dotted #CCC; font-weight: normal; background-color: #FFEFEF}
+div#accountInfo td {padding: 3px 10px}
+div#accountInfo td.editInfo {vertical-align: top}
+div#accountInfo div#submitRow {background: url('/images/main/merchant/rightArrow.png') center right no-repeat; padding-right: 23px; margin-top: 5px; float: left}
+
+/* CUSTOMER HOME */
+div#customerHome {padding-left: 20px}
+div#customerHome ul {list-style: none; padding-left: 15px}
+
+/* VIEW ORDER */
+div#orderDetails div p {padding: 0 10px; margin-top: 0}
+div#orderDetails div#orderID {padding: 10px 10px 0 10px; width: 250px}
+div#orderDetails div#shipTo {padding: 10px 10px 0 10px; width: 250px; float: left}
+div#orderDetails div#billTo {padding: 10px 10px 0 10px; width: 250px; float: left}
+div#orderDetails div#orderPaymentInformation {padding: 10px; float: left}
+div#orderDetails div#orderInformation {padding: 10px; float: left}
+div#orderDetails div#orderItems {padding: 10px; float: left}
+div#orderDetails div#orderItems tr.orderItem td {padding: 0 10px}
+div#orderDetails td.summaryLabel {padding: 4px 15px 4px 10px; border-bottom: 1px solid #000; font-weight: bold; font-size: 16px; color: #000; background-color: #EFEFEF}
+div#orderDetails td.summaryAmount {padding: 0 10px; border-bottom: 1px solid #000; background-color: #EFEFEF}
+div#orderItems td {white-space: nowrap}

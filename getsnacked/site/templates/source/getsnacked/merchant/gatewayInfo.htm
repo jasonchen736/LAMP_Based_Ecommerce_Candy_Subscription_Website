@@ -1,0 +1,38 @@
+{include file="merchant/header.htm"}
+
+{include file="merchant/successMessages.htm"}
+{include file="merchant/errorMessages.htm"}
+
+<div id="gatewayInfo">
+	<h1>Merchant Payment Gateway Information</h1>
+	<div>
+		<table>
+			<tr><th>Gateway Status</th><td>{if $memberGatewayInfo.status == 'active'}verified{else}{$memberGatewayInfo.status}{/if}</td></tr>
+{if  $memberGatewayInfo.gateway == 'authorize'}
+			<tr><th>Gateway</th><td>{$memberGatewayInfo.gateway}</td></tr>
+			<tr><th>Host</th><td>{$memberGatewayInfo.url}</td></tr>
+			<tr><th>Login</th><td>{$memberGatewayInfo.login}</td></tr>
+			<tr><th>Key</th><td>*</td></tr>
+			<tr><th>Hash Key</th><td>{$memberGatewayInfo.key}</td></tr>
+{elseif $memberGatewayInfo.gateway == 'linkpoint'}
+			<tr><th>Gateway</th><td>{$memberGatewayInfo.gateway}</td></tr>
+			<tr><th>Host</th><td>{$memberGatewayInfo.url}</td></tr>
+			<tr><th>Port</th><td>{$memberGatewayInfo.port}</td></tr>
+			<tr><th>Key</th><td>{$memberGatewayInfo.key}</td></tr>
+{else}
+			<tr><td colspan="2"><br />Gateway has not been set up<br /><br /></td></tr>
+{/if}
+			<tr>
+				<td>
+					<a href="{$smarty.server.PHP_SELF}/merchant/gatewayManagement/action/editGateway" class="button">
+						<span>Edit Gateway Information</span>
+					</a>
+				</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+	<br class="clear" />
+</div>
+
+{include file="merchant/footer.htm"}

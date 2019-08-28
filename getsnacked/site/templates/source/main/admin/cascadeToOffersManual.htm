@@ -1,0 +1,82 @@
+{include file="admin/adminHeader.htm"}
+
+{include file="admin/messageSection.htm"}
+
+<form action="{$smarty.server.PHP_SELF}" method="post">
+	<table>
+		<tr>
+			<td>
+				<span class="button">
+					<input type="submit" name="submit" value="Submit Changes" />
+				</span>
+				<br class="clear" />
+				<span class="button">
+					<input type="submit" name="submit" value="Update All" />
+				</span>
+				<br class="clear" />
+				<span class="button">
+					<input type="submit" name="submit" value="Ignore Changes" />
+				</span>
+			</td>
+		</tr>
+	</table>
+	<br />
+{foreach from=$offerPackages item=offerPackage}
+	<input type="hidden" name="offerPackages[]" value="{$offerPackage.offerID}-{$offerPackage.packageID}" />
+	<table class="recordsTable">
+		<tr>
+			<td>
+				<strong>Offer ID:</strong> {$offerPackage.offerID}
+				<br />
+				<strong>Name:</strong> {$offerPackage.offerName}
+				<br />
+				<strong>Availability:</strong> {$offerPackage.offerAvailability}
+				<br />
+				<strong>Price:</strong> $<input type="text" name="{$offerPackage.offerID}-{$offerPackage.packageID}" value="{$offerPackage.offerPrice}" size="4" />
+			</td>
+			<td>
+				<strong>Package ID:</strong> {$offerPackage.packageID}
+				<br />
+				<strong>Name:</strong> {$offerPackage.packageName}
+				<br />
+				<strong>Cost:</strong> ${$offerPackage.packageCost|string_format:"%.2f"}
+				<br />
+				<strong>Weight:</strong> {$offerPackage.packageWeight|string_format:"%.2f"}
+				<br />
+				<strong>Availability:</strong> {$offerPackage.packageAvailability}
+				<br />
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<a href="/admin/packages/packageID/{$offerPackage.packageID}/action/edit" target="_blank" class="button">
+					<span>View Package</span>
+				</a>
+			</td>
+		</tr>
+	</table>
+	<br />
+{/foreach}
+	<input type="hidden" name="action" value="performCascadeToOffersManual" />
+	<input type="hidden" name="productID" value="{$productID}" />
+	<table>
+		<tr>
+			<td>
+				<span class="button">
+					<input type="submit" name="submit" value="Submit Changes" />
+				</span>
+				<br class="clear" />
+				<span class="button">
+					<input type="submit" name="submit" value="Update All" />
+				</span>
+				<br class="clear" />
+				<span class="button">
+					<input type="submit" name="submit" value="Ignore Changes" />
+				</span>
+			</td>
+		</tr>
+	</table>
+</form>
+
+{include file="admin/adminFooter.htm"}

@@ -1,0 +1,33 @@
+{if count($generalMessages) > 0}
+<div id="generalMessages">
+	<div id="generalMessagesContainer">
+		<ul id="generalMessagesList">
+{section name=messages loop=$generalMessages}
+			<li>{$generalMessages[messages]}</li>
+{/section}
+		</ul>
+	</div>
+</div>
+{/if}
+{if count($successMessages) > 0}
+<div id="successes">
+	<div id="successContainer">
+		<ul id="successList">
+{section name=successes loop=$successMessages}
+			<li>{$successMessages[successes]}</li>
+{/section}
+		</ul>
+	</div>
+</div>
+{/if}
+{if count($errorMessages) > 0}
+<div id="errors">
+	<div id="errorContainer">
+		<ul id="errorList">
+{section name=errors loop=$errorMessages}
+			<li>{$errorMessages[errors]}</li>
+{/section}
+		</ul>
+	</div>
+</div>
+{/if}

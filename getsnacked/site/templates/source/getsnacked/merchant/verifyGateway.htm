@@ -1,0 +1,83 @@
+{include file="merchant/header.htm"}
+
+{include file="merchant/successMessages.htm"}
+{include file="merchant/errorMessages.htm"}
+<div>
+	Enter your credit card information to verify and activate your gateway.<br />
+	An AUTHORIZATION ONLY request of $1 will be sent to verify that your gateway has been set up properly.<br />
+	Your account will not be charged and your information will not be saved.
+	<br /><br />
+</div>
+<form action="{$smarty.server.PHP_SELF}" method="post">
+	<table>
+		<tr>
+			<td><span class="{if 'first'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">First Name</span></td>
+			<td><input type="text" name="first" id="first" value="{$first}"></td>
+		</tr>
+		<tr>
+			<td><span class="{if 'last'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Last Name</span></td>
+			<td><input type="text" name="last" id="last" value="{$last}"></td>
+		</tr>
+		<tr>
+			<td><span class="{if 'address'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Address</span></td>
+			<td><input type="text" name="address" id="address" value="{$address}"></td>
+		</tr>
+		<tr>
+			<td><span class="{if 'city'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">City</span></td>
+			<td><input type="text" name="city" id="city" value="{$city}"></td>
+		</tr>
+		<tr>
+			<td><span class="{if 'state'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">State</span></td>
+			<td>
+				<select id="state" name="state">
+				   {html_options options=$stateOptions selected=$state}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td><span class="{if 'postal'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Postal</span></td>
+			<td><input type="text" name="postal" id="postal" value="{$postal}"></td>
+		</tr>
+		<tr>
+			<td><span class="{if 'ccType'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Credit Card</span></td>
+			<td>
+				<select name="ccType" id="ccType">
+					<option value="AMERICANEXPRESS"{if $ccType == 'AMERICANEXPRESS'} selected="selected"{/if}>American Express</option>
+					<option value="DISCOVER"{if $ccType == 'DISCOVER'} selected="selected"{/if}>Discover</option>
+					<option value="MASTERCARD"{if $ccType == 'MASTERCARD'} selected="selected"{/if}>MasterCard</option>
+					<option value="VISA"{if $ccType == 'VISA'} selected="selected"{/if}>Visa</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td><span class="{if 'expMonth'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Expiration Date</span></td>
+			<td>
+				<select name="expMonth" id="expMonth">
+					{html_options values=$expMonths output=$expMonths selected=$expMonth}
+				</select>
+				<select name="expYear" id="expYear">
+					{html_options values=$expYears output=$expYears selected=$expYear}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td><span class="{if 'ccNum'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Card Number</span></td>
+			<td><input type="text" name="ccNum" id="ccNum" value="{$ccNum}"></td>
+		</tr>
+		<tr>
+			<td><span class="{if 'cvv'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Security Code</span></td>
+			<td><input type="text" name="cvv" id="cvv" value="{$cvv}"></td>
+		</tr>
+		<tr><td colspan="2">&nbsp;</td></tr>
+		<tr>
+			<td colspan="2">
+				<span class="button">
+					<input type="submit" name="submit" value="Verify Gateway" />
+				</span>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="action" value="performVerification" />
+</form>
+
+{include file="merchant/footer.htm"}

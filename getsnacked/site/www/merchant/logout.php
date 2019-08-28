@@ -1,0 +1,5 @@
+<?
+
+	merchantCore::logout();
+
+?>

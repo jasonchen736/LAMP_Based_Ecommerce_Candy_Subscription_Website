@@ -1,0 +1,37 @@
+<div id="snackView">
+	<div id="snackImage">
+		<img src="/images/products/large/{$item.itemID}_1.gif" alt="{$item.name}" />
+	</div>
+	<div id="snackBrief">
+		<div class="titleWrapper">
+			<div class="title">The Goodies</div>
+		</div>
+		<div class="details">
+			{$item.shortDescription}
+		</div>
+	</div>
+	<div id="snackImageClose">
+		<div>&nbsp;</div>
+	</div>
+	<div id="snackDetails">
+		<div class="titleWrapper">
+			<div class="title">
+				<div class="name">
+					{$item.name}
+				</div>
+				<div class="add">
+					<div class="menuButtonWrapper">
+						<a href="/cart/view/action/add/type/{$item.itemType}/id/{$item.itemID}" class="menuButton">
+							<img src="/images/getsnacked/site/menuButtonGrabbit.gif" align="Grab It!" />
+						</a>
+					</div>
+					<span class="cost">${$item.cost|number_format:2}</span>
+				</div>
+			</div>
+		</div>
+		<div id="detailsWrapper">
+			{$item.description}
+		</div>
+	</div>
+	<div id="snackViewClose">&nbsp;</div>
+</div>

@@ -1,0 +1,4 @@
+ALTER TABLE `products` ADD COLUMN `sortWeight` INTEGER(6) UNSIGNED NOT NULL AFTER `weight`;
+ALTER TABLE `productsHistory` ADD COLUMN `sortWeight` INTEGER(6) UNSIGNED NOT NULL AFTER `weight`;
+ALTER TABLE `packages` ADD COLUMN `sortWeight` INTEGER(6) UNSIGNED NOT NULL AFTER `weight`;
+ALTER TABLE `packagesHistory` ADD COLUMN `sortWeight` INTEGER(6) UNSIGNED NOT NULL AFTER `weight`;

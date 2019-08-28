@@ -1,0 +1,114 @@
+{include file="admin/adminHeader.htm"}
+
+{literal}
+<script type="text/javascript">
+	$(function() {
+		$('#selectSites').click(function() {
+			$('#sites option').attr('selected', 'selected');
+		});
+		$('#deselectSites').click(function() {
+			$('#sites option').attr('selected', '');
+		});
+	});
+</script>
+{/literal}
+
+{include file="admin/messageSection.htm"}
+
+<form action="{$smarty.server.PHP_SELF}" method="post">
+	<table id="editTable">
+		<tr>
+			<td id="editMenuCell">
+				<ul id="editMenu">
+					<li class="head">&nbsp;</li>
+					<li class="editMenuOption{if !$propertyMenuItem || $propertyMenuItem == 'campaign_main'} selected{/if}" id="campaign_main">Campaign Details</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'campaign_content'} selected{/if}" id="campaign_content">Campaign Content</li>
+					<li class="editMenuOption{if $propertyMenuItem == 'campaign_sites'} selected{/if}" id="campaign_sites">Campaign Websites</li>
+					<li class="end">&nbsp;</li>
+				</ul>
+				<div id="editActionContainer">
+{if $mode == 'edit'}
+					<input type="hidden" name="action" value="updateCampaign" />
+					<input type="hidden" name="campaignID" value="{$campaign.campaignID}" />
+					<span class="button">
+						<input type="submit" name="submit" value="Update Campaign" />
+					</span>
+{else}
+					<input type="hidden" name="action" value="saveCampaign" />
+					<span class="button">
+						<input type="submit" name="submit" value="Add and Edit" />
+					</span>
+					<br class="clear" />
+					<span class="button">
+						<input type="submit" name="submit" value="Add Another" />
+					</span>
+{/if}
+				</div>
+			</td>
+			<td id="editPropertyCell">
+				<div id="campaign_mainContainer" class="propertyContainer{if $propertyMenuItem && $propertyMenuItem != 'campaign_main'} hidden{/if}">
+					<table>
+						<tr>
+							<td><span class="{if 'type'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Type:</span>&nbsp;</td>
+							<td>{html_options name=type options=$typeOptions selected=$campaign.type}</td>
+						</tr>
+						<tr>
+							<td><span class="{if 'availability'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Availability:</span>&nbsp;</td>
+							<td>{html_options name=availability options=$availabilityOptions selected=$campaign.availability}</td>
+						</tr>
+						<tr>
+							<td><span class="{if 'name'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Name:</span>&nbsp;</td>
+							<td><input type="text" name="name" value="{$campaign.name}" /></td>
+						<tr>
+						</tr>
+							<td><span class="{if 'fromEmail'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">From Email:</span>&nbsp;</td>
+							<td><input type="text" name="fromEmail" value="{$campaign.fromEmail}" /></td>
+						</tr>
+						<tr>
+							<td><span class="{if 'linkedCampaign'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Linked Campaign ID:</span>&nbsp;</td>
+							<td><input type="text" name="linkedCampaign" value="{$campaign.linkedCampaign}" /></td>
+						<tr>
+						</tr>
+							<td><span class="{if 'sendInterval'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Send Interval (Days):</span>&nbsp;</td>
+							<td><input type="text" name="sendInterval" value="{$campaign.sendInterval}" /></td>
+						</tr>
+					</table>
+				</div>
+				<div id="campaign_contentContainer" class="propertyContainer{if $propertyMenuItem != 'campaign_content'} hidden{/if}">
+						<table>
+						<tr>
+							<td>
+								<span class="{if 'subject'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Subject:</span><br />
+								<input type="text" name="subject" value="{$campaign.subject}" style="width: 506px" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="{if 'html'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">HTML:</span><br />
+								<textarea name="html" cols="100" rows="14">{$campaign.html}</textarea>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="{if 'text'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">Text:</span><br />
+								<textarea name="text" cols="100" rows="14">{$campaign.text}</textarea>
+							</td>
+						</tr>
+					</table>						
+				</div>
+				<div id="campaign_sitesContainer" class="propertyContainer{if $propertyMenuItem != 'campaign_sites'} hidden{/if}">
+					<div id="selectBlock">
+						<a href="#" class="selectAll" id="selectSites">Select all</a>
+						<a href="#" class="deselectAll" id="deselectSites">Deselect all</a>
+					</div>
+					<select name="sites[]" id="sites" multiple="multiple" style="height: 400px; width: 225px">
+						{html_options options=$siteOptions selected=$sites}
+					</select>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="propertyMenuItem" id="propertyMenuItem" value="{$propertyMenuItem}" />
+</form>
+
+{include file="admin/adminFooter.htm"}

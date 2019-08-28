@@ -1,0 +1,171 @@
+{include file="admin/adminHeader.htm"}
+
+<a href="{$smarty.server.PHP_SELF}/action/addCampaign" class="button">
+	<span>+ Add Campaign</span>
+</a>
+
+<br class="clear" />
+
+{include file="admin/pagination.htm"}
+
+	<table class="recordsTable">
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+			<input type="hidden" name="search" value="true" />
+
+		<tr class="recordsHeader">
+			<td colspan="2">Action</td>
+			<td align="right">Campaign ID</td>
+			<td>Type</td>
+			<td>Name</td>
+			<td>Availability</td>
+			<td>Subject</td>
+			<td align="right">Linked Campaign</td>
+			<td align="right">Send Interval</td>
+			<td style="text-align: right">Date Added</td>
+			<td style="text-align: right">Last Modified</td>
+		</tr>
+
+		<tr class="recordSearchHeader">
+			<td colspan="2">
+				<div style="width: 75px">
+					<span class="button">
+						<input type="reset" value="Reset" />
+					</span>
+					<br class="clear" />
+					<span class="button">
+						<input type="submit" name="submitSearch" value="Search" />
+					</span>
+				</div>
+			</td>
+			<td><input type="text" name="campaignID" value="{$search.campaignID.value}" style="width: 90%" /></td>
+			<td>{html_options name=type options=$search.type.options selected=$search.type.value}</td>
+			<td><input type="text" name="name" value="{$search.name.value}" style="width: 90%" /></td>
+			<td>{html_options name=availability options=$search.availability.options selected=$search.availability.value}</td>
+			<td><input type="text" name="subject" value="{$search.subject.value}" style="width: 90%" /></td>
+			<td><input type="text" name="linkedCampaign" value="{$search.linkedCampaign.value}" style="width: 95px" /></td>
+			<td><input type="text" name="sendInterval" value="{$search.sendInterval.value}" style="width: 70px" /></td>
+			<td>
+				<table class="searchSection dateSelect">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td>
+							<input type="text" name="dateAddedFrom" id="dateAddedFrom" value="{$search.dateAddedFrom.value|strtotime|date_format:"%m/%d/%Y"}" style="width: 75px" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="dateAddedFromButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td>
+							<input type="text" name="dateAddedTo" id="dateAddedTo" value="{$search.dateAddedTo.value|strtotime|date_format:"%m/%d/%Y"}" style="width: 75px" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="dateAddedToButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+				</table>
+{literal}
+				<script type="text/javascript">
+					Calendar.setup(
+						{
+							inputField : "dateAddedFrom",
+							ifFormat : "%m/%d/%Y",
+							button : "dateAddedFromButton"
+						}
+					);
+					Calendar.setup(
+						{
+							inputField : "dateAddedTo",
+							ifFormat : "%m/%d/%Y",
+							button : "dateAddedToButton"
+						}
+					);
+				</script>
+{/literal}
+			</td>
+			<td>
+				<table class="searchSection dateSelect">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td>
+							<input type="text" name="lastModifiedFrom" id="lastModifiedFrom" value="{$search.lastModifiedFrom.value|strtotime|date_format:"%m/%d/%Y"}" style="width: 75px" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="lastModifiedFromButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td>
+							<input type="text" name="lastModifiedTo" id="lastModifiedTo" value="{$search.lastModifiedTo.value|strtotime|date_format:"%m/%d/%Y"}" style="width: 75px" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="lastModifiedToButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+				</table>
+{literal}
+				<script type="text/javascript">
+					Calendar.setup(
+						{
+							inputField : "lastModifiedFrom",
+							ifFormat : "%m/%d/%Y",
+							button : "lastModifiedFromButton"
+						}
+					);
+					Calendar.setup(
+						{
+							inputField : "lastModifiedTo",
+							ifFormat : "%m/%d/%Y",
+							button : "lastModifiedToButton"
+						}
+					);
+				</script>
+{/literal}
+			</td>
+		</tr>
+
+		</form>
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+
+{section name=record loop=$records}
+		<tr class="{cycle values="recordsRowAlpha,recordsRowBeta"}">
+			<td align="center"><input type="checkbox" name="records[]" value="{$records[record].campaignID}" /></td>
+			<td align="center">
+				<a href="{$smarty.server.PHP_SELF}/campaignID/{$records[record].campaignID}/action/editCampaign" class="edit iconOnly" title="Edit Campaign">&nbsp;</a>
+			</td>
+			<td align="right">{$records[record].campaignID}</td>
+			<td>{$records[record].type}</td>
+			<td style="white-space: nowrap; overflow: hidden">{$records[record].name}</td>
+			<td>{$records[record].availability}</td>
+			<td style="white-space: nowrap; overflow: hidden">{$records[record].subject}</td>
+			<td align="right">{$records[record].linkedCampaign}</td>
+			<td align="right">{$records[record].sendInterval}</td>
+			<td style=" text-align: right">{$records[record].dateAdded|date_format:"%m/%d/%Y"}</td>
+			<td style="text-align: right">{$records[record].lastModified|date_format:"%m/%d/%Y"}</td>
+		</tr>
+{/section}
+
+		<tr class="recordsAction">
+			<td colspan="11">
+				<input type="hidden" name="action" value="quickUpdate" />
+				<br />
+				<table>
+					<tr>
+						<td>
+							<span class="mainText">
+								Action:&nbsp;
+								{html_options name=updateOption options=$updateOptions selected=$updateOption}
+								&nbsp;
+							</span>
+						</td>
+						<td>
+							<span class="button">
+								<input type="submit" name="submit" value="Update Records" />
+							</span>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+		</form>
+
+	</table>
+
+{include file="admin/adminFooter.htm"}

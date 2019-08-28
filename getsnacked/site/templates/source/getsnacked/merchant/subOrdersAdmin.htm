@@ -1,0 +1,215 @@
+{include file="merchant/header.htm"}
+
+{include file="merchant/successMessages.htm"}
+{include file="merchant/errorMessages.htm"}
+
+{include file="merchant/pagination.htm"}
+
+	<table class="recordsTable">
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+		<input type="hidden" name="search" value="true" />
+
+		<tr class="recordsHeader">
+			<td>Select</td>
+			<td>Packing Slip</td>
+			<td>Order ID</td>
+			<td>Order Status</td>
+			<td>Total Cost</td>
+			<td>Shipping Method</td>
+			<td>Payment Status</td>
+			<td style="text-align: right">Order Date</td>
+			<td style="text-align: right">Fulfill By</td>
+			<td style="text-align: right">Fulfilled On</td>
+		</tr>
+
+		<tr class="recordSearchHeader">
+			<td>
+				<span class="button">
+					<input type="reset" value="Reset" />
+				</span>
+				<br class="clear" />
+				<span class="button">
+					<input type="submit" name="submitSearch" value="Search" />
+				</span>
+			</td>
+			<td>&nbsp;</td>
+			<td><input type="text" name="orderID" value="{$search.orderID.value}" style="width: 50px" /></td>
+			<td>{html_options name=status options=$search.status.options selected=$search.status.value}</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="totalCostFrom" value="{$search.totalCostFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="totalCostTo" value="{$search.totalCostTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<input type="text" name="shippingArrangement" value="{$search.shippingArrangement.value}"  style="width: 50px" />
+			</td>
+			<td>{html_options name=paymentCleared options=$search.paymentCleared.options selected=$search.paymentCleared.value}</td>
+			<td>
+				<table class="searchSection dateSelect">
+					<tr>
+						<td>From:</td>
+						<td>
+							<input type="text" name="orderDateFrom" id="orderDateFrom" value="{$search.orderDateFrom.value|strtotime|date_format:"%m/%d/%Y"}" style="width: 68px" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="orderDateFromButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td>
+							<input type="text" name="orderDateTo" id="orderDateTo" value="{$search.orderDateTo.value|strtotime|date_format:"%m/%d/%Y"}" style="width: 68px" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="orderDateToButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+				</table>
+{literal}
+				<script type="text/javascript">
+					Calendar.setup(
+						{
+							inputField : "orderDateFrom",
+							ifFormat : "%m/%d/%Y",
+							button : "orderDateFromButton"
+						}
+					);
+					Calendar.setup(
+						{
+							inputField : "orderDateTo",
+							ifFormat : "%m/%d/%Y",
+							button : "orderDateToButton"
+						}
+					);
+				</script>
+{/literal}
+			</td>
+			<td>
+				<table class="searchSection dateSelect">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td>
+							<input type="text" name="fulfillByFrom" id="fulfillByFrom" value="{$search.fulfillByFrom.value|strtotime|date_format:"%m/%d/%Y"}" style="width: 68px" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="fulfillByFromButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td>
+							<input type="text" name="fulfillByTo" id="fulfillByTo" value="{$search.fulfillByTo.value|strtotime|date_format:"%m/%d/%Y"}" style="width: 68px" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="fulfillByToButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+				</table>
+{literal}
+				<script type="text/javascript">
+					Calendar.setup(
+						{
+							inputField : "fulfillByFrom",
+							ifFormat : "%m/%d/%Y",
+							button : "fulfillByFromButton"
+						}
+					);
+					Calendar.setup(
+						{
+							inputField : "fulfillByTo",
+							ifFormat : "%m/%d/%Y",
+							button : "fulfillByToButton"
+						}
+					);
+				</script>
+{/literal}
+			</td>
+			<td>
+				<table class="searchSection dateSelect">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td>
+							<input type="text" name="fulfillmentDateFrom" id="fulfillmentDateFrom" value="{$search.fulfillmentDateFrom.value|strtotime|date_format:"%m/%d/%Y"}" style="width: 68px" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="fulfillmentDateFromButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td>
+							<input type="text" name="fulfillmentDateTo" id="fulfillmentDateTo" value="{$search.fulfillmentDateTo.value|strtotime|date_format:"%m/%d/%Y"}" style="width: 68px" />
+							<img src="/images/{$_SOURCEDIR}/admin/calendar.png" id="fulfillmentDateToButton" style="vertical-align: bottom" />
+						</td>
+					</tr>
+				</table>
+{literal}
+				<script type="text/javascript">
+					Calendar.setup(
+						{
+							inputField : "fulfillmentDateFrom",
+							ifFormat : "%m/%d/%Y",
+							button : "fulfillmentDateFromButton"
+						}
+					);
+					Calendar.setup(
+						{
+							inputField : "fulfillmentDateTo",
+							ifFormat : "%m/%d/%Y",
+							button : "fulfillmentDateToButton"
+						}
+					);
+				</script>
+{/literal}
+			</td>
+		</tr>
+
+		</form>
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+
+{section name=record loop=$records}
+		<tr class="{cycle values="recordsRowAlpha,recordsRowBeta"}">
+			<td><input type="checkbox" name="records[]" value="{$records[record].orderID}" /></td>
+			<td align="center">
+				<a href="{$smarty.server.PHP_SELF}/action/viewPackingSlip/orderID/{$records[record].orderID}" target="_blank">
+					<img src="/images/{$_SOURCEDIR}/admin/view.png" border="0">
+				</a>
+			</td>
+			<td>{$records[record].orderID}</td>
+			<td>{$records[record].status}</td>
+			<td>${$records[record].totalCost|string_format:"%.2f"}</td>
+			<td>{$records[record].shippingArrangement}</td>
+			<td>{$records[record].paymentCleared}</td>
+			<td style="text-align: right">{$records[record].orderDate|date_format:"%m/%d/%Y"}</td>
+			<td style="text-align: right">{$records[record].fulfillBy|date_format:"%m/%d/%Y"}</td>
+			<td style="text-align: right">{$records[record].fulfillmentDate|date_format:"%m/%d/%Y"}</td>
+		</tr>
+{/section}
+
+		<tr class="recordsAction">
+			<td colspan="10">
+				<input type="hidden" name="action" value="quickUpdate" />
+				<br />
+				<table>
+					<tr>
+						<td>
+							<span class="mainText">
+								Take action :&nbsp;
+								{html_options name=updateOption options=$updateOptions selected=$updateOption}
+								&nbsp;
+							</span>
+						</td>
+						<td>
+							<span class="button">
+								<input type="submit" name="submit" value="Update Records" />
+							</span>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+		</form>
+
+	</table>
+
+{include file="merchant/footer.htm"}

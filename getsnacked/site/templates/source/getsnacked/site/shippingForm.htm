@@ -1,0 +1,103 @@
+{include file="site/header.htm"}
+
+<div id="checkoutBody">
+	{include file="site/errorMessages.htm"}
+	{include file="site/checkoutPath.htm"}
+	<div id="formWrapper">
+		<div id="formBody">
+			<div class="titleWrapper">
+				<div class="title">
+					Shipping Information
+				</div>
+			</div>
+			<form action="{$smarty.server.PHP_SELF}" method="post">
+				<span class="note">* Required fields</span>
+				<div id="shippingAddress">
+					<div class="formField">
+						<label for="sfirst" class="{if 'sfirst'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							First Name<span>*</span>
+						</label>
+						<div class="input">
+							<input type="text" name="sfirst" id="sfirst" value="{$shippingAddress.first}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="slast" class="{if 'slast'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Last Name<span>*</span>
+						</label>
+						<div class="input">
+							<input type="text" name="slast" id="slast" value="{$shippingAddress.last}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="saddress1" class="{if 'saddress1'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Address 1<span>*</span>
+						</label>
+						<div class="input">
+							<input type="text" name="saddress1" id="saddress1" value="{$shippingAddress.address1}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="saddress2" class="{if 'saddress2'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Address 2
+						</label>
+						<div class="input">
+							<input type="text" name="saddress2" id="saddress2" value="{$shippingAddress.address2}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="scity" class="{if 'scity'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							City<span>*</span>
+						</label>
+						<div class="input">
+							<input type="text" name="scity" id="scity" value="{$shippingAddress.city}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="sstate" class="{if 'sstate'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							State<span>*</span>
+						</label>
+						<div class="input">
+							<select id="sstate" name="sstate">
+							   {html_options options=$stateOptions selected=$shippingAddress.state}
+							</select>
+						</div>
+					</div>
+					<div class="formField">
+						<label for="spostal" class="{if 'spostal'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Postal<span>*</span>
+						</label>
+						<div class="input">
+							<input type="text" name="spostal" id="spostal" value="{$shippingAddress.postal}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="sphone" class="{if 'sphone'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Phone
+						</label>
+						<div class="input">
+							<input type="text" name="sphone" id="sphone" value="{$shippingAddress.phone}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="semail" class="{if 'semail'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Email
+						</label>
+						<div class="input">
+							<input type="text" name="semail" id="semail" value="{$shippingAddress.email}">
+						</div>
+					</div>
+					<div id="submitRow">
+						<input type="submit" name="submit" value="Submit">
+					</div>
+				</div>
+				<br class="clear" />
+				<input type="hidden" name="scountry" id="scountry" value="US">
+				<input type="hidden" name="shipInfo" value="1">
+			</form>
+		</div>
+		<div id="formBottom">&nbsp;</div>
+	</div>
+</div>
+
+{include file="site/footer.htm"}

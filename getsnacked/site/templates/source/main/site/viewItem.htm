@@ -1,0 +1,21 @@
+{include file="site/header.htm"}
+{include file="site/menuDisplayHeader.htm"}
+
+<div id="viewItem">
+	<div id="itemImage" style="float: left">
+		<img src="/images/{$itemType}s/medium/{$itemID}_1.gif" width="300" height="400" alt="{$item.name}">
+	</div>
+	<div id="itemDetails" style="float: left">
+		<h1>{$item.name}</h1>
+		<div id="itemDescription">
+			{$item.description}
+		</div>
+		<div id="itemPrice" style="position: relative">
+			${$item.cost|string_format:"%.2f"}
+			<form id="addItem" action="/cart/view" method="post" style="position: absolute; top: 3px; right: 15px; background: url('/images/site/rightArrow.gif') center left no-repeat; padding-left: 20px"><input type="submit" class="addButton" name="{if $item.itemType == 'product'}add{else}package{/if}{$itemID}" value="Add To Cart"><input type="hidden" name="createPackage" value="1"></form>
+		</div>
+	</div>
+</div>
+
+{include file="site/menuDisplayFooter.htm"}
+{include file="site/footer.htm"}

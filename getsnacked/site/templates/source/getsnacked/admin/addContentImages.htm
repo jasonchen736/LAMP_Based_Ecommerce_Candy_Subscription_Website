@@ -1,0 +1,42 @@
+{include file="admin/adminHeader.htm"}
+
+{literal}
+<script type="text/javascript">
+	var fieldNum = 1;
+	$(function() {
+		$('#additionalImage').click(function() {
+			fieldNum = fieldNum + 1;
+			$('#imageFields').append('<tr class="imageFields' + fieldNum + '"><td class="top">Upload As:</td><td class="top"><input type="text" name="uploadName[' + fieldNum + ']" value="" /><a href="#" class="remove" onClick="removeImageFields(' + fieldNum + ')">Remove</a></td></tr><tr class="imageFields' + fieldNum + '"><td>File:</td><td><input type="file" name="uploadImage' + fieldNum + '" value="" /></td></tr>');
+		});
+	});
+	function removeImageFields(fieldNumber) {
+		$('.imageFields' + fieldNumber).remove();
+		return false;
+	}
+</script>
+{/literal}
+
+<form action="{$smarty.server.PHP_SELF}" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="action" value="uploadContentImages" />
+	<span class="button">
+		<input type="submit" name="submit" value="Upload Images" />
+	</span>
+	<br class="clear" />
+	<p>
+		<a href="#" class="greenPlus" id="additionalImage">Additional Image</a>
+	</p>
+	<table>
+		<tbody id="imageFields">
+			<tr>
+				<td>Upload As:</td>
+				<td><input type="text" name="uploadName[1]" value="" /></td>
+			</tr>
+			<tr>
+				<td>File:</td>
+				<td><input type="file" name="uploadImage1" value="" /></td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+
+{include file="admin/adminFooter.htm"}

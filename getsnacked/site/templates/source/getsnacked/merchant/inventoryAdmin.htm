@@ -1,0 +1,173 @@
+{include file="merchant/header.htm"}
+
+{include file="merchant/successMessages.htm"}
+{include file="merchant/errorMessages.htm"}
+
+<a href="{$smarty.server.PHP_SELF}/action/addProduct" class="button">
+	<span>+ Add Product</span>
+</a>
+
+<br class="clear" />
+
+{include file="merchant/pagination.htm"}
+
+	<table class="recordsTable">
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+		<input type="hidden" name="search" value="true">
+
+		<tr class="recordsHeader">
+			<td>Select</td>
+			<td>ID</td>
+			<td>Name</td>
+			<td>Availability</td>
+			<td style="text-align: right">Cost</td>
+			<td style="text-align: right">Weight</td>
+			<td style="text-align: right">Length</td>
+			<td style="text-align: right">Width</td>
+			<td style="text-align: right">Height</td>
+			<td style="text-align: right">Quantity</td>
+			<td style="text-align: center">Action</td>
+		</tr>
+
+		<tr class="recordSearchHeader">
+			<td>
+				<span class="button">
+					<input type="reset" value="Reset" />
+				</span>
+				<br class="clear" />
+				<span class="button">
+					<input type="submit" name="submitSearch" value="Search" />
+				</span>
+			</td>
+			<td><input type="text" name="productID" value="{$search.productID.value}" style="width: 50px" /></td>
+			<td>
+				<input type="text" name="name" value="{$search.name.value}" style="width: 100px" />
+				<input type="hidden" name="name_operator" value="contains" />
+			</td>
+			<td>{html_options name=availability options=$search.availability.options selected=$search.availability.value}</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="costFrom" value="{$search.costFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="costTo" value="{$search.costTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="weightFrom" value="{$search.weightFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="weightTo" value="{$search.weightTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="lengthFrom" value="{$search.lengthFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="lengthTo" value="{$search.lengthTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="widthFrom" value="{$search.widthFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="widthTo" value="{$search.widthTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="heightFrom" value="{$search.heightFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="heightTo" value="{$search.heightTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table class="searchSection">
+					<tr>
+						<td>From:&nbsp;</td>
+						<td><input type="text" name="quantityFrom" value="{$search.quantityFrom.value}" style="width: 50px" /></td>
+					</tr>
+					<tr>
+						<td>To:</td>
+						<td><input type="text" name="quantityTo" value="{$search.quantityTo.value}" style="width: 50px" /></td>
+					</tr>
+				</table>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+
+		</form>
+
+		<form action="{$smarty.server.PHP_SELF}{if $querystring}/{$querystring}{/if}" method="post">
+
+{section name=record loop=$records}
+		<tr class="{cycle values="recordsRowAlpha,recordsRowBeta"}">
+			<td><input type="checkbox" name="records[]" value="{$records[record].productID}"></td>
+			<td>{$records[record].productID}</td>
+			<td>{$records[record].name}</td>
+			<td>{$records[record].availability}</td>
+			<td style="text-align: right">${$records[record].cost|string_format:"%.2f"}</td>
+			<td style="text-align: right">{$records[record].weight|string_format:"%.2f"} lb</td>
+			<td style="text-align: right">{$records[record].length|string_format:"%.2f"} in</td>
+			<td style="text-align: right">{$records[record].width|string_format:"%.2f"} in</td>
+			<td style="text-align: right">{$records[record].height|string_format:"%.2f"} in</td>
+			<td style="text-align: right">{$records[record].quantity}</td>
+			<td style="text-align: center">
+				<a href="{$smarty.server.PHP_SELF}/productID/{$records[record].productID}/action/editProduct" class="edit">Edit</a>
+			</td>
+		</tr>
+{/section}
+
+		<tr class="recordsAction">
+			<td colspan="11">
+				<input type="hidden" name="action" value="quickUpdate">
+				<br />
+				<table>
+					<tr>
+						<td>
+							<span class="mainText">
+								Take action:
+							</span>
+						</td>
+						<td>
+							{html_options name=updateOption options=$updateOptions selected=$updateOption}
+							&nbsp;
+							<span class="button">
+								<input type="submit" name="submit" value="Update Records" />
+							</span>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+		</form>
+
+	</table>
+
+{include file="merchant/footer.htm"}

@@ -1,0 +1,317 @@
+{include file="admin/adminHeader.htm"}
+
+{include file="admin/messageSection.htm"}
+
+{literal}
+<script type="text/javascript">
+	$(function() {
+		$('#admin_email_add').click(function() {
+			$('#admin_email_list').append($('#admin_email_input').html());
+			admin_email_remove();
+			return false;
+		});
+		admin_email_remove();
+		$('#checkout_path_add').click(function() {
+			$('#checkout_path_list').append($('#checkout_path_input').html());
+			checkout_path_remove();
+			return false;
+		});
+		$('#select_gateway').change(function() {
+			hide_gateway_options();
+			reveal_gateway_options($(this).attr('value'));
+		});
+		checkout_path_remove();
+		hide_gateway_options();
+{/literal}
+		reveal_gateway_options('{$config.gateway}');
+{literal}
+	});
+	function admin_email_remove() {
+		$('.admin_email_remove').unbind();
+		$('.admin_email_remove').click(function() {
+			$(this).parent().remove();
+			return false;
+		});
+	}
+	function checkout_path_remove() {
+		$('.checkout_path_remove').unbind();
+		$('.checkout_path_remove').click(function() {
+			$(this).parent().remove();
+			return false;
+		});
+	}
+	function hide_gateway_options() {
+		$('.gateway').addClass('hidden');
+	}
+	function reveal_gateway_options(gateway) {
+		switch (gateway) {
+			case 'linkpoint':
+				$('.linkpoint').removeClass('hidden');
+				break;
+			case 'authorize':
+				$('.authorize').removeClass('hidden');
+				break;
+			default:
+				break;
+		}
+	}
+</script>
+{/literal}
+
+<form action="{$smarty.server.PHP_SELF}" method="post">
+	<input type="hidden" name="action" value="updateSystemSettings">
+	<table>
+		<tr>
+			<td>
+				<span class="button">
+					<input type="submit" name="submit" value="Update System Settings" />
+				</span>
+			</td>
+		</tr>
+	</table>
+	<br />
+	<table class="formTable" style="width: 100%">
+		<tr class="titleRow">
+			<td colspan="2">Site Settings</td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Site Name</span></td>
+			<td style="text-align: right"><input type="text" name="site_name" value="{$config.site_name}" /></td>
+		</tr>
+		<tr><td colspan="2"></td></tr>
+		<tr class="titleRow">
+			<td colspan="2">Contact Information</td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Main Website URL</span></td>
+			<td style="text-align: right"><input type="text" name="site_url" value="{$config.site_url}" size="60" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Company Name</span></td>
+			<td style="text-align: right"><input type="text" name="company_name" value="{$config.company_name}" size="60" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Slogan</span></td>
+			<td style="text-align: right"><input type="text" name="slogan" value="{$config.slogan}" size="60" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Address Line 1</span></td>
+			<td style="text-align: right"><input type="text" name="main_address1" value="{$config.main_address1}" size="60" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Address Line 2</span></td>
+			<td style="text-align: right"><input type="text" name="main_address2" value="{$config.main_address2}" size="60" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Address Line 3</span></td>
+			<td style="text-align: right"><input type="text" name="main_address3" value="{$config.main_address3}" size="60" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">City</span></td>
+			<td style="text-align: right"><input type="text" name="main_city" value="{$config.main_city}" size="60" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">State</span></td>
+			<td style="text-align: right"><input type="text" name="main_state" value="{$config.main_state}" size="60" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Postal</span></td>
+			<td style="text-align: right"><input type="text" name="main_postal" value="{$config.main_postal}" size="60" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Phone</span></td>
+			<td style="text-align: right"><input type="text" name="main_phone" value="{$config.main_phone}" size="60" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Fax</span></td>
+			<td style="text-align: right"><input type="text" name="main_fax" value="{$config.main_fax}" size="60" /></td>
+		</tr>
+		<tr><td colspan="2"></td></tr>
+		<tr class="titleRow">
+			<td colspan="2">Order Path</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<a href="#" class="button" id="checkout_path_add" style="float: right" onclick="return false;">
+					<span>Add Step</span>
+				</a>
+				<br class="clear" />
+				<ul id="checkout_path_list" style="list-style: none; float: right">
+{foreach from=$config.checkout_path item=checkout_path}
+					<li>
+						<input type="text" name="checkout_path_url[]" value="{$checkout_path.url}" style="width: 400px; float: left" />
+						<input type="text" name="checkout_path_name[]" value="{$checkout_path.name}" style="float: left" />
+						<select name="checkout_path_protocol[]" style="float: left">
+							<option value="http"{if $checkout_path.protocol == 'http'}selected="selected"{/if}>http</option>
+							<option value="https"{if $checkout_path.protocol == 'https'}selected="selected"{/if}>https</option>
+						</select>
+						<a href="#" class="button checkout_path_remove" onclick="return false;">
+							<span>X</span>
+						</a>
+						<br class="clear" />
+					</li>
+{/foreach}
+				</ul>
+			</td>
+		</tr>
+		<tr><td colspan="2"></td></tr>
+		<tr class="titleRow">
+			<td colspan="2">Shipping Options</td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Shipping From State/Province Code</span></td>
+			<td style="text-align: right"><input type="text" name="shipping_from_state" value="{$config.shipping_from_state}" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Shipping From Postal Code</span></td>
+			<td style="text-align: right"><input type="text" name="shipping_from_postal" value="{$config.shipping_from_postal}" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Shipping From Country Code</span></td>
+			<td style="text-align: right"><input type="text" name="shipping_from_country" value="{$config.shipping_from_country}" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">UPS</span></td>
+			<td style="text-align: right">
+				On: <input type="radio" name="ups" value="true"{if $config.ups} checked="checked"{/if} />
+				&nbsp;&nbsp;
+				Off: <input type="radio" name="ups" value="false"{if !$config.ups} checked="checked"{/if} />
+			</td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">UPS Access Number</span></td>
+			<td style="text-align: right"><input type="text" name="ups_access_number" value="{$config.ups_access_number}" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">UPS User Name</span></td>
+			<td style="text-align: right"><input type="text" name="ups_user_name" value="{$config.ups_user_name}" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">UPS Password</span></td>
+			<td style="text-align: right"><input type="text" name="ups_password" value="{$config.ups_password}" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">UPS Account Number</span></td>
+			<td style="text-align: right"><input type="text" name="ups_account_number" value="{$config.ups_account_number}" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Fedex</span></td>
+			<td style="text-align: right">
+				On: <input type="radio" name="fedex" value="true"{if $config.fedex} checked="checked"{/if} />
+				&nbsp;&nbsp;
+				Off: <input type="radio" name="fedex" value="false"{if !$config.fedex} checked="checked"{/if} />
+			</td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Fedex Key</span></td>
+			<td style="text-align: right"><input type="text" name="fedex_key" value="{$config.fedex_key}" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Fedex Password</span></td>
+			<td style="text-align: right"><input type="text" name="fedex_password" value="{$config.fedex_password}" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Fedex Account Number</span></td>
+			<td style="text-align: right"><input type="text" name="fedex_account_number" value="{$config.fedex_account_number}" /></td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Fedex Meter Number</span></td>
+			<td style="text-align: right"><input type="text" name="fedex_meter_number" value="{$config.fedex_meter_number}" /></td>
+		</tr>
+		<tr><td colspan="2"></td></tr>
+		<tr class="titleRow">
+			<td colspan="2">Payment Gateway Settings</td>
+		</tr>
+		<tr>
+			<td><span class="normalLabel">Payment Gateway</span></td>
+			<td style="text-align: right">
+				<select name="gateway" id="select_gateway">
+					<option value="">Select Gateway</option>
+					{html_options options=$gateways selected=$config.gateway}
+				</select>
+			</td>
+		</tr>
+		<tr class="gateway" id="hashkey">
+			<td><span class="normalLabel">Security hash key</span></td>
+			<td style="text-align: right"><input type="text" name="hashkey" value="{$config.hashkey}" /></td>
+		</tr>
+		<tr class="gateway linkpoint">
+			<td><span class="normalLabel">Linkpoint Host</span></td>
+			<td style="text-align: right"><input type="text" name="linkpoint_host" value="{$config.linkpoint_host}" /></td>
+		</tr>
+		<tr class="gateway linkpoint">
+			<td><span class="normalLabel">Linkpoint Port</span></td>
+			<td style="text-align: right"><input type="text" name="linkpoint_port" value="{$config.linkpoint_port}" /></td>
+		</tr>
+		<tr class="gateway linkpoint">
+			<td><span class="normalLabel">Linkpoint Configfile</span></td>
+			<td style="text-align: right"><input type="text" name="linkpoint_configfile" value="{$config.linkpoint_configfile}" /></td>
+		</tr>
+		<tr class="gateway linkpoint">
+			<td><span class="normalLabel">Linkpoint Keyfile</span></td>
+			<td style="text-align: right"><textarea name="linkpoint_keyfile" cols="75" rows="10">{$config.gateway_certificate}</textarea></td>
+		</tr>
+		<tr class="gateway authorize">
+			<td><span class="normalLabel">Authorize.net login ID</span></td>
+			<td style="text-align: right"><input type="text" name="auth_net_login_id" value="{$config.auth_net_login_id}" /></td>
+		</tr>
+		<tr class="gateway authorize">
+			<td><span class="normalLabel">Authorize.net transaction key</span></td>
+			<td style="text-align: right"><input type="text" name="auth_net_transaction_key" value="{$config.auth_net_transaction_key}" /></td>
+		</tr>
+		<tr class="gateway authorize">
+			<td><span class="normalLabel">Authorize.net transaction gateway URL</span></td>
+			<td style="text-align: right"><input type="text" name="auth_net_url" value="{$config.auth_net_url}" size="60" /></td>
+		</tr>
+		<tr><td colspan="2"></td></tr>
+		<tr class="titleRow">
+			<td colspan="2">Administrative Emails</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<a href="#" class="button" id="admin_email_add" style="float: right" onclick="return false;">
+					<span>Add Email</span>
+				</a>
+				<br class="clear" />
+				<ul id="admin_email_list" style="list-style: none; float: right">
+{foreach from=$config.admin_email item=admin_email}
+					<li>
+						<input type="text" name="admin_email[]" value="{$admin_email}" style="float: left" />
+						<a href="#" class="button admin_email_remove" onclick="return false;">
+							<span>X</span>
+						</a>
+						<br class="clear" />
+					</li>
+{/foreach}
+				</ul>
+			</td>
+		</tr>
+	</table>
+</form>
+
+<div id="admin_email_input" class="hidden">
+	<li>
+		<input type="text" name="admin_email[]" value="" style="float: left" />
+		<a href="#" class="button admin_email_remove" onclick="return false;">
+			<span>X</span>
+		</a>
+		<br class="clear" />
+	</li>
+</div>
+
+<div id="checkout_path_input" class="hidden">
+	<li>
+		<input type="text" name="checkout_path_url[]" value="URL" style="width: 400px; float: left" />
+		<input type="text" name="checkout_path_name[]" value="Name" style="float: left" />
+		<select name="checkout_path_protocol[]" style="float: left">
+			<option value="http"{if $checkout_path.protocol == 'http'}selected="selected"{/if}>http</option>
+			<option value="https"{if $checkout_path.protocol == 'https'}selected="selected"{/if}>https</option>
+		</select>
+		<a href="#" class="button checkout_path_remove" onclick="return false;">
+			<span>X</span>
+		</a>
+		<br class="clear" />
+	</li>
+</div>
+
+{include file="admin/adminFooter.htm"}

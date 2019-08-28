@@ -1,0 +1,177 @@
+{include file="site/header.htm"}
+
+<div id="checkoutBody">
+	{include file="site/checkoutPath.htm"}
+	{include file="site/errorMessages.htm"}
+	<div id="formWrapper">
+		<div id="formBody">
+			<div class="titleWrapper">
+				<div class="title">
+					Billing Information
+				</div>
+			</div>
+			<form action="{$smarty.server.PHP_SELF}" method="post">
+				<span class="note">* Required fields</span>
+				<div id="billingAddress">
+					<div class="formField">
+						<label for="bfirst" class="{if 'bfirst'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							First Name<span>*</span>
+						</label>
+						<div class="input">
+							<input type="text" name="bfirst" id="bfirst" value="{$billingAddress.first}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="blast" class="{if 'blast'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Last Name<span>*</span>
+						</label>
+						<div class="input">
+							<input type="text" name="blast" id="blast" value="{$billingAddress.last}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="baddress1" class="{if 'baddress1'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Address 1<span>*</span>
+						</label>
+						<div class="input">
+							<input type="text" name="baddress1" id="baddress1" value="{$billingAddress.address1}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="baddress2" class="{if 'baddress2'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Address 2
+						</label>
+						<div class="input">
+							<input type="text" name="baddress2" id="baddress2" value="{$billingAddress.address2}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="bcity" class="{if 'bcity'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							City<span>*</span>
+						</label>
+						<div class="input">
+							<input type="text" name="bcity" id="bcity" value="{$billingAddress.city}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="bstate" class="{if 'bstate'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							State<span>*</span>
+						</label>
+						<div class="input">
+							<select id="bstate" name="bstate">
+							   {html_options options=$stateOptions selected=$billingAddress.state}
+							</select>
+						</div>
+					</div>
+					<div class="formField">
+						<label for="bpostal" class="{if 'bpostal'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Postal<span>*</span>
+						</label>
+						<div class="input">
+							<input type="text" name="bpostal" id="bpostal" value="{$billingAddress.postal}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="bphone" class="{if 'bphone'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Phone
+						</label>
+						<div class="input">
+							<input type="text" name="bphone" id="bphone" value="{$billingAddress.phone}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="bemail" class="{if 'bemail'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Email
+						</label>
+						<div class="input">
+							<input type="text" name="bemail" id="bemail" value="{$billingAddress.email}">
+						</div>
+					</div>
+					<div class="formField">
+						<label for="useForShipping" class="{if 'useForShipping'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Use this address for shipping
+						</label>
+						<div class="input">
+							<input type="checkbox" name="useForShipping" id="useForShipping" value="1">
+						</div>
+					</div>
+				</div>
+				<div id="paymentMethod">
+					<div class="formField">
+						<label for="paymentMethod" class="{if 'paymentMethod'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+							Payment Method<span>*</span>
+						</label>
+						<div class="input">
+							<select name="paymentMethod" id="paymentMethod" value="{$paymentMethod.paymentMethod}" onchange="changeForm(this.value)">
+								<option value="cc"{if $paymentMethod.paymentMethod == 'cc'} selected="selected"{/if}>Credit Card</option>
+								<option value="checkmoneyorder"{if $paymentMethod.paymentMethod == 'checkmoneyorder'} selected="selected"{/if}>Check/Money Order</option>
+							</select>
+						</div>
+					</div>
+					<div id="creditCardForm"{if $paymentMethod.paymentMethod && $paymentMethod.paymentMethod != 'cc'} style="display: none"{/if}>
+						<div class="formField">
+							<label for="ccType" class="{if 'ccType'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+								Credit Card Type<span>*</span>
+							</label>
+							<div class="input">
+								<select name="ccType" id="ccType">
+									<option value="AMERICANEXPRESS"{if $paymentMethod.ccType == 'AMERICANEXPRESS'} selected="selected"{/if}>American Express</option>
+									<option value="DISCOVER"{if $paymentMethod.ccType == 'DISCOVER'} selected="selected"{/if}>Discover</option>
+									<option value="MASTERCARD"{if $paymentMethod.ccType == 'MASTERCARD'} selected="selected"{/if}>MasterCard</option>
+									<option value="VISA"{if $paymentMethod.ccType == 'VISA'} selected="selected"{/if}>Visa</option>
+								</select>
+							</div>
+						</div>
+						<div class="formField">
+							<label for="expMonth" class="{if 'expMonth'|in_array:$errorFields || 'expYear'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+								Expiration Date<span>*</span>
+							</label>
+							<div class="input">
+								<select name="expMonth" id="expMonth">
+									{html_options values=$expMonths output=$expMonths selected=$paymentMethod.expMonth}
+								</select>
+								<select name="expYear" id="expYear">
+									{html_options values=$expYears output=$expYears selected=$paymentMethod.expYear}
+								</select>
+							</div>
+						</div>
+						<div class="formField">
+							<label for="ccNum" class="{if 'ccNum'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+								Card Number<span>*</span>
+							</label>
+							<div class="input">
+								<input type="text" name="ccNum" id="ccNum" value="{$paymentMethod.ccNum}">
+							</div>
+						</div>
+						<div class="formField">
+							<label for="cvv" class="{if 'cvv'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+								Security Code<span>*</span>
+							</label>
+							<div class="input">
+								<input type="text" name="cvv" id="cvv" value="{$paymentMethod.cvv}" id="cvv">
+							</div>
+						</div>
+					</div>
+					<div id="checkMoneyOrderForm"{if $paymentMethod.paymentMethod != 'checkmoneyorder'} style="display: none"{/if}>
+						Please make checks payable to {$_COMPANYNAME} and mail to:
+						<div>
+							{if $_MAINADDRESS1}{$_MAINADDRESS1}<br />{/if}
+							{if $_MAINADDRESS2}{$_MAINADDRESS2}<br />{/if}
+							{if $_MAINADDRESS3}{$_MAINADDRESS3}<br />{/if}
+							{$_MAINCITY}, {$_MAINSTATE} {$_MAINPOSTAL}
+						</div>
+						Your order will be processed once your payment has been received.
+					</div>
+					<div id="submitRow">
+						<input type="submit" name="submit" value="Submit">
+					</div>
+				</div>
+				<input type="hidden" name="bcountry" id="bcountry" value="US">
+				<input type="hidden" name="billInfo" value="1">
+			</form>
+		</div>
+		<div id="formBottom">&nbsp;</div>
+	</div>
+</div>
+
+{include file="site/footer.htm"}

@@ -1,0 +1,30 @@
+{include file="site/header.htm"}
+
+<div id="checkoutBody">
+	{include file="site/errorMessages.htm"}
+	{include file="site/checkoutPath.htm"}
+	<h1>Shipping Method</h1>
+	<span class="note">* Required fields</span>
+	<form action="{$smarty.server.PHP_SELF}" method="post">
+		<div id="shippingOption">
+			<div class="formField">
+				<label for="shipArrangement" class="{if 'shipArrangement'|in_array:$errorFields}errorLabel{else}normalLabel{/if}">
+					Shipping Method<span>*</span>
+				</label>
+				<div class="input">
+					<select id="shipArrangement" name="shipArrangement">
+					   {html_options options=$shippingOptions selected=$orderForm.shipArrangement}
+					</select>
+				</div>
+			</div>
+			<br class="clear" />
+			<div id="submitRow">
+				<input type="submit" name="submit" value="Submit">
+			</div>
+		</div>
+		<br class="clear" />
+		<input type="hidden" name="orderInfo" value="1">
+	</form>
+</div>
+
+{include file="site/footer.htm"}

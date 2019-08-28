@@ -1,0 +1,51 @@
+<Directory "[PATH_TO_WEB_DIRECTORY]">
+	# Directory directives
+	Options -Indexes
+	AllowOverride None
+	Order allow,deny
+	Allow from all
+
+	# Error documents
+	ErrorDocument 500 /error/status/code/500
+	ErrorDocument 404 /error/status/code/404
+	ErrorDocument 403 /error/status/code/403
+	ErrorDocument 401 /error/status/code/401
+
+	# Friendly URL rewrites
+	RewriteEngine On
+
+	# Remove www
+	RewriteCond %{HTTP_HOST} ^www.[SITE_NAME].com$ [NC]
+	RewriteRule ^(.*)$ http://[SITE_NAME].com/$1 [R=301,L]
+
+	RewriteRule ^favicon.ico$ /images/site/favicon.ico [R=301,L]
+
+	RewriteCond %{REQUEST_URI} !\.(js|ico|gif|jpg|png|css|php)$
+	RewriteRule ^(main|index)/?(.*)$ /index.php?_request=$2 [NE,NC,L]
+
+	RewriteCond %{REQUEST_URI} !\.(js|ico|gif|jpg|png|css)$
+	RewriteRule ^([^/?]+)/([^/?]+)/(.+)$ /$1/$2.php?_request=$3 [NE,NC,L]
+
+	RewriteCond %{REQUEST_URI} !\.(js|ico|gif|jpg|png|css|php)$
+	RewriteRule ^([^/?]+)/([^/?]+)/?$ /$1/$2.php [NE,NC,L]
+
+	# Database connection
+	php_value mysql.default_host [DB_HOST]
+	php_value mysql.default_user [DB_USER]
+	php_value mysql.default_password [DB_PASSWORD]
+
+	# Error handling
+	php_value display_errors Off
+	php_value log_errors On
+	php_value log_errors_max_len 1024
+	php_value error_log "[PHP_ERROR_LOG_PATH]"
+
+	# Globals settings
+	php_value include_path "[LIBRARY_DIRECTORY_PATH]"
+	php_value auto_prepend_file global.php
+	php_value auto_append_file autoAppend.php
+
+	# Requisite settings
+	php_flag magic_quotes_gpc off
+	php_value allow_call_time_pass_reference true
+</Directory>

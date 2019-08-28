@@ -1,0 +1,32 @@
+<div class="snackAisle">
+	<div class="snackAisleBody">
+{if $items}
+{foreach from=$items key=key item=item}
+{if $key == 0}
+		<div class="feature">
+			<a href="/view/{$item.itemType}/id/{$item.itemID}"><img class="featureImage" src="/images/{$item.itemType}s/medium/{$item.itemID}_1.gif" alt="{$item.name}"></a>
+			<div class="featureName">
+				<a href="/view/{$item.itemType}/id/{$item.itemID}">{$item.name}</a>
+				<br />
+				${$item.cost|string_format:"%.2f"}
+			</div>
+			<div class="addCart"><div class="menuButtonWrapper"><a href="/cart/view/action/add/type/{$item.itemType}/id/{$item.itemID}" class="menuButton"><img src="/images/getsnacked/site/menuButtonGrabbit.gif" align="Grab It!" /></a></div></div>
+		</div>
+{elseif $key < 7}
+		<div class="adFeature">
+			<a href="/view/{$item.itemType}/id/{$item.itemID}"><img class="featureImage" src="/images/{$item.itemType}s/small/{$item.itemID}_1.gif" alt="{$item.name}"></a>
+			<div class="featureName">
+				<a href="/view/{$item.itemType}/id/{$item.itemID}">{$item.name}</a>
+				<br />
+				${$item.cost|string_format:"%.2f"}
+			</div>
+			<div class="addCart"><div class="menuButtonWrapper"><a href="/cart/view/action/add/type/{$item.itemType}/id/{$item.itemID}" class="menuButton"><img src="/images/getsnacked/site/menuButtonGrabbit.gif" align="Grab It!" /></a></div></div>
+		</div>	
+{/if}
+{/foreach}
+{else}
+	Sorry, there are no snacks in that category.
+{/if}
+	</div>
+	<div class="snackAisleBottom">&nbsp;</div>
+</div>

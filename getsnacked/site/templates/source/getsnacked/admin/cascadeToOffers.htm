@@ -1,0 +1,22 @@
+{include file="admin/adminHeader.htm"}
+
+<form action="{$smarty.server.PHP_SELF}" method="post">
+	<br />
+	Product price has been changed.
+	<br /><br />
+	{$offers} offers have been found with this product.
+	<br /><br />
+	Do you wish to update the prices on these offers?
+	<br /><br />
+	<input type="hidden" name="productID" value="{$productID}" />
+	<input type="hidden" name="action" value="performCascadeToOffers" />
+	<span class="button">
+		<input type="submit" name="cascadeChanges" value="Yes" />
+	</span>
+	<br class="clear" />
+	<span class="button">
+		<input type="submit" name="cascadeChanges" value="No" />
+	</span>
+</form>
+
+{include file="admin/adminFooter.htm"}
