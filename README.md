@@ -12,3 +12,17 @@ This site is based on an early version of my custom MVC / CMS platform: https://
 
 # Features
 
+Affiliate Program
+Analytics For Site Usage / User Funneling
+Email Campaigns and Emailing
+Marketing Promotions and Offers
+Member Accounts / Order Management
+Multi-Site support
+Order / Sub Order System
+Order Packing Optimization Algorithm
+Payment Gateway Integration
+Product Management / Tagging
+Product Search (Sphinx Engine)
+Shipping Integration
+Site Tagging
+Subscriptions
