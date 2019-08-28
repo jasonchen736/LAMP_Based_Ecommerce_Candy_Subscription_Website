@@ -32,7 +32,7 @@ This site is based on an early version of my custom MVC / CMS platform: https://
 - Order Packing Optimization Algorithm
 - Payment Gateway Integration
 - Product Management / Tagging
-- Product Search (Sphinx Engine)
+- Product Search
 - Shipping Integration
 - Site Tagging
 - Subscriptions
